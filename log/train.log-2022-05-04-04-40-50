@@ -1,0 +1,200 @@
+Show configuration
+adam:
+  beta1: 0.9
+  beta2: 0.999
+cuhk03:
+  classic_split: False
+  labeled_images: False
+data:
+  combineall: False
+  eval_metric: soccernetv3
+  height: 256
+  k_tfm: 1
+  load_train_targets: False
+  norm_mean: [0.485, 0.456, 0.406]
+  norm_std: [0.229, 0.224, 0.225]
+  root: /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets
+  save_dir: log
+  sources: ['soccernetv3']
+  split_id: 0
+  targets: ['soccernetv3', 'soccernetv3_test']
+  transforms: ['random_flip']
+  type: image
+  width: 128
+  workers: 4
+loss:
+  name: triplet
+  softmax:
+    label_smooth: True
+  triplet:
+    margin: 0.3
+    weight_t: 0.5
+    weight_x: 0.5
+market1501:
+  use_500k_distractors: False
+model:
+  load_weights: 
+  name: resnet_cpm
+  pretrained: True
+  resume: 
+rmsprop:
+  alpha: 0.99
+sampler:
+  num_cams: 1
+  num_datasets: 1
+  num_instances: 4
+  train_sampler: RandomIdentitySampler
+  train_sampler_t: RandomIdentitySampler
+sgd:
+  dampening: 0.0
+  momentum: 0.9
+  nesterov: False
+soccernetv3:
+  training_subset: 0.1
+test:
+  batch_size: 100
+  dist_metric: euclidean
+  eval_freq: -1
+  evaluate: False
+  export_ranking_results: True
+  normalize_feature: False
+  ranks: [1]
+  rerank: False
+  start_eval: 0
+  visrank: False
+  visrank_topk: 10
+train:
+  base_lr_mult: 0.1
+  batch_size: 32
+  fixbase_epoch: 0
+  gamma: 0.1
+  lr: 0.0003
+  lr_scheduler: single_step
+  max_epoch: 40
+  new_layers: ['classifier']
+  open_layers: ['classifier']
+  optim: adam
+  print_freq: 10
+  seed: 1
+  staged_lr: False
+  start_epoch: 0
+  stepsize: [20]
+  weight_decay: 0.0005
+use_gpu: True
+video:
+  pooling_method: avg
+  sample_method: evenly
+  seq_len: 15
+
+Collecting env info ...
+** System info **
+PyTorch version: 1.11.0+cu113
+Is debug build: False
+CUDA used to build PyTorch: 11.3
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 18.04.5 LTS (x86_64)
+GCC version: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Clang version: 6.0.0-1ubuntu2 (tags/RELEASE_600/final)
+CMake version: version 3.22.4
+Libc version: glibc-2.26
+
+Python version: 3.7.13 (default, Apr 24 2022, 01:04:09)  [GCC 7.5.0] (64-bit runtime)
+Python platform: Linux-5.4.188+-x86_64-with-Ubuntu-18.04-bionic
+Is CUDA available: True
+CUDA runtime version: 11.1.105
+GPU models and configuration: GPU 0: Tesla V100-SXM2-16GB
+Nvidia driver version: 460.32.03
+cuDNN version: Probably one of the following:
+/usr/lib/x86_64-linux-gnu/libcudnn.so.7.6.5
+/usr/lib/x86_64-linux-gnu/libcudnn.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_adv_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_adv_train.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn_train.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_ops_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_ops_train.so.8.0.5
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+
+Versions of relevant libraries:
+[pip3] numpy==1.21.6
+[pip3] torch==1.11.0+cu113
+[pip3] torchaudio==0.11.0+cu113
+[pip3] torchreid==1.4.0
+[pip3] torchsummary==1.5.1
+[pip3] torchtext==0.12.0
+[pip3] torchvision==0.12.0+cu113
+[conda] Could not collect
+        Pillow (7.1.2)
+
+use_gpu : True
+Building train transforms ...
++ resize to 256x128
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+Building test transforms ...
++ resize to 256x128
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+=> Loading train (source) dataset
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+=> Loaded Soccernetv3
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    | 15443 |    24872 |       919
+  query    | 11638 |    11638 |      1751
+  gallery  | 29534 |    34355 |      1751
+  ----------------------------------------
+=> Loading test (target) dataset
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+=> Loaded Soccernetv3
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    | 15443 |    24872 |       919
+  query    | 11638 |    11638 |      1751
+  gallery  | 29534 |    34355 |      1751
+  ----------------------------------------
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+SoccerNet test set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/test.
+=> Loaded Soccernetv3Test
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |     0 |        0 |         0
+  query    | 11777 |    11777 |      1715
+  gallery  | 30059 |    34989 |      1715
+  ----------------------------------------
+SoccerNet test set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/test.
+
+
+  **************** Summary ****************
+  source            : ['soccernetv3']
+  # source datasets : 1
+  # source ids      : 15443
+  # source images   : 24872
+  # source cameras  : 919
+  target            : ['soccernetv3', 'soccernetv3_test']
+  *****************************************
+
+
+Building model: resnet_cpm
+cpm pretrained model loaded!
+Building triplet-engine for image-reid
+=> Start training
+epoch: [1/40][10/1931]	time 0.235 (2.004)	data 0.000 (1.483)	eta 1 day, 18:59:34	loss_t 0.1571 (0.1691)	lr 0.000300
+epoch: [1/40][20/1931]	time 0.235 (1.682)	data 0.000 (1.304)	eta 1 day, 12:04:24	loss_t 0.0891 (0.1746)	lr 0.000300
+epoch: [1/40][30/1931]	time 0.236 (1.644)	data 0.000 (1.313)	eta 1 day, 11:15:55	loss_t 0.1230 (0.1622)	lr 0.000300
+epoch: [1/40][40/1931]	time 0.234 (1.491)	data 0.000 (1.184)	eta 1 day, 7:58:13	loss_t 0.0017 (0.1480)	lr 0.000300
+epoch: [1/40][50/1931]	time 0.241 (1.488)	data 0.001 (1.195)	eta 1 day, 7:54:56	loss_t 0.1639 (0.1418)	lr 0.000300
+epoch: [1/40][60/1931]	time 0.234 (1.459)	data 0.000 (1.175)	eta 1 day, 7:16:49	loss_t 0.2494 (0.1388)	lr 0.000300
+epoch: [1/40][70/1931]	time 0.239 (1.444)	data 0.000 (1.167)	eta 1 day, 6:56:50	loss_t 0.2596 (0.1352)	lr 0.000300
+epoch: [1/40][80/1931]	time 0.233 (1.396)	data 0.000 (1.124)	eta 1 day, 5:55:45	loss_t 0.1545 (0.1338)	lr 0.000300
+epoch: [1/40][90/1931]	time 0.237 (1.422)	data 0.000 (1.154)	eta 1 day, 6:28:42	loss_t 0.1178 (0.1323)	lr 0.000300
+epoch: [1/40][100/1931]	time 0.236 (1.363)	data 0.000 (1.098)	eta 1 day, 5:12:02	loss_t 0.1758 (0.1274)	lr 0.000300

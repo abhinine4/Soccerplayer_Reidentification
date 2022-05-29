@@ -1,0 +1,235 @@
+Show configuration
+adam:
+  beta1: 0.9
+  beta2: 0.999
+cuhk03:
+  classic_split: False
+  labeled_images: False
+data:
+  combineall: False
+  eval_metric: soccernetv3
+  height: 256
+  k_tfm: 1
+  load_train_targets: False
+  norm_mean: [0.485, 0.456, 0.406]
+  norm_std: [0.229, 0.224, 0.225]
+  root: /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets
+  save_dir: log
+  sources: ['soccernetv3']
+  split_id: 0
+  targets: ['soccernetv3', 'soccernetv3_test']
+  transforms: ['random_flip']
+  type: image
+  width: 128
+  workers: 4
+loss:
+  name: triplet
+  softmax:
+    label_smooth: True
+  triplet:
+    margin: 0.3
+    weight_t: 0.5
+    weight_x: 0.5
+market1501:
+  use_500k_distractors: False
+model:
+  load_weights: 
+  name: resnet_cpm
+  pretrained: True
+  resume: 
+rmsprop:
+  alpha: 0.99
+sampler:
+  num_cams: 1
+  num_datasets: 1
+  num_instances: 4
+  train_sampler: RandomIdentitySampler
+  train_sampler_t: RandomIdentitySampler
+sgd:
+  dampening: 0.0
+  momentum: 0.9
+  nesterov: False
+soccernetv3:
+  training_subset: 0.1
+test:
+  batch_size: 100
+  dist_metric: euclidean
+  eval_freq: -1
+  evaluate: False
+  export_ranking_results: True
+  normalize_feature: False
+  ranks: [1]
+  rerank: False
+  start_eval: 0
+  visrank: False
+  visrank_topk: 10
+train:
+  base_lr_mult: 0.1
+  batch_size: 32
+  fixbase_epoch: 0
+  gamma: 0.1
+  lr: 0.001
+  lr_scheduler: single_step
+  max_epoch: 40
+  new_layers: ['classifier']
+  open_layers: ['classifier']
+  optim: adam
+  print_freq: 10
+  seed: 1
+  staged_lr: False
+  start_epoch: 0
+  stepsize: [20]
+  weight_decay: 0.0005
+use_gpu: True
+video:
+  pooling_method: avg
+  sample_method: evenly
+  seq_len: 15
+
+Collecting env info ...
+** System info **
+PyTorch version: 1.11.0+cu113
+Is debug build: False
+CUDA used to build PyTorch: 11.3
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 18.04.5 LTS (x86_64)
+GCC version: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Clang version: 6.0.0-1ubuntu2 (tags/RELEASE_600/final)
+CMake version: version 3.22.4
+Libc version: glibc-2.26
+
+Python version: 3.7.13 (default, Apr 24 2022, 01:04:09)  [GCC 7.5.0] (64-bit runtime)
+Python platform: Linux-5.4.188+-x86_64-with-Ubuntu-18.04-bionic
+Is CUDA available: True
+CUDA runtime version: 11.1.105
+GPU models and configuration: GPU 0: Tesla V100-SXM2-16GB
+Nvidia driver version: 460.32.03
+cuDNN version: Probably one of the following:
+/usr/lib/x86_64-linux-gnu/libcudnn.so.7.6.5
+/usr/lib/x86_64-linux-gnu/libcudnn.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_adv_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_adv_train.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn_train.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_ops_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_ops_train.so.8.0.5
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+
+Versions of relevant libraries:
+[pip3] numpy==1.21.6
+[pip3] torch==1.11.0+cu113
+[pip3] torchaudio==0.11.0+cu113
+[pip3] torchreid==1.4.0
+[pip3] torchsummary==1.5.1
+[pip3] torchtext==0.12.0
+[pip3] torchvision==0.12.0+cu113
+[conda] Could not collect
+        Pillow (7.1.2)
+
+use_gpu : True
+Building train transforms ...
++ resize to 256x128
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+Building test transforms ...
++ resize to 256x128
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+=> Loading train (source) dataset
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+=> Loaded Soccernetv3
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    | 15443 |    24872 |       919
+  query    | 11638 |    11638 |      1751
+  gallery  | 29534 |    34355 |      1751
+  ----------------------------------------
+=> Loading test (target) dataset
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+=> Loaded Soccernetv3
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    | 15443 |    24872 |       919
+  query    | 11638 |    11638 |      1751
+  gallery  | 29534 |    34355 |      1751
+  ----------------------------------------
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+SoccerNet test set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/test.
+=> Loaded Soccernetv3Test
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |     0 |        0 |         0
+  query    | 11777 |    11777 |      1715
+  gallery  | 30059 |    34989 |      1715
+  ----------------------------------------
+SoccerNet test set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/test.
+
+
+  **************** Summary ****************
+  source            : ['soccernetv3']
+  # source datasets : 1
+  # source ids      : 15443
+  # source images   : 24872
+  # source cameras  : 919
+  target            : ['soccernetv3', 'soccernetv3_test']
+  *****************************************
+
+
+Building model: resnet_cpm
+cpm pretrained model loaded!
+Building triplet-engine for image-reid
+=> Start training
+epoch: [1/40][10/1931]	time 0.240 (0.732)	data 0.000 (0.230)	eta 15:42:22	loss_t 0.2348 (0.1935)	lr 0.001000
+epoch: [1/40][20/1931]	time 0.236 (0.485)	data 0.000 (0.115)	eta 10:24:29	loss_t 0.0636 (0.1810)	lr 0.001000
+epoch: [1/40][30/1931]	time 0.243 (0.403)	data 0.000 (0.077)	eta 8:38:19	loss_t 0.1656 (0.1829)	lr 0.001000
+epoch: [1/40][40/1931]	time 0.236 (0.362)	data 0.000 (0.058)	eta 7:45:22	loss_t 0.0094 (0.1752)	lr 0.001000
+epoch: [1/40][50/1931]	time 0.240 (0.337)	data 0.000 (0.046)	eta 7:13:24	loss_t 0.1612 (0.1844)	lr 0.001000
+epoch: [1/40][60/1931]	time 0.246 (0.321)	data 0.000 (0.039)	eta 6:52:30	loss_t 0.2190 (0.1824)	lr 0.001000
+epoch: [1/40][70/1931]	time 0.250 (0.309)	data 0.000 (0.033)	eta 6:37:33	loss_t 0.2129 (0.1807)	lr 0.001000
+epoch: [1/40][80/1931]	time 0.238 (0.301)	data 0.000 (0.029)	eta 6:26:27	loss_t 0.1666 (0.1853)	lr 0.001000
+epoch: [1/40][90/1931]	time 0.236 (0.294)	data 0.000 (0.026)	eta 6:17:47	loss_t 0.0750 (0.1819)	lr 0.001000
+epoch: [1/40][100/1931]	time 0.247 (0.289)	data 0.000 (0.023)	eta 6:11:00	loss_t 0.1548 (0.1777)	lr 0.001000
+epoch: [1/40][110/1931]	time 1.134 (0.292)	data 0.900 (0.029)	eta 6:15:15	loss_t 0.1737 (0.1755)	lr 0.001000
+epoch: [1/40][120/1931]	time 0.234 (0.388)	data 0.000 (0.127)	eta 8:18:16	loss_t 0.2233 (0.1721)	lr 0.001000
+epoch: [1/40][130/1931]	time 0.931 (0.451)	data 0.693 (0.192)	eta 9:39:22	loss_t 0.1228 (0.1743)	lr 0.001000
+epoch: [1/40][140/1931]	time 0.244 (0.507)	data 0.000 (0.250)	eta 10:51:55	loss_t 0.0038 (0.1732)	lr 0.001000
+epoch: [1/40][150/1931]	time 1.378 (0.568)	data 1.143 (0.313)	eta 12:09:48	loss_t 0.0779 (0.1728)	lr 0.001000
+epoch: [1/40][160/1931]	time 0.234 (0.622)	data 0.000 (0.367)	eta 13:18:31	loss_t 0.1072 (0.1746)	lr 0.001000
+epoch: [1/40][170/1931]	time 0.251 (0.655)	data 0.010 (0.402)	eta 14:01:14	loss_t 0.2242 (0.1777)	lr 0.001000
+epoch: [1/40][180/1931]	time 0.234 (0.696)	data 0.000 (0.443)	eta 14:53:30	loss_t 0.1059 (0.1755)	lr 0.001000
+epoch: [1/40][190/1931]	time 0.235 (0.716)	data 0.000 (0.465)	eta 15:19:26	loss_t 0.1392 (0.1739)	lr 0.001000
+epoch: [1/40][200/1931]	time 0.234 (0.757)	data 0.000 (0.507)	eta 16:12:18	loss_t 0.3881 (0.1733)	lr 0.001000
+epoch: [1/40][210/1931]	time 0.242 (0.780)	data 0.000 (0.530)	eta 16:41:29	loss_t 0.2364 (0.1739)	lr 0.001000
+epoch: [1/40][220/1931]	time 0.234 (0.805)	data 0.000 (0.556)	eta 17:13:22	loss_t 0.0625 (0.1729)	lr 0.001000
+epoch: [1/40][230/1931]	time 0.740 (0.840)	data 0.507 (0.591)	eta 17:57:57	loss_t 0.1235 (0.1727)	lr 0.001000
+epoch: [1/40][240/1931]	time 0.241 (0.870)	data 0.000 (0.621)	eta 18:36:03	loss_t 0.1235 (0.1732)	lr 0.001000
+epoch: [1/40][250/1931]	time 0.238 (0.899)	data 0.000 (0.651)	eta 19:12:56	loss_t 0.1039 (0.1711)	lr 0.001000
+epoch: [1/40][260/1931]	time 0.234 (0.910)	data 0.000 (0.663)	eta 19:28:00	loss_t 0.1673 (0.1703)	lr 0.001000
+epoch: [1/40][270/1931]	time 0.238 (0.921)	data 0.000 (0.675)	eta 19:42:01	loss_t 0.2090 (0.1685)	lr 0.001000
+epoch: [1/40][280/1931]	time 0.235 (0.931)	data 0.000 (0.685)	eta 19:54:22	loss_t 0.0983 (0.1699)	lr 0.001000
+epoch: [1/40][290/1931]	time 2.889 (0.951)	data 2.649 (0.704)	eta 20:19:04	loss_t 0.1503 (0.1688)	lr 0.001000
+epoch: [1/40][300/1931]	time 0.235 (0.963)	data 0.000 (0.717)	eta 20:35:15	loss_t 0.0437 (0.1688)	lr 0.001000
+epoch: [1/40][310/1931]	time 3.452 (0.979)	data 3.218 (0.733)	eta 20:55:22	loss_t 0.0331 (0.1670)	lr 0.001000
+epoch: [1/40][320/1931]	time 0.243 (1.001)	data 0.000 (0.756)	eta 21:23:07	loss_t 0.2032 (0.1667)	lr 0.001000
+epoch: [1/40][330/1931]	time 0.242 (1.002)	data 0.000 (0.757)	eta 21:24:06	loss_t 0.2697 (0.1684)	lr 0.001000
+epoch: [1/40][340/1931]	time 0.235 (1.016)	data 0.000 (0.771)	eta 21:41:43	loss_t 0.2437 (0.1689)	lr 0.001000
+epoch: [1/40][350/1931]	time 2.354 (1.021)	data 2.118 (0.776)	eta 21:48:17	loss_t 0.1077 (0.1679)	lr 0.001000
+epoch: [1/40][360/1931]	time 0.242 (1.032)	data 0.000 (0.788)	eta 22:02:50	loss_t 0.1133 (0.1671)	lr 0.001000
+epoch: [1/40][370/1931]	time 0.248 (1.043)	data 0.000 (0.799)	eta 22:16:35	loss_t 0.0797 (0.1666)	lr 0.001000
+epoch: [1/40][380/1931]	time 0.235 (1.047)	data 0.000 (0.803)	eta 22:21:17	loss_t 0.0613 (0.1659)	lr 0.001000
+epoch: [1/40][390/1931]	time 0.242 (1.054)	data 0.000 (0.810)	eta 22:30:18	loss_t 0.2217 (0.1660)	lr 0.001000
+epoch: [1/40][400/1931]	time 0.235 (1.050)	data 0.000 (0.806)	eta 22:24:38	loss_t 0.0700 (0.1645)	lr 0.001000
+epoch: [1/40][410/1931]	time 0.236 (1.061)	data 0.000 (0.817)	eta 22:38:08	loss_t 0.1704 (0.1644)	lr 0.001000
+epoch: [1/40][420/1931]	time 1.289 (1.059)	data 1.055 (0.815)	eta 22:36:07	loss_t 0.1181 (0.1641)	lr 0.001000
+epoch: [1/40][430/1931]	time 1.824 (1.074)	data 1.589 (0.831)	eta 22:55:13	loss_t 0.1656 (0.1647)	lr 0.001000
+epoch: [1/40][440/1931]	time 0.439 (1.076)	data 0.204 (0.832)	eta 22:56:45	loss_t 0.1625 (0.1648)	lr 0.001000
+epoch: [1/40][450/1931]	time 0.641 (1.084)	data 0.406 (0.841)	eta 23:07:43	loss_t 0.1804 (0.1647)	lr 0.001000

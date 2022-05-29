@@ -1,0 +1,1699 @@
+Show configuration
+adam:
+  beta1: 0.9
+  beta2: 0.999
+cuhk03:
+  classic_split: False
+  labeled_images: False
+data:
+  combineall: False
+  eval_metric: soccernetv3
+  height: 256
+  k_tfm: 1
+  load_train_targets: False
+  norm_mean: [0.485, 0.456, 0.406]
+  norm_std: [0.229, 0.224, 0.225]
+  root: /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets
+  save_dir: log
+  sources: ['soccernetv3']
+  split_id: 0
+  targets: ['soccernetv3', 'soccernetv3_test']
+  transforms: ['random_flip']
+  type: image
+  width: 128
+  workers: 4
+loss:
+  name: triplet
+  softmax:
+    label_smooth: True
+  triplet:
+    margin: 0.3
+    weight_t: 0.5
+    weight_x: 0.5
+market1501:
+  use_500k_distractors: False
+model:
+  load_weights: 
+  name: resnet_cpm
+  pretrained: True
+  resume: 
+rmsprop:
+  alpha: 0.99
+sampler:
+  num_cams: 1
+  num_datasets: 1
+  num_instances: 4
+  train_sampler: RandomIdentitySampler
+  train_sampler_t: RandomIdentitySampler
+sgd:
+  dampening: 0.0
+  momentum: 0.9
+  nesterov: False
+soccernetv3:
+  training_subset: 0.02
+test:
+  batch_size: 100
+  dist_metric: euclidean
+  eval_freq: -1
+  evaluate: False
+  export_ranking_results: True
+  normalize_feature: False
+  ranks: [1]
+  rerank: False
+  start_eval: 0
+  visrank: False
+  visrank_topk: 10
+train:
+  base_lr_mult: 0.1
+  batch_size: 32
+  fixbase_epoch: 0
+  gamma: 0.1
+  lr: 1e-05
+  lr_scheduler: single_step
+  max_epoch: 40
+  new_layers: ['classifier']
+  open_layers: ['classifier']
+  optim: adam
+  print_freq: 10
+  seed: 1
+  staged_lr: False
+  start_epoch: 0
+  stepsize: [20]
+  weight_decay: 0.0005
+use_gpu: True
+video:
+  pooling_method: avg
+  sample_method: evenly
+  seq_len: 15
+
+Collecting env info ...
+** System info **
+PyTorch version: 1.11.0+cu113
+Is debug build: False
+CUDA used to build PyTorch: 11.3
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 18.04.5 LTS (x86_64)
+GCC version: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Clang version: 6.0.0-1ubuntu2 (tags/RELEASE_600/final)
+CMake version: version 3.22.4
+Libc version: glibc-2.26
+
+Python version: 3.7.13 (default, Apr 24 2022, 01:04:09)  [GCC 7.5.0] (64-bit runtime)
+Python platform: Linux-5.4.188+-x86_64-with-Ubuntu-18.04-bionic
+Is CUDA available: True
+CUDA runtime version: 11.1.105
+GPU models and configuration: GPU 0: Tesla V100-SXM2-16GB
+Nvidia driver version: 460.32.03
+cuDNN version: Probably one of the following:
+/usr/lib/x86_64-linux-gnu/libcudnn.so.7.6.5
+/usr/lib/x86_64-linux-gnu/libcudnn.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_adv_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_adv_train.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn_train.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_ops_infer.so.8.0.5
+/usr/lib/x86_64-linux-gnu/libcudnn_ops_train.so.8.0.5
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+
+Versions of relevant libraries:
+[pip3] numpy==1.21.6
+[pip3] torch==1.11.0+cu113
+[pip3] torchaudio==0.11.0+cu113
+[pip3] torchreid==1.4.0
+[pip3] torchsummary==1.5.1
+[pip3] torchtext==0.12.0
+[pip3] torchvision==0.12.0+cu113
+[conda] Could not collect
+        Pillow (7.1.2)
+
+use_gpu : True
+Building train transforms ...
++ resize to 256x128
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+Building test transforms ...
++ resize to 256x128
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+=> Loading train (source) dataset
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+=> Loaded Soccernetv3
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |  3021 |     5026 |       184
+  query    | 11638 |    11638 |      1751
+  gallery  | 29534 |    34355 |      1751
+  ----------------------------------------
+=> Loading test (target) dataset
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+=> Loaded Soccernetv3
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |  3021 |     5026 |       184
+  query    | 11638 |    11638 |      1751
+  gallery  | 29534 |    34355 |      1751
+  ----------------------------------------
+SoccerNet valid set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/valid.
+SoccerNet train set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/train.
+SoccerNet test set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/test.
+=> Loaded Soccernetv3Test
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |     0 |        0 |         0
+  query    | 11777 |    11777 |      1715
+  gallery  | 30059 |    34989 |      1715
+  ----------------------------------------
+SoccerNet test set was already downloaded and unzipped at /content/drive/MyDrive/Video Analytics/Soccer-reid/datasets/soccernetv3/reid/test.
+
+
+  **************** Summary ****************
+  source            : ['soccernetv3']
+  # source datasets : 1
+  # source ids      : 3021
+  # source images   : 5026
+  # source cameras  : 184
+  target            : ['soccernetv3', 'soccernetv3_test']
+  *****************************************
+
+
+Building model: resnet_cpm
+cpm pretrained model loaded!
+Building triplet-engine for image-reid
+=> Start training
+epoch: [1/40][10/377]	time 0.239 (0.620)	data 0.000 (0.117)	eta 2:35:46	loss_t 0.2184 (0.2443)	lr 0.000010
+epoch: [1/40][20/377]	time 0.238 (0.432)	data 0.000 (0.059)	eta 1:48:30	loss_t 0.1721 (0.2105)	lr 0.000010
+epoch: [1/40][30/377]	time 0.242 (0.369)	data 0.000 (0.039)	eta 1:32:30	loss_t 0.2919 (0.2051)	lr 0.000010
+epoch: [1/40][40/377]	time 0.236 (0.337)	data 0.000 (0.030)	eta 1:24:29	loss_t 0.2371 (0.1990)	lr 0.000010
+epoch: [1/40][50/377]	time 0.245 (0.318)	data 0.000 (0.024)	eta 1:19:45	loss_t 0.1776 (0.1892)	lr 0.000010
+epoch: [1/40][60/377]	time 0.236 (0.306)	data 0.000 (0.020)	eta 1:16:28	loss_t 0.0852 (0.1857)	lr 0.000010
+epoch: [1/40][70/377]	time 0.238 (0.296)	data 0.000 (0.017)	eta 1:14:06	loss_t 0.0814 (0.1843)	lr 0.000010
+epoch: [1/40][80/377]	time 0.245 (0.290)	data 0.000 (0.015)	eta 1:12:22	loss_t 0.0767 (0.1782)	lr 0.000010
+epoch: [1/40][90/377]	time 0.237 (0.284)	data 0.000 (0.013)	eta 1:10:59	loss_t 0.2340 (0.1752)	lr 0.000010
+epoch: [1/40][100/377]	time 0.240 (0.280)	data 0.000 (0.012)	eta 1:09:51	loss_t 0.1552 (0.1714)	lr 0.000010
+epoch: [1/40][110/377]	time 0.247 (0.277)	data 0.000 (0.011)	eta 1:09:00	loss_t 0.1830 (0.1713)	lr 0.000010
+epoch: [1/40][120/377]	time 0.245 (0.274)	data 0.000 (0.010)	eta 1:08:15	loss_t 0.1214 (0.1712)	lr 0.000010
+epoch: [1/40][130/377]	time 0.243 (0.271)	data 0.001 (0.009)	eta 1:07:37	loss_t 0.1904 (0.1703)	lr 0.000010
+epoch: [1/40][140/377]	time 0.244 (0.269)	data 0.000 (0.009)	eta 1:07:02	loss_t 0.1085 (0.1685)	lr 0.000010
+epoch: [1/40][150/377]	time 0.244 (0.267)	data 0.000 (0.008)	eta 1:06:32	loss_t 0.1301 (0.1671)	lr 0.000010
+epoch: [1/40][160/377]	time 0.245 (0.266)	data 0.000 (0.008)	eta 1:06:07	loss_t 0.0377 (0.1661)	lr 0.000010
+epoch: [1/40][170/377]	time 0.237 (0.265)	data 0.000 (0.007)	eta 1:05:46	loss_t 0.0014 (0.1638)	lr 0.000010
+epoch: [1/40][180/377]	time 0.240 (0.263)	data 0.001 (0.007)	eta 1:05:23	loss_t 0.2286 (0.1638)	lr 0.000010
+epoch: [1/40][190/377]	time 0.248 (0.262)	data 0.000 (0.007)	eta 1:05:03	loss_t 0.1060 (0.1614)	lr 0.000010
+epoch: [1/40][200/377]	time 0.239 (0.261)	data 0.000 (0.006)	eta 1:04:47	loss_t 0.1358 (0.1619)	lr 0.000010
+epoch: [1/40][210/377]	time 0.252 (0.260)	data 0.000 (0.006)	eta 1:04:32	loss_t 0.0880 (0.1608)	lr 0.000010
+epoch: [1/40][220/377]	time 0.238 (0.260)	data 0.000 (0.006)	eta 1:04:17	loss_t 0.1600 (0.1590)	lr 0.000010
+epoch: [1/40][230/377]	time 0.237 (0.259)	data 0.000 (0.005)	eta 1:04:01	loss_t 0.1090 (0.1588)	lr 0.000010
+epoch: [1/40][240/377]	time 0.238 (0.258)	data 0.000 (0.005)	eta 1:03:49	loss_t 0.2269 (0.1578)	lr 0.000010
+epoch: [1/40][250/377]	time 0.237 (0.257)	data 0.000 (0.005)	eta 1:03:36	loss_t 0.2185 (0.1576)	lr 0.000010
+epoch: [1/40][260/377]	time 0.236 (0.257)	data 0.000 (0.005)	eta 1:03:23	loss_t 0.1365 (0.1563)	lr 0.000010
+epoch: [1/40][270/377]	time 0.237 (0.256)	data 0.000 (0.005)	eta 1:03:11	loss_t 0.0790 (0.1551)	lr 0.000010
+epoch: [1/40][280/377]	time 0.243 (0.256)	data 0.001 (0.005)	eta 1:03:02	loss_t 0.0567 (0.1543)	lr 0.000010
+epoch: [1/40][290/377]	time 0.243 (0.255)	data 0.000 (0.004)	eta 1:02:53	loss_t 0.0984 (0.1534)	lr 0.000010
+epoch: [1/40][300/377]	time 0.257 (0.255)	data 0.000 (0.004)	eta 1:02:44	loss_t 0.2097 (0.1534)	lr 0.000010
+epoch: [1/40][310/377]	time 0.241 (0.254)	data 0.001 (0.004)	eta 1:02:37	loss_t 0.1804 (0.1531)	lr 0.000010
+epoch: [1/40][320/377]	time 0.240 (0.254)	data 0.000 (0.004)	eta 1:02:30	loss_t 0.2558 (0.1529)	lr 0.000010
+epoch: [1/40][330/377]	time 0.239 (0.254)	data 0.000 (0.004)	eta 1:02:22	loss_t 0.1634 (0.1523)	lr 0.000010
+epoch: [1/40][340/377]	time 0.239 (0.253)	data 0.000 (0.004)	eta 1:02:15	loss_t 0.0969 (0.1525)	lr 0.000010
+epoch: [1/40][350/377]	time 0.240 (0.253)	data 0.000 (0.004)	eta 1:02:07	loss_t 0.0384 (0.1527)	lr 0.000010
+epoch: [1/40][360/377]	time 0.242 (0.253)	data 0.000 (0.004)	eta 1:02:00	loss_t 0.1449 (0.1522)	lr 0.000010
+epoch: [1/40][370/377]	time 0.239 (0.253)	data 0.001 (0.004)	eta 1:01:54	loss_t 0.1580 (0.1518)	lr 0.000010
+epoch: [2/40][10/377]	time 0.238 (0.290)	data 0.000 (0.048)	eta 1:11:05	loss_t 0.2057 (0.1388)	lr 0.000010
+epoch: [2/40][20/377]	time 0.242 (0.265)	data 0.000 (0.024)	eta 1:04:55	loss_t 0.0822 (0.1330)	lr 0.000010
+epoch: [2/40][30/377]	time 0.243 (0.258)	data 0.000 (0.016)	eta 1:03:12	loss_t 0.0659 (0.1325)	lr 0.000010
+epoch: [2/40][40/377]	time 0.239 (0.254)	data 0.000 (0.012)	eta 1:02:07	loss_t 0.0929 (0.1260)	lr 0.000010
+epoch: [2/40][50/377]	time 0.241 (0.252)	data 0.000 (0.010)	eta 1:01:31	loss_t 0.1243 (0.1243)	lr 0.000010
+epoch: [2/40][60/377]	time 0.239 (0.250)	data 0.000 (0.008)	eta 1:01:06	loss_t 0.0658 (0.1193)	lr 0.000010
+epoch: [2/40][70/377]	time 0.244 (0.249)	data 0.000 (0.007)	eta 1:00:48	loss_t 0.0585 (0.1188)	lr 0.000010
+epoch: [2/40][80/377]	time 0.244 (0.248)	data 0.000 (0.006)	eta 1:00:33	loss_t 0.0545 (0.1174)	lr 0.000010
+epoch: [2/40][90/377]	time 0.241 (0.248)	data 0.000 (0.006)	eta 1:00:18	loss_t 0.0915 (0.1184)	lr 0.000010
+epoch: [2/40][100/377]	time 0.237 (0.247)	data 0.000 (0.005)	eta 1:00:09	loss_t 0.1031 (0.1210)	lr 0.000010
+epoch: [2/40][110/377]	time 0.239 (0.246)	data 0.000 (0.005)	eta 0:59:56	loss_t 0.1780 (0.1192)	lr 0.000010
+epoch: [2/40][120/377]	time 0.240 (0.246)	data 0.000 (0.004)	eta 0:59:46	loss_t 0.0000 (0.1176)	lr 0.000010
+epoch: [2/40][130/377]	time 0.252 (0.246)	data 0.000 (0.004)	eta 0:59:40	loss_t 0.0771 (0.1167)	lr 0.000010
+epoch: [2/40][140/377]	time 0.241 (0.245)	data 0.000 (0.004)	eta 0:59:34	loss_t 0.0398 (0.1155)	lr 0.000010
+epoch: [2/40][150/377]	time 0.241 (0.245)	data 0.000 (0.004)	eta 0:59:31	loss_t 0.1649 (0.1151)	lr 0.000010
+epoch: [2/40][160/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:59:27	loss_t 0.1673 (0.1147)	lr 0.000010
+epoch: [2/40][170/377]	time 0.249 (0.245)	data 0.000 (0.003)	eta 0:59:25	loss_t 0.0870 (0.1152)	lr 0.000010
+epoch: [2/40][180/377]	time 0.247 (0.245)	data 0.000 (0.003)	eta 0:59:24	loss_t 0.0841 (0.1159)	lr 0.000010
+epoch: [2/40][190/377]	time 0.250 (0.245)	data 0.000 (0.003)	eta 0:59:20	loss_t 0.0830 (0.1160)	lr 0.000010
+epoch: [2/40][200/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:59:18	loss_t 0.1649 (0.1160)	lr 0.000010
+epoch: [2/40][210/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:59:12	loss_t 0.1413 (0.1155)	lr 0.000010
+epoch: [2/40][220/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:59:07	loss_t 0.0589 (0.1161)	lr 0.000010
+epoch: [2/40][230/377]	time 0.243 (0.245)	data 0.000 (0.002)	eta 0:59:01	loss_t 0.0749 (0.1162)	lr 0.000010
+epoch: [2/40][240/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:58:57	loss_t 0.0528 (0.1150)	lr 0.000010
+epoch: [2/40][250/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:58:52	loss_t 0.1529 (0.1151)	lr 0.000010
+epoch: [2/40][260/377]	time 0.251 (0.244)	data 0.000 (0.002)	eta 0:58:50	loss_t 0.0785 (0.1146)	lr 0.000010
+epoch: [2/40][270/377]	time 0.250 (0.245)	data 0.000 (0.002)	eta 0:58:49	loss_t 0.0946 (0.1138)	lr 0.000010
+epoch: [2/40][280/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:58:45	loss_t 0.0419 (0.1131)	lr 0.000010
+epoch: [2/40][290/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:58:42	loss_t 0.2147 (0.1133)	lr 0.000010
+epoch: [2/40][300/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:58:39	loss_t 0.1447 (0.1128)	lr 0.000010
+epoch: [2/40][310/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:58:35	loss_t 0.0533 (0.1120)	lr 0.000010
+epoch: [2/40][320/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:58:32	loss_t 0.0438 (0.1118)	lr 0.000010
+epoch: [2/40][330/377]	time 0.239 (0.244)	data 0.001 (0.002)	eta 0:58:29	loss_t 0.1055 (0.1112)	lr 0.000010
+epoch: [2/40][340/377]	time 0.236 (0.244)	data 0.000 (0.002)	eta 0:58:23	loss_t 0.0836 (0.1108)	lr 0.000010
+epoch: [2/40][350/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:58:20	loss_t 0.0956 (0.1111)	lr 0.000010
+epoch: [2/40][360/377]	time 0.253 (0.244)	data 0.000 (0.002)	eta 0:58:17	loss_t 0.1548 (0.1113)	lr 0.000010
+epoch: [2/40][370/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:58:14	loss_t 0.1235 (0.1108)	lr 0.000010
+epoch: [3/40][10/377]	time 0.239 (0.293)	data 0.000 (0.048)	eta 1:09:56	loss_t 0.0641 (0.0639)	lr 0.000010
+epoch: [3/40][20/377]	time 0.250 (0.268)	data 0.000 (0.024)	eta 1:03:56	loss_t 0.1006 (0.0871)	lr 0.000010
+epoch: [3/40][30/377]	time 0.238 (0.260)	data 0.000 (0.016)	eta 1:01:58	loss_t 0.1696 (0.0929)	lr 0.000010
+epoch: [3/40][40/377]	time 0.241 (0.256)	data 0.000 (0.012)	eta 1:00:57	loss_t 0.0686 (0.0940)	lr 0.000010
+epoch: [3/40][50/377]	time 0.252 (0.254)	data 0.000 (0.010)	eta 1:00:24	loss_t 0.1180 (0.0950)	lr 0.000010
+epoch: [3/40][60/377]	time 0.236 (0.251)	data 0.000 (0.008)	eta 0:59:45	loss_t 0.0418 (0.0942)	lr 0.000010
+epoch: [3/40][70/377]	time 0.251 (0.250)	data 0.000 (0.007)	eta 0:59:24	loss_t 0.0707 (0.0932)	lr 0.000010
+epoch: [3/40][80/377]	time 0.251 (0.250)	data 0.000 (0.006)	eta 0:59:16	loss_t 0.1157 (0.0935)	lr 0.000010
+epoch: [3/40][90/377]	time 0.239 (0.249)	data 0.000 (0.006)	eta 0:59:03	loss_t 0.1287 (0.0951)	lr 0.000010
+epoch: [3/40][100/377]	time 0.249 (0.248)	data 0.001 (0.005)	eta 0:58:52	loss_t 0.0446 (0.0942)	lr 0.000010
+epoch: [3/40][110/377]	time 0.240 (0.248)	data 0.000 (0.005)	eta 0:58:39	loss_t 0.1136 (0.0946)	lr 0.000010
+epoch: [3/40][120/377]	time 0.245 (0.247)	data 0.000 (0.004)	eta 0:58:32	loss_t 0.0010 (0.0944)	lr 0.000010
+epoch: [3/40][130/377]	time 0.250 (0.247)	data 0.000 (0.004)	eta 0:58:27	loss_t 0.1173 (0.0932)	lr 0.000010
+epoch: [3/40][140/377]	time 0.247 (0.247)	data 0.000 (0.004)	eta 0:58:19	loss_t 0.1369 (0.0933)	lr 0.000010
+epoch: [3/40][150/377]	time 0.250 (0.247)	data 0.000 (0.004)	eta 0:58:17	loss_t 0.1263 (0.0942)	lr 0.000010
+epoch: [3/40][160/377]	time 0.239 (0.247)	data 0.000 (0.003)	eta 0:58:12	loss_t 0.1442 (0.0944)	lr 0.000010
+epoch: [3/40][170/377]	time 0.252 (0.246)	data 0.000 (0.003)	eta 0:58:06	loss_t 0.0655 (0.0929)	lr 0.000010
+epoch: [3/40][180/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:57:59	loss_t 0.1639 (0.0924)	lr 0.000010
+epoch: [3/40][190/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:57:53	loss_t 0.1881 (0.0916)	lr 0.000010
+epoch: [3/40][200/377]	time 0.243 (0.246)	data 0.000 (0.003)	eta 0:57:50	loss_t 0.0922 (0.0915)	lr 0.000010
+epoch: [3/40][210/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:57:44	loss_t 0.1226 (0.0914)	lr 0.000010
+epoch: [3/40][220/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:57:40	loss_t 0.0933 (0.0911)	lr 0.000010
+epoch: [3/40][230/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:57:35	loss_t 0.1095 (0.0909)	lr 0.000010
+epoch: [3/40][240/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:57:31	loss_t 0.0627 (0.0910)	lr 0.000010
+epoch: [3/40][250/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:57:27	loss_t 0.0070 (0.0908)	lr 0.000010
+epoch: [3/40][260/377]	time 0.240 (0.245)	data 0.000 (0.002)	eta 0:57:24	loss_t 0.2121 (0.0904)	lr 0.000010
+epoch: [3/40][270/377]	time 0.250 (0.245)	data 0.000 (0.002)	eta 0:57:21	loss_t 0.0397 (0.0901)	lr 0.000010
+epoch: [3/40][280/377]	time 0.250 (0.245)	data 0.000 (0.002)	eta 0:57:18	loss_t 0.0000 (0.0897)	lr 0.000010
+epoch: [3/40][290/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:57:14	loss_t 0.1068 (0.0891)	lr 0.000010
+epoch: [3/40][300/377]	time 0.243 (0.245)	data 0.000 (0.002)	eta 0:57:11	loss_t 0.0810 (0.0891)	lr 0.000010
+epoch: [3/40][310/377]	time 0.243 (0.245)	data 0.000 (0.002)	eta 0:57:08	loss_t 0.1614 (0.0890)	lr 0.000010
+epoch: [3/40][320/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:57:05	loss_t 0.0940 (0.0888)	lr 0.000010
+epoch: [3/40][330/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:57:03	loss_t 0.0909 (0.0888)	lr 0.000010
+epoch: [3/40][340/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:57:00	loss_t 0.0451 (0.0884)	lr 0.000010
+epoch: [3/40][350/377]	time 0.243 (0.245)	data 0.000 (0.002)	eta 0:56:57	loss_t 0.0107 (0.0880)	lr 0.000010
+epoch: [3/40][360/377]	time 0.241 (0.245)	data 0.000 (0.002)	eta 0:56:56	loss_t 0.1893 (0.0885)	lr 0.000010
+epoch: [3/40][370/377]	time 0.241 (0.245)	data 0.001 (0.002)	eta 0:56:52	loss_t 0.0487 (0.0880)	lr 0.000010
+epoch: [4/40][10/377]	time 0.243 (0.310)	data 0.000 (0.066)	eta 1:11:54	loss_t 0.1075 (0.0799)	lr 0.000010
+epoch: [4/40][20/377]	time 0.245 (0.276)	data 0.000 (0.033)	eta 1:04:07	loss_t 0.1489 (0.0963)	lr 0.000010
+epoch: [4/40][30/377]	time 0.241 (0.265)	data 0.000 (0.022)	eta 1:01:23	loss_t 0.1330 (0.0841)	lr 0.000010
+epoch: [4/40][40/377]	time 0.244 (0.259)	data 0.000 (0.017)	eta 1:00:02	loss_t 0.0922 (0.0787)	lr 0.000010
+epoch: [4/40][50/377]	time 0.247 (0.256)	data 0.000 (0.014)	eta 0:59:19	loss_t 0.1503 (0.0821)	lr 0.000010
+epoch: [4/40][60/377]	time 0.237 (0.254)	data 0.000 (0.011)	eta 0:58:47	loss_t 0.1151 (0.0769)	lr 0.000010
+epoch: [4/40][70/377]	time 0.239 (0.252)	data 0.000 (0.010)	eta 0:58:23	loss_t 0.0819 (0.0736)	lr 0.000010
+epoch: [4/40][80/377]	time 0.238 (0.251)	data 0.000 (0.009)	eta 0:57:59	loss_t 0.1301 (0.0735)	lr 0.000010
+epoch: [4/40][90/377]	time 0.241 (0.250)	data 0.000 (0.008)	eta 0:57:49	loss_t 0.0000 (0.0738)	lr 0.000010
+epoch: [4/40][100/377]	time 0.238 (0.249)	data 0.000 (0.007)	eta 0:57:34	loss_t 0.0080 (0.0731)	lr 0.000010
+epoch: [4/40][110/377]	time 0.241 (0.249)	data 0.000 (0.006)	eta 0:57:21	loss_t 0.0434 (0.0746)	lr 0.000010
+epoch: [4/40][120/377]	time 0.241 (0.248)	data 0.000 (0.006)	eta 0:57:11	loss_t 0.0114 (0.0739)	lr 0.000010
+epoch: [4/40][130/377]	time 0.237 (0.247)	data 0.000 (0.005)	eta 0:56:59	loss_t 0.0973 (0.0723)	lr 0.000010
+epoch: [4/40][140/377]	time 0.238 (0.247)	data 0.000 (0.005)	eta 0:56:47	loss_t 0.0484 (0.0710)	lr 0.000010
+epoch: [4/40][150/377]	time 0.241 (0.247)	data 0.000 (0.005)	eta 0:56:42	loss_t 0.0907 (0.0707)	lr 0.000010
+epoch: [4/40][160/377]	time 0.245 (0.246)	data 0.000 (0.005)	eta 0:56:38	loss_t 0.0513 (0.0705)	lr 0.000010
+epoch: [4/40][170/377]	time 0.241 (0.246)	data 0.000 (0.004)	eta 0:56:32	loss_t 0.1777 (0.0715)	lr 0.000010
+epoch: [4/40][180/377]	time 0.248 (0.246)	data 0.000 (0.004)	eta 0:56:27	loss_t 0.1105 (0.0724)	lr 0.000010
+epoch: [4/40][190/377]	time 0.248 (0.246)	data 0.001 (0.004)	eta 0:56:24	loss_t 0.0573 (0.0729)	lr 0.000010
+epoch: [4/40][200/377]	time 0.243 (0.246)	data 0.000 (0.004)	eta 0:56:19	loss_t 0.0634 (0.0737)	lr 0.000010
+epoch: [4/40][210/377]	time 0.239 (0.246)	data 0.000 (0.004)	eta 0:56:16	loss_t 0.0000 (0.0745)	lr 0.000010
+epoch: [4/40][220/377]	time 0.237 (0.246)	data 0.000 (0.003)	eta 0:56:10	loss_t 0.0852 (0.0750)	lr 0.000010
+epoch: [4/40][230/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:56:03	loss_t 0.0806 (0.0738)	lr 0.000010
+epoch: [4/40][240/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:55:58	loss_t 0.0231 (0.0729)	lr 0.000010
+epoch: [4/40][250/377]	time 0.256 (0.245)	data 0.000 (0.003)	eta 0:55:53	loss_t 0.1262 (0.0729)	lr 0.000010
+epoch: [4/40][260/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:55:49	loss_t 0.0208 (0.0724)	lr 0.000010
+epoch: [4/40][270/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:55:45	loss_t 0.0415 (0.0713)	lr 0.000010
+epoch: [4/40][280/377]	time 0.246 (0.244)	data 0.000 (0.003)	eta 0:55:41	loss_t 0.0533 (0.0713)	lr 0.000010
+epoch: [4/40][290/377]	time 0.239 (0.244)	data 0.000 (0.003)	eta 0:55:36	loss_t 0.0480 (0.0724)	lr 0.000010
+epoch: [4/40][300/377]	time 0.239 (0.244)	data 0.000 (0.003)	eta 0:55:34	loss_t 0.0438 (0.0725)	lr 0.000010
+epoch: [4/40][310/377]	time 0.242 (0.244)	data 0.000 (0.003)	eta 0:55:31	loss_t 0.0142 (0.0730)	lr 0.000010
+epoch: [4/40][320/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:55:27	loss_t 0.1005 (0.0725)	lr 0.000010
+epoch: [4/40][330/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:55:24	loss_t 0.0941 (0.0721)	lr 0.000010
+epoch: [4/40][340/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:55:22	loss_t 0.1427 (0.0719)	lr 0.000010
+epoch: [4/40][350/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:55:18	loss_t 0.0607 (0.0724)	lr 0.000010
+epoch: [4/40][360/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:55:15	loss_t 0.1848 (0.0724)	lr 0.000010
+epoch: [4/40][370/377]	time 0.239 (0.244)	data 0.001 (0.002)	eta 0:55:13	loss_t 0.0569 (0.0732)	lr 0.000010
+epoch: [5/40][10/377]	time 0.247 (0.294)	data 0.000 (0.045)	eta 1:06:31	loss_t 0.0469 (0.0606)	lr 0.000010
+epoch: [5/40][20/377]	time 0.238 (0.267)	data 0.000 (0.023)	eta 1:00:17	loss_t 0.1035 (0.0635)	lr 0.000010
+epoch: [5/40][30/377]	time 0.245 (0.260)	data 0.000 (0.015)	eta 0:58:44	loss_t 0.0998 (0.0668)	lr 0.000010
+epoch: [5/40][40/377]	time 0.245 (0.257)	data 0.000 (0.012)	eta 0:57:56	loss_t 0.0593 (0.0587)	lr 0.000010
+epoch: [5/40][50/377]	time 0.241 (0.254)	data 0.000 (0.009)	eta 0:57:10	loss_t 0.0745 (0.0649)	lr 0.000010
+epoch: [5/40][60/377]	time 0.238 (0.252)	data 0.000 (0.008)	eta 0:56:42	loss_t 0.0385 (0.0647)	lr 0.000010
+epoch: [5/40][70/377]	time 0.239 (0.251)	data 0.000 (0.007)	eta 0:56:23	loss_t 0.0006 (0.0619)	lr 0.000010
+epoch: [5/40][80/377]	time 0.237 (0.250)	data 0.000 (0.006)	eta 0:56:08	loss_t 0.0525 (0.0592)	lr 0.000010
+epoch: [5/40][90/377]	time 0.239 (0.249)	data 0.000 (0.005)	eta 0:55:50	loss_t 0.1938 (0.0600)	lr 0.000010
+epoch: [5/40][100/377]	time 0.239 (0.248)	data 0.000 (0.005)	eta 0:55:37	loss_t 0.0481 (0.0591)	lr 0.000010
+epoch: [5/40][110/377]	time 0.238 (0.247)	data 0.001 (0.005)	eta 0:55:27	loss_t 0.0407 (0.0590)	lr 0.000010
+epoch: [5/40][120/377]	time 0.240 (0.246)	data 0.001 (0.004)	eta 0:55:15	loss_t 0.0596 (0.0597)	lr 0.000010
+epoch: [5/40][130/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:55:03	loss_t 0.1009 (0.0581)	lr 0.000010
+epoch: [5/40][140/377]	time 0.239 (0.246)	data 0.000 (0.004)	eta 0:54:57	loss_t 0.1071 (0.0592)	lr 0.000010
+epoch: [5/40][150/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:54:52	loss_t 0.1053 (0.0590)	lr 0.000010
+epoch: [5/40][160/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:54:47	loss_t 0.0473 (0.0569)	lr 0.000010
+epoch: [5/40][170/377]	time 0.249 (0.245)	data 0.000 (0.003)	eta 0:54:43	loss_t 0.1591 (0.0576)	lr 0.000010
+epoch: [5/40][180/377]	time 0.241 (0.245)	data 0.000 (0.003)	eta 0:54:38	loss_t 0.0970 (0.0585)	lr 0.000010
+epoch: [5/40][190/377]	time 0.258 (0.245)	data 0.000 (0.003)	eta 0:54:34	loss_t 0.0450 (0.0577)	lr 0.000010
+epoch: [5/40][200/377]	time 0.247 (0.245)	data 0.000 (0.003)	eta 0:54:29	loss_t 0.0202 (0.0568)	lr 0.000010
+epoch: [5/40][210/377]	time 0.239 (0.244)	data 0.000 (0.003)	eta 0:54:25	loss_t 0.0510 (0.0582)	lr 0.000010
+epoch: [5/40][220/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:54:22	loss_t 0.0677 (0.0584)	lr 0.000010
+epoch: [5/40][230/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:54:17	loss_t 0.0722 (0.0582)	lr 0.000010
+epoch: [5/40][240/377]	time 0.253 (0.244)	data 0.000 (0.002)	eta 0:54:14	loss_t 0.0227 (0.0582)	lr 0.000010
+epoch: [5/40][250/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:54:10	loss_t 0.0495 (0.0581)	lr 0.000010
+epoch: [5/40][260/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:54:07	loss_t 0.0609 (0.0588)	lr 0.000010
+epoch: [5/40][270/377]	time 0.251 (0.244)	data 0.000 (0.002)	eta 0:54:05	loss_t 0.1340 (0.0588)	lr 0.000010
+epoch: [5/40][280/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:54:02	loss_t 0.0734 (0.0595)	lr 0.000010
+epoch: [5/40][290/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:53:59	loss_t 0.0054 (0.0587)	lr 0.000010
+epoch: [5/40][300/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:53:57	loss_t 0.1007 (0.0585)	lr 0.000010
+epoch: [5/40][310/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:53:53	loss_t 0.0615 (0.0584)	lr 0.000010
+epoch: [5/40][320/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:53:51	loss_t 0.0518 (0.0582)	lr 0.000010
+epoch: [5/40][330/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:53:46	loss_t 0.1691 (0.0590)	lr 0.000010
+epoch: [5/40][340/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:53:42	loss_t 0.1016 (0.0597)	lr 0.000010
+epoch: [5/40][350/377]	time 0.239 (0.243)	data 0.000 (0.002)	eta 0:53:38	loss_t 0.1265 (0.0596)	lr 0.000010
+epoch: [5/40][360/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:53:35	loss_t 0.0071 (0.0593)	lr 0.000010
+epoch: [5/40][370/377]	time 0.239 (0.243)	data 0.001 (0.002)	eta 0:53:33	loss_t 0.0065 (0.0594)	lr 0.000010
+epoch: [6/40][10/377]	time 0.246 (0.292)	data 0.000 (0.047)	eta 1:04:10	loss_t 0.0198 (0.0594)	lr 0.000010
+epoch: [6/40][20/377]	time 0.237 (0.266)	data 0.000 (0.023)	eta 0:58:27	loss_t 0.0303 (0.0549)	lr 0.000010
+epoch: [6/40][30/377]	time 0.243 (0.258)	data 0.001 (0.016)	eta 0:56:30	loss_t 0.0000 (0.0564)	lr 0.000010
+epoch: [6/40][40/377]	time 0.243 (0.253)	data 0.000 (0.012)	eta 0:55:32	loss_t 0.0015 (0.0548)	lr 0.000010
+epoch: [6/40][50/377]	time 0.243 (0.251)	data 0.000 (0.010)	eta 0:55:04	loss_t 0.1296 (0.0538)	lr 0.000010
+epoch: [6/40][60/377]	time 0.246 (0.250)	data 0.000 (0.008)	eta 0:54:38	loss_t 0.0391 (0.0524)	lr 0.000010
+epoch: [6/40][70/377]	time 0.239 (0.249)	data 0.000 (0.007)	eta 0:54:26	loss_t 0.0792 (0.0547)	lr 0.000010
+epoch: [6/40][80/377]	time 0.246 (0.248)	data 0.000 (0.006)	eta 0:54:17	loss_t 0.0000 (0.0541)	lr 0.000010
+epoch: [6/40][90/377]	time 0.248 (0.248)	data 0.000 (0.006)	eta 0:54:08	loss_t 0.0700 (0.0518)	lr 0.000010
+epoch: [6/40][100/377]	time 0.239 (0.247)	data 0.000 (0.005)	eta 0:54:00	loss_t 0.0180 (0.0515)	lr 0.000010
+epoch: [6/40][110/377]	time 0.238 (0.247)	data 0.000 (0.005)	eta 0:53:53	loss_t 0.0098 (0.0505)	lr 0.000010
+epoch: [6/40][120/377]	time 0.241 (0.247)	data 0.000 (0.004)	eta 0:53:46	loss_t 0.0778 (0.0516)	lr 0.000010
+epoch: [6/40][130/377]	time 0.251 (0.247)	data 0.000 (0.004)	eta 0:53:43	loss_t 0.0194 (0.0502)	lr 0.000010
+epoch: [6/40][140/377]	time 0.244 (0.247)	data 0.000 (0.004)	eta 0:53:38	loss_t 0.0050 (0.0499)	lr 0.000010
+epoch: [6/40][150/377]	time 0.240 (0.246)	data 0.001 (0.003)	eta 0:53:34	loss_t 0.0817 (0.0497)	lr 0.000010
+epoch: [6/40][160/377]	time 0.242 (0.246)	data 0.000 (0.003)	eta 0:53:27	loss_t 0.0378 (0.0504)	lr 0.000010
+epoch: [6/40][170/377]	time 0.243 (0.246)	data 0.000 (0.003)	eta 0:53:22	loss_t 0.0149 (0.0505)	lr 0.000010
+epoch: [6/40][180/377]	time 0.249 (0.246)	data 0.000 (0.003)	eta 0:53:20	loss_t 0.0086 (0.0509)	lr 0.000010
+epoch: [6/40][190/377]	time 0.242 (0.246)	data 0.000 (0.003)	eta 0:53:16	loss_t 0.0448 (0.0500)	lr 0.000010
+epoch: [6/40][200/377]	time 0.242 (0.246)	data 0.000 (0.003)	eta 0:53:11	loss_t 0.0357 (0.0500)	lr 0.000010
+epoch: [6/40][210/377]	time 0.243 (0.246)	data 0.000 (0.003)	eta 0:53:08	loss_t 0.0318 (0.0499)	lr 0.000010
+epoch: [6/40][220/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:53:04	loss_t 0.0906 (0.0506)	lr 0.000010
+epoch: [6/40][230/377]	time 0.243 (0.245)	data 0.000 (0.002)	eta 0:52:59	loss_t 0.0067 (0.0508)	lr 0.000010
+epoch: [6/40][240/377]	time 0.245 (0.245)	data 0.000 (0.002)	eta 0:52:55	loss_t 0.1045 (0.0513)	lr 0.000010
+epoch: [6/40][250/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:52:52	loss_t 0.0761 (0.0509)	lr 0.000010
+epoch: [6/40][260/377]	time 0.245 (0.245)	data 0.001 (0.002)	eta 0:52:50	loss_t 0.0181 (0.0501)	lr 0.000010
+epoch: [6/40][270/377]	time 0.236 (0.245)	data 0.000 (0.002)	eta 0:52:45	loss_t 0.0166 (0.0504)	lr 0.000010
+epoch: [6/40][280/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:52:41	loss_t 0.0191 (0.0498)	lr 0.000010
+epoch: [6/40][290/377]	time 0.245 (0.245)	data 0.000 (0.002)	eta 0:52:37	loss_t 0.1160 (0.0497)	lr 0.000010
+epoch: [6/40][300/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:52:32	loss_t 0.0895 (0.0498)	lr 0.000010
+epoch: [6/40][310/377]	time 0.248 (0.244)	data 0.000 (0.002)	eta 0:52:29	loss_t 0.0614 (0.0499)	lr 0.000010
+epoch: [6/40][320/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:52:27	loss_t 0.0672 (0.0499)	lr 0.000010
+epoch: [6/40][330/377]	time 0.250 (0.244)	data 0.001 (0.002)	eta 0:52:25	loss_t 0.0924 (0.0503)	lr 0.000010
+epoch: [6/40][340/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:52:22	loss_t 0.0608 (0.0497)	lr 0.000010
+epoch: [6/40][350/377]	time 0.239 (0.244)	data 0.001 (0.002)	eta 0:52:19	loss_t 0.0000 (0.0497)	lr 0.000010
+epoch: [6/40][360/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:52:17	loss_t 0.0506 (0.0496)	lr 0.000010
+epoch: [6/40][370/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:52:14	loss_t 0.0012 (0.0503)	lr 0.000010
+epoch: [7/40][10/377]	time 0.240 (0.297)	data 0.001 (0.052)	eta 1:03:30	loss_t 0.0000 (0.0670)	lr 0.000010
+epoch: [7/40][20/377]	time 0.243 (0.270)	data 0.000 (0.026)	eta 0:57:35	loss_t 0.0687 (0.0513)	lr 0.000010
+epoch: [7/40][30/377]	time 0.238 (0.259)	data 0.000 (0.018)	eta 0:55:18	loss_t 0.0792 (0.0485)	lr 0.000010
+epoch: [7/40][40/377]	time 0.239 (0.255)	data 0.000 (0.013)	eta 0:54:13	loss_t 0.0097 (0.0457)	lr 0.000010
+epoch: [7/40][50/377]	time 0.237 (0.252)	data 0.000 (0.011)	eta 0:53:32	loss_t 0.0511 (0.0495)	lr 0.000010
+epoch: [7/40][60/377]	time 0.243 (0.250)	data 0.000 (0.009)	eta 0:53:03	loss_t 0.0560 (0.0491)	lr 0.000010
+epoch: [7/40][70/377]	time 0.250 (0.249)	data 0.000 (0.008)	eta 0:52:51	loss_t 0.0109 (0.0492)	lr 0.000010
+epoch: [7/40][80/377]	time 0.239 (0.248)	data 0.000 (0.007)	eta 0:52:43	loss_t 0.0000 (0.0478)	lr 0.000010
+epoch: [7/40][90/377]	time 0.252 (0.248)	data 0.000 (0.006)	eta 0:52:33	loss_t 0.0516 (0.0466)	lr 0.000010
+epoch: [7/40][100/377]	time 0.242 (0.247)	data 0.000 (0.006)	eta 0:52:23	loss_t 0.0103 (0.0446)	lr 0.000010
+epoch: [7/40][110/377]	time 0.247 (0.247)	data 0.000 (0.005)	eta 0:52:17	loss_t 0.0731 (0.0435)	lr 0.000010
+epoch: [7/40][120/377]	time 0.251 (0.247)	data 0.000 (0.005)	eta 0:52:14	loss_t 0.1837 (0.0453)	lr 0.000010
+epoch: [7/40][130/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:52:06	loss_t 0.0268 (0.0441)	lr 0.000010
+epoch: [7/40][140/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:51:59	loss_t 0.0522 (0.0431)	lr 0.000010
+epoch: [7/40][150/377]	time 0.243 (0.246)	data 0.000 (0.004)	eta 0:51:53	loss_t 0.0000 (0.0424)	lr 0.000010
+epoch: [7/40][160/377]	time 0.241 (0.245)	data 0.000 (0.004)	eta 0:51:47	loss_t 0.0728 (0.0429)	lr 0.000010
+epoch: [7/40][170/377]	time 0.251 (0.245)	data 0.000 (0.003)	eta 0:51:42	loss_t 0.0000 (0.0409)	lr 0.000010
+epoch: [7/40][180/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:51:35	loss_t 0.0000 (0.0406)	lr 0.000010
+epoch: [7/40][190/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:51:29	loss_t 0.0963 (0.0416)	lr 0.000010
+epoch: [7/40][200/377]	time 0.238 (0.244)	data 0.000 (0.003)	eta 0:51:23	loss_t 0.0953 (0.0419)	lr 0.000010
+epoch: [7/40][210/377]	time 0.253 (0.244)	data 0.000 (0.003)	eta 0:51:18	loss_t 0.0141 (0.0407)	lr 0.000010
+epoch: [7/40][220/377]	time 0.245 (0.244)	data 0.000 (0.003)	eta 0:51:15	loss_t 0.0029 (0.0409)	lr 0.000010
+epoch: [7/40][230/377]	time 0.245 (0.244)	data 0.000 (0.003)	eta 0:51:12	loss_t 0.0888 (0.0411)	lr 0.000010
+epoch: [7/40][240/377]	time 0.247 (0.244)	data 0.000 (0.003)	eta 0:51:12	loss_t 0.0733 (0.0419)	lr 0.000010
+epoch: [7/40][250/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:51:09	loss_t 0.0000 (0.0422)	lr 0.000010
+epoch: [7/40][260/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:51:06	loss_t 0.0049 (0.0421)	lr 0.000010
+epoch: [7/40][270/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:51:05	loss_t 0.0184 (0.0419)	lr 0.000010
+epoch: [7/40][280/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:51:02	loss_t 0.0249 (0.0429)	lr 0.000010
+epoch: [7/40][290/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:50:59	loss_t 0.1060 (0.0429)	lr 0.000010
+epoch: [7/40][300/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:50:57	loss_t 0.0514 (0.0433)	lr 0.000010
+epoch: [7/40][310/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:50:53	loss_t 0.0171 (0.0433)	lr 0.000010
+epoch: [7/40][320/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:50:49	loss_t 0.1203 (0.0430)	lr 0.000010
+epoch: [7/40][330/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:50:45	loss_t 0.0084 (0.0426)	lr 0.000010
+epoch: [7/40][340/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:50:41	loss_t 0.0867 (0.0428)	lr 0.000010
+epoch: [7/40][350/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:50:37	loss_t 0.0386 (0.0424)	lr 0.000010
+epoch: [7/40][360/377]	time 0.252 (0.244)	data 0.000 (0.002)	eta 0:50:34	loss_t 0.0166 (0.0425)	lr 0.000010
+epoch: [7/40][370/377]	time 0.238 (0.243)	data 0.001 (0.002)	eta 0:50:30	loss_t 0.0431 (0.0425)	lr 0.000010
+epoch: [8/40][10/377]	time 0.245 (0.295)	data 0.000 (0.050)	eta 1:01:01	loss_t 0.0273 (0.0373)	lr 0.000010
+epoch: [8/40][20/377]	time 0.241 (0.268)	data 0.000 (0.025)	eta 0:55:34	loss_t 0.0448 (0.0293)	lr 0.000010
+epoch: [8/40][30/377]	time 0.242 (0.261)	data 0.000 (0.017)	eta 0:53:56	loss_t 0.0208 (0.0272)	lr 0.000010
+epoch: [8/40][40/377]	time 0.243 (0.256)	data 0.000 (0.013)	eta 0:52:56	loss_t 0.0059 (0.0281)	lr 0.000010
+epoch: [8/40][50/377]	time 0.243 (0.254)	data 0.000 (0.010)	eta 0:52:23	loss_t 0.0260 (0.0269)	lr 0.000010
+epoch: [8/40][60/377]	time 0.243 (0.252)	data 0.000 (0.009)	eta 0:51:55	loss_t 0.0273 (0.0286)	lr 0.000010
+epoch: [8/40][70/377]	time 0.240 (0.250)	data 0.000 (0.008)	eta 0:51:35	loss_t 0.0222 (0.0329)	lr 0.000010
+epoch: [8/40][80/377]	time 0.242 (0.249)	data 0.000 (0.007)	eta 0:51:22	loss_t 0.1320 (0.0351)	lr 0.000010
+epoch: [8/40][90/377]	time 0.247 (0.249)	data 0.000 (0.006)	eta 0:51:12	loss_t 0.0744 (0.0362)	lr 0.000010
+epoch: [8/40][100/377]	time 0.247 (0.248)	data 0.000 (0.005)	eta 0:51:03	loss_t 0.0319 (0.0368)	lr 0.000010
+epoch: [8/40][110/377]	time 0.244 (0.248)	data 0.000 (0.005)	eta 0:50:56	loss_t 0.0001 (0.0356)	lr 0.000010
+epoch: [8/40][120/377]	time 0.243 (0.248)	data 0.000 (0.005)	eta 0:50:49	loss_t 0.0216 (0.0350)	lr 0.000010
+epoch: [8/40][130/377]	time 0.247 (0.247)	data 0.000 (0.004)	eta 0:50:44	loss_t 0.0223 (0.0338)	lr 0.000010
+epoch: [8/40][140/377]	time 0.252 (0.247)	data 0.000 (0.004)	eta 0:50:39	loss_t 0.0000 (0.0339)	lr 0.000010
+epoch: [8/40][150/377]	time 0.240 (0.247)	data 0.000 (0.004)	eta 0:50:33	loss_t 0.0352 (0.0344)	lr 0.000010
+epoch: [8/40][160/377]	time 0.246 (0.246)	data 0.000 (0.004)	eta 0:50:27	loss_t 0.0728 (0.0350)	lr 0.000010
+epoch: [8/40][170/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:50:21	loss_t 0.0000 (0.0338)	lr 0.000010
+epoch: [8/40][180/377]	time 0.238 (0.246)	data 0.001 (0.003)	eta 0:50:16	loss_t 0.0339 (0.0346)	lr 0.000010
+epoch: [8/40][190/377]	time 0.247 (0.246)	data 0.000 (0.003)	eta 0:50:12	loss_t 0.0938 (0.0358)	lr 0.000010
+epoch: [8/40][200/377]	time 0.244 (0.246)	data 0.000 (0.003)	eta 0:50:08	loss_t 0.0562 (0.0359)	lr 0.000010
+epoch: [8/40][210/377]	time 0.240 (0.246)	data 0.000 (0.003)	eta 0:50:04	loss_t 0.0147 (0.0351)	lr 0.000010
+epoch: [8/40][220/377]	time 0.248 (0.246)	data 0.000 (0.003)	eta 0:50:01	loss_t 0.0110 (0.0351)	lr 0.000010
+epoch: [8/40][230/377]	time 0.246 (0.246)	data 0.000 (0.003)	eta 0:49:58	loss_t 0.0168 (0.0350)	lr 0.000010
+epoch: [8/40][240/377]	time 0.241 (0.245)	data 0.000 (0.002)	eta 0:49:54	loss_t 0.0484 (0.0350)	lr 0.000010
+epoch: [8/40][250/377]	time 0.247 (0.245)	data 0.000 (0.002)	eta 0:49:51	loss_t 0.0634 (0.0344)	lr 0.000010
+epoch: [8/40][260/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:49:48	loss_t 0.0000 (0.0340)	lr 0.000010
+epoch: [8/40][270/377]	time 0.251 (0.245)	data 0.000 (0.002)	eta 0:49:44	loss_t 0.0382 (0.0344)	lr 0.000010
+epoch: [8/40][280/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:49:39	loss_t 0.0000 (0.0343)	lr 0.000010
+epoch: [8/40][290/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:49:35	loss_t 0.0614 (0.0341)	lr 0.000010
+epoch: [8/40][300/377]	time 0.238 (0.245)	data 0.001 (0.002)	eta 0:49:29	loss_t 0.0588 (0.0342)	lr 0.000010
+epoch: [8/40][310/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:49:26	loss_t 0.0044 (0.0339)	lr 0.000010
+epoch: [8/40][320/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:49:22	loss_t 0.0260 (0.0335)	lr 0.000010
+epoch: [8/40][330/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:49:19	loss_t 0.0198 (0.0332)	lr 0.000010
+epoch: [8/40][340/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:49:14	loss_t 0.0527 (0.0330)	lr 0.000010
+epoch: [8/40][350/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:49:11	loss_t 0.0000 (0.0329)	lr 0.000010
+epoch: [8/40][360/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:49:09	loss_t 0.0359 (0.0328)	lr 0.000010
+epoch: [8/40][370/377]	time 0.241 (0.244)	data 0.001 (0.002)	eta 0:49:06	loss_t 0.0898 (0.0333)	lr 0.000010
+epoch: [9/40][10/377]	time 0.245 (0.291)	data 0.000 (0.047)	eta 0:58:32	loss_t 0.0000 (0.0355)	lr 0.000010
+epoch: [9/40][20/377]	time 0.244 (0.268)	data 0.000 (0.024)	eta 0:53:50	loss_t 0.0000 (0.0345)	lr 0.000010
+epoch: [9/40][30/377]	time 0.245 (0.260)	data 0.000 (0.016)	eta 0:52:12	loss_t 0.0000 (0.0308)	lr 0.000010
+epoch: [9/40][40/377]	time 0.253 (0.257)	data 0.000 (0.012)	eta 0:51:27	loss_t 0.0009 (0.0275)	lr 0.000010
+epoch: [9/40][50/377]	time 0.244 (0.254)	data 0.000 (0.010)	eta 0:50:52	loss_t 0.0059 (0.0279)	lr 0.000010
+epoch: [9/40][60/377]	time 0.237 (0.252)	data 0.000 (0.008)	eta 0:50:24	loss_t 0.0903 (0.0273)	lr 0.000010
+epoch: [9/40][70/377]	time 0.245 (0.251)	data 0.000 (0.007)	eta 0:50:06	loss_t 0.0455 (0.0291)	lr 0.000010
+epoch: [9/40][80/377]	time 0.238 (0.250)	data 0.000 (0.006)	eta 0:49:50	loss_t 0.0041 (0.0284)	lr 0.000010
+epoch: [9/40][90/377]	time 0.252 (0.249)	data 0.000 (0.006)	eta 0:49:43	loss_t 0.0518 (0.0275)	lr 0.000010
+epoch: [9/40][100/377]	time 0.246 (0.248)	data 0.001 (0.005)	eta 0:49:33	loss_t 0.0245 (0.0278)	lr 0.000010
+epoch: [9/40][110/377]	time 0.242 (0.248)	data 0.000 (0.005)	eta 0:49:24	loss_t 0.0395 (0.0272)	lr 0.000010
+epoch: [9/40][120/377]	time 0.245 (0.248)	data 0.000 (0.004)	eta 0:49:17	loss_t 0.0162 (0.0268)	lr 0.000010
+epoch: [9/40][130/377]	time 0.254 (0.247)	data 0.000 (0.004)	eta 0:49:11	loss_t 0.0412 (0.0262)	lr 0.000010
+epoch: [9/40][140/377]	time 0.244 (0.247)	data 0.000 (0.004)	eta 0:49:04	loss_t 0.0000 (0.0252)	lr 0.000010
+epoch: [9/40][150/377]	time 0.238 (0.247)	data 0.000 (0.004)	eta 0:48:59	loss_t 0.0018 (0.0266)	lr 0.000010
+epoch: [9/40][160/377]	time 0.247 (0.247)	data 0.000 (0.003)	eta 0:48:55	loss_t 0.0772 (0.0269)	lr 0.000010
+epoch: [9/40][170/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:48:47	loss_t 0.0023 (0.0270)	lr 0.000010
+epoch: [9/40][180/377]	time 0.247 (0.246)	data 0.000 (0.003)	eta 0:48:41	loss_t 0.0072 (0.0278)	lr 0.000010
+epoch: [9/40][190/377]	time 0.241 (0.246)	data 0.000 (0.003)	eta 0:48:36	loss_t 0.0265 (0.0288)	lr 0.000010
+epoch: [9/40][200/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:48:29	loss_t 0.0210 (0.0287)	lr 0.000010
+epoch: [9/40][210/377]	time 0.236 (0.245)	data 0.001 (0.003)	eta 0:48:23	loss_t 0.0000 (0.0292)	lr 0.000010
+epoch: [9/40][220/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:48:20	loss_t 0.0631 (0.0290)	lr 0.000010
+epoch: [9/40][230/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:48:15	loss_t 0.0283 (0.0285)	lr 0.000010
+epoch: [9/40][240/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:48:12	loss_t 0.0586 (0.0286)	lr 0.000010
+epoch: [9/40][250/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:48:07	loss_t 0.0347 (0.0280)	lr 0.000010
+epoch: [9/40][260/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:48:03	loss_t 0.0545 (0.0284)	lr 0.000010
+epoch: [9/40][270/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:48:01	loss_t 0.0085 (0.0295)	lr 0.000010
+epoch: [9/40][280/377]	time 0.257 (0.244)	data 0.000 (0.002)	eta 0:47:58	loss_t 0.0412 (0.0294)	lr 0.000010
+epoch: [9/40][290/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:47:56	loss_t 0.0296 (0.0292)	lr 0.000010
+epoch: [9/40][300/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:47:53	loss_t 0.0684 (0.0294)	lr 0.000010
+epoch: [9/40][310/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:47:50	loss_t 0.0102 (0.0289)	lr 0.000010
+epoch: [9/40][320/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:47:45	loss_t 0.0245 (0.0287)	lr 0.000010
+epoch: [9/40][330/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:47:43	loss_t 0.0437 (0.0289)	lr 0.000010
+epoch: [9/40][340/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:47:40	loss_t 0.0498 (0.0290)	lr 0.000010
+epoch: [9/40][350/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:47:36	loss_t 0.0458 (0.0293)	lr 0.000010
+epoch: [9/40][360/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:47:33	loss_t 0.0719 (0.0293)	lr 0.000010
+epoch: [9/40][370/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:47:31	loss_t 0.0218 (0.0295)	lr 0.000010
+epoch: [10/40][10/377]	time 0.238 (0.294)	data 0.000 (0.049)	eta 0:57:13	loss_t 0.0000 (0.0271)	lr 0.000010
+epoch: [10/40][20/377]	time 0.239 (0.268)	data 0.000 (0.025)	eta 0:52:12	loss_t 0.1068 (0.0327)	lr 0.000010
+epoch: [10/40][30/377]	time 0.243 (0.260)	data 0.000 (0.017)	eta 0:50:30	loss_t 0.0000 (0.0290)	lr 0.000010
+epoch: [10/40][40/377]	time 0.240 (0.255)	data 0.000 (0.013)	eta 0:49:32	loss_t 0.0000 (0.0239)	lr 0.000010
+epoch: [10/40][50/377]	time 0.237 (0.252)	data 0.000 (0.010)	eta 0:48:54	loss_t 0.0426 (0.0255)	lr 0.000010
+epoch: [10/40][60/377]	time 0.242 (0.250)	data 0.000 (0.009)	eta 0:48:28	loss_t 0.0000 (0.0259)	lr 0.000010
+epoch: [10/40][70/377]	time 0.240 (0.249)	data 0.000 (0.007)	eta 0:48:14	loss_t 0.0000 (0.0285)	lr 0.000010
+epoch: [10/40][80/377]	time 0.247 (0.248)	data 0.000 (0.007)	eta 0:48:01	loss_t 0.0005 (0.0262)	lr 0.000010
+epoch: [10/40][90/377]	time 0.245 (0.248)	data 0.000 (0.006)	eta 0:47:52	loss_t 0.0000 (0.0269)	lr 0.000010
+epoch: [10/40][100/377]	time 0.251 (0.247)	data 0.000 (0.005)	eta 0:47:42	loss_t 0.0251 (0.0270)	lr 0.000010
+epoch: [10/40][110/377]	time 0.237 (0.247)	data 0.000 (0.005)	eta 0:47:35	loss_t 0.0000 (0.0273)	lr 0.000010
+epoch: [10/40][120/377]	time 0.250 (0.246)	data 0.000 (0.004)	eta 0:47:27	loss_t 0.0467 (0.0278)	lr 0.000010
+epoch: [10/40][130/377]	time 0.242 (0.246)	data 0.000 (0.004)	eta 0:47:21	loss_t 0.0000 (0.0275)	lr 0.000010
+epoch: [10/40][140/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:47:16	loss_t 0.0318 (0.0272)	lr 0.000010
+epoch: [10/40][150/377]	time 0.237 (0.245)	data 0.000 (0.004)	eta 0:47:09	loss_t 0.0327 (0.0268)	lr 0.000010
+epoch: [10/40][160/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:47:06	loss_t 0.0286 (0.0276)	lr 0.000010
+epoch: [10/40][170/377]	time 0.236 (0.245)	data 0.000 (0.003)	eta 0:46:59	loss_t 0.0000 (0.0278)	lr 0.000010
+epoch: [10/40][180/377]	time 0.238 (0.244)	data 0.000 (0.003)	eta 0:46:53	loss_t 0.0140 (0.0277)	lr 0.000010
+epoch: [10/40][190/377]	time 0.247 (0.244)	data 0.000 (0.003)	eta 0:46:49	loss_t 0.0292 (0.0277)	lr 0.000010
+epoch: [10/40][200/377]	time 0.247 (0.244)	data 0.000 (0.003)	eta 0:46:45	loss_t 0.0041 (0.0277)	lr 0.000010
+epoch: [10/40][210/377]	time 0.244 (0.244)	data 0.000 (0.003)	eta 0:46:43	loss_t 0.0550 (0.0274)	lr 0.000010
+epoch: [10/40][220/377]	time 0.238 (0.244)	data 0.000 (0.003)	eta 0:46:38	loss_t 0.0011 (0.0272)	lr 0.000010
+epoch: [10/40][230/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:46:33	loss_t 0.0139 (0.0266)	lr 0.000010
+epoch: [10/40][240/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:46:27	loss_t 0.0240 (0.0264)	lr 0.000010
+epoch: [10/40][250/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:46:23	loss_t 0.0241 (0.0261)	lr 0.000010
+epoch: [10/40][260/377]	time 0.238 (0.243)	data 0.000 (0.002)	eta 0:46:21	loss_t 0.0236 (0.0261)	lr 0.000010
+epoch: [10/40][270/377]	time 0.239 (0.243)	data 0.000 (0.002)	eta 0:46:16	loss_t 0.0178 (0.0259)	lr 0.000010
+epoch: [10/40][280/377]	time 0.244 (0.243)	data 0.000 (0.002)	eta 0:46:13	loss_t 0.0343 (0.0262)	lr 0.000010
+epoch: [10/40][290/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:46:10	loss_t 0.0273 (0.0262)	lr 0.000010
+epoch: [10/40][300/377]	time 0.246 (0.243)	data 0.000 (0.002)	eta 0:46:06	loss_t 0.0174 (0.0260)	lr 0.000010
+epoch: [10/40][310/377]	time 0.245 (0.243)	data 0.000 (0.002)	eta 0:46:03	loss_t 0.0725 (0.0258)	lr 0.000010
+epoch: [10/40][320/377]	time 0.236 (0.243)	data 0.000 (0.002)	eta 0:46:00	loss_t 0.0152 (0.0259)	lr 0.000010
+epoch: [10/40][330/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:45:57	loss_t 0.0388 (0.0257)	lr 0.000010
+epoch: [10/40][340/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:45:55	loss_t 0.0199 (0.0255)	lr 0.000010
+epoch: [10/40][350/377]	time 0.244 (0.243)	data 0.000 (0.002)	eta 0:45:53	loss_t 0.0006 (0.0260)	lr 0.000010
+epoch: [10/40][360/377]	time 0.244 (0.243)	data 0.000 (0.002)	eta 0:45:51	loss_t 0.0017 (0.0261)	lr 0.000010
+epoch: [10/40][370/377]	time 0.237 (0.243)	data 0.000 (0.002)	eta 0:45:48	loss_t 0.0069 (0.0263)	lr 0.000010
+epoch: [11/40][10/377]	time 0.246 (0.290)	data 0.000 (0.045)	eta 0:54:39	loss_t 0.0478 (0.0233)	lr 0.000010
+epoch: [11/40][20/377]	time 0.247 (0.266)	data 0.000 (0.023)	eta 0:50:03	loss_t 0.0125 (0.0247)	lr 0.000010
+epoch: [11/40][30/377]	time 0.251 (0.258)	data 0.001 (0.015)	eta 0:48:27	loss_t 0.0098 (0.0252)	lr 0.000010
+epoch: [11/40][40/377]	time 0.240 (0.254)	data 0.000 (0.011)	eta 0:47:39	loss_t 0.0786 (0.0250)	lr 0.000010
+epoch: [11/40][50/377]	time 0.243 (0.251)	data 0.000 (0.009)	eta 0:47:09	loss_t 0.0156 (0.0224)	lr 0.000010
+epoch: [11/40][60/377]	time 0.246 (0.250)	data 0.000 (0.008)	eta 0:46:52	loss_t 0.0532 (0.0214)	lr 0.000010
+epoch: [11/40][70/377]	time 0.241 (0.249)	data 0.000 (0.007)	eta 0:46:40	loss_t 0.0123 (0.0205)	lr 0.000010
+epoch: [11/40][80/377]	time 0.239 (0.248)	data 0.000 (0.006)	eta 0:46:28	loss_t 0.0000 (0.0190)	lr 0.000010
+epoch: [11/40][90/377]	time 0.242 (0.248)	data 0.000 (0.005)	eta 0:46:18	loss_t 0.0079 (0.0201)	lr 0.000010
+epoch: [11/40][100/377]	time 0.238 (0.247)	data 0.000 (0.005)	eta 0:46:08	loss_t 0.0172 (0.0211)	lr 0.000010
+epoch: [11/40][110/377]	time 0.248 (0.247)	data 0.000 (0.004)	eta 0:46:01	loss_t 0.0201 (0.0224)	lr 0.000010
+epoch: [11/40][120/377]	time 0.243 (0.246)	data 0.000 (0.004)	eta 0:45:55	loss_t 0.0000 (0.0228)	lr 0.000010
+epoch: [11/40][130/377]	time 0.249 (0.246)	data 0.000 (0.004)	eta 0:45:50	loss_t 0.0033 (0.0223)	lr 0.000010
+epoch: [11/40][140/377]	time 0.249 (0.246)	data 0.000 (0.004)	eta 0:45:47	loss_t 0.0000 (0.0222)	lr 0.000010
+epoch: [11/40][150/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:45:42	loss_t 0.0422 (0.0216)	lr 0.000010
+epoch: [11/40][160/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:45:36	loss_t 0.0549 (0.0216)	lr 0.000010
+epoch: [11/40][170/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:45:33	loss_t 0.0013 (0.0212)	lr 0.000010
+epoch: [11/40][180/377]	time 0.255 (0.245)	data 0.000 (0.003)	eta 0:45:29	loss_t 0.0249 (0.0214)	lr 0.000010
+epoch: [11/40][190/377]	time 0.241 (0.245)	data 0.000 (0.003)	eta 0:45:25	loss_t 0.0150 (0.0223)	lr 0.000010
+epoch: [11/40][200/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:45:21	loss_t 0.0936 (0.0224)	lr 0.000010
+epoch: [11/40][210/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:45:18	loss_t 0.0075 (0.0222)	lr 0.000010
+epoch: [11/40][220/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:45:15	loss_t 0.0193 (0.0222)	lr 0.000010
+epoch: [11/40][230/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:45:13	loss_t 0.0566 (0.0229)	lr 0.000010
+epoch: [11/40][240/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:45:10	loss_t 0.0190 (0.0227)	lr 0.000010
+epoch: [11/40][250/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:45:09	loss_t 0.0000 (0.0228)	lr 0.000010
+epoch: [11/40][260/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:45:05	loss_t 0.0387 (0.0229)	lr 0.000010
+epoch: [11/40][270/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:45:02	loss_t 0.0485 (0.0237)	lr 0.000010
+epoch: [11/40][280/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:44:58	loss_t 0.0072 (0.0246)	lr 0.000010
+epoch: [11/40][290/377]	time 0.245 (0.245)	data 0.000 (0.002)	eta 0:44:56	loss_t 0.0542 (0.0246)	lr 0.000010
+epoch: [11/40][300/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:44:53	loss_t 0.0000 (0.0244)	lr 0.000010
+epoch: [11/40][310/377]	time 0.255 (0.245)	data 0.000 (0.002)	eta 0:44:51	loss_t 0.0666 (0.0246)	lr 0.000010
+epoch: [11/40][320/377]	time 0.243 (0.245)	data 0.000 (0.002)	eta 0:44:49	loss_t 0.0057 (0.0255)	lr 0.000010
+epoch: [11/40][330/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:44:45	loss_t 0.0597 (0.0252)	lr 0.000010
+epoch: [11/40][340/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:44:42	loss_t 0.0482 (0.0252)	lr 0.000010
+epoch: [11/40][350/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:44:38	loss_t 0.0075 (0.0248)	lr 0.000010
+epoch: [11/40][360/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:44:35	loss_t 0.0000 (0.0249)	lr 0.000010
+epoch: [11/40][370/377]	time 0.243 (0.244)	data 0.001 (0.002)	eta 0:44:32	loss_t 0.0314 (0.0249)	lr 0.000010
+epoch: [12/40][10/377]	time 0.247 (0.297)	data 0.000 (0.051)	eta 0:54:01	loss_t 0.0358 (0.0108)	lr 0.000010
+epoch: [12/40][20/377]	time 0.251 (0.269)	data 0.000 (0.025)	eta 0:49:00	loss_t 0.0000 (0.0121)	lr 0.000010
+epoch: [12/40][30/377]	time 0.244 (0.261)	data 0.000 (0.017)	eta 0:47:25	loss_t 0.0062 (0.0171)	lr 0.000010
+epoch: [12/40][40/377]	time 0.246 (0.257)	data 0.000 (0.013)	eta 0:46:41	loss_t 0.0350 (0.0196)	lr 0.000010
+epoch: [12/40][50/377]	time 0.242 (0.255)	data 0.000 (0.010)	eta 0:46:10	loss_t 0.0181 (0.0177)	lr 0.000010
+epoch: [12/40][60/377]	time 0.259 (0.253)	data 0.001 (0.009)	eta 0:45:49	loss_t 0.0031 (0.0194)	lr 0.000010
+epoch: [12/40][70/377]	time 0.240 (0.252)	data 0.000 (0.008)	eta 0:45:32	loss_t 0.0000 (0.0182)	lr 0.000010
+epoch: [12/40][80/377]	time 0.242 (0.250)	data 0.000 (0.007)	eta 0:45:18	loss_t 0.0274 (0.0188)	lr 0.000010
+epoch: [12/40][90/377]	time 0.246 (0.250)	data 0.000 (0.006)	eta 0:45:09	loss_t 0.0000 (0.0188)	lr 0.000010
+epoch: [12/40][100/377]	time 0.245 (0.249)	data 0.000 (0.005)	eta 0:44:59	loss_t 0.0154 (0.0185)	lr 0.000010
+epoch: [12/40][110/377]	time 0.243 (0.249)	data 0.000 (0.005)	eta 0:44:52	loss_t 0.0413 (0.0190)	lr 0.000010
+epoch: [12/40][120/377]	time 0.240 (0.248)	data 0.000 (0.005)	eta 0:44:41	loss_t 0.0011 (0.0189)	lr 0.000010
+epoch: [12/40][130/377]	time 0.241 (0.248)	data 0.000 (0.004)	eta 0:44:34	loss_t 0.0796 (0.0193)	lr 0.000010
+epoch: [12/40][140/377]	time 0.239 (0.247)	data 0.000 (0.004)	eta 0:44:28	loss_t 0.0625 (0.0207)	lr 0.000010
+epoch: [12/40][150/377]	time 0.237 (0.247)	data 0.000 (0.004)	eta 0:44:22	loss_t 0.0012 (0.0204)	lr 0.000010
+epoch: [12/40][160/377]	time 0.247 (0.247)	data 0.000 (0.004)	eta 0:44:16	loss_t 0.0000 (0.0195)	lr 0.000010
+epoch: [12/40][170/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:44:11	loss_t 0.0725 (0.0191)	lr 0.000010
+epoch: [12/40][180/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:44:06	loss_t 0.0044 (0.0189)	lr 0.000010
+epoch: [12/40][190/377]	time 0.245 (0.246)	data 0.000 (0.003)	eta 0:44:02	loss_t 0.0112 (0.0187)	lr 0.000010
+epoch: [12/40][200/377]	time 0.251 (0.246)	data 0.000 (0.003)	eta 0:44:00	loss_t 0.0350 (0.0191)	lr 0.000010
+epoch: [12/40][210/377]	time 0.242 (0.246)	data 0.000 (0.003)	eta 0:43:55	loss_t 0.0266 (0.0200)	lr 0.000010
+epoch: [12/40][220/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:43:50	loss_t 0.0240 (0.0201)	lr 0.000010
+epoch: [12/40][230/377]	time 0.249 (0.245)	data 0.001 (0.003)	eta 0:43:46	loss_t 0.0173 (0.0196)	lr 0.000010
+epoch: [12/40][240/377]	time 0.247 (0.245)	data 0.000 (0.002)	eta 0:43:43	loss_t 0.0000 (0.0200)	lr 0.000010
+epoch: [12/40][250/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:43:39	loss_t 0.0000 (0.0194)	lr 0.000010
+epoch: [12/40][260/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:43:35	loss_t 0.0000 (0.0192)	lr 0.000010
+epoch: [12/40][270/377]	time 0.245 (0.245)	data 0.000 (0.002)	eta 0:43:32	loss_t 0.0000 (0.0189)	lr 0.000010
+epoch: [12/40][280/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:43:29	loss_t 0.0112 (0.0186)	lr 0.000010
+epoch: [12/40][290/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:43:24	loss_t 0.0287 (0.0191)	lr 0.000010
+epoch: [12/40][300/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:43:20	loss_t 0.0264 (0.0194)	lr 0.000010
+epoch: [12/40][310/377]	time 0.256 (0.245)	data 0.000 (0.002)	eta 0:43:17	loss_t 0.0000 (0.0195)	lr 0.000010
+epoch: [12/40][320/377]	time 0.238 (0.245)	data 0.001 (0.002)	eta 0:43:15	loss_t 0.0047 (0.0199)	lr 0.000010
+epoch: [12/40][330/377]	time 0.242 (0.244)	data 0.001 (0.002)	eta 0:43:11	loss_t 0.0006 (0.0197)	lr 0.000010
+epoch: [12/40][340/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:43:08	loss_t 0.0015 (0.0197)	lr 0.000010
+epoch: [12/40][350/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:43:06	loss_t 0.0649 (0.0197)	lr 0.000010
+epoch: [12/40][360/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:43:03	loss_t 0.0400 (0.0201)	lr 0.000010
+epoch: [12/40][370/377]	time 0.239 (0.244)	data 0.001 (0.002)	eta 0:43:01	loss_t 0.0065 (0.0203)	lr 0.000010
+epoch: [13/40][10/377]	time 0.243 (0.296)	data 0.000 (0.051)	eta 0:52:03	loss_t 0.0154 (0.0178)	lr 0.000010
+epoch: [13/40][20/377]	time 0.242 (0.269)	data 0.000 (0.026)	eta 0:47:11	loss_t 0.0258 (0.0172)	lr 0.000010
+epoch: [13/40][30/377]	time 0.241 (0.259)	data 0.000 (0.017)	eta 0:45:28	loss_t 0.0107 (0.0177)	lr 0.000010
+epoch: [13/40][40/377]	time 0.241 (0.255)	data 0.000 (0.013)	eta 0:44:44	loss_t 0.0866 (0.0196)	lr 0.000010
+epoch: [13/40][50/377]	time 0.244 (0.253)	data 0.000 (0.011)	eta 0:44:15	loss_t 0.0103 (0.0192)	lr 0.000010
+epoch: [13/40][60/377]	time 0.250 (0.251)	data 0.000 (0.009)	eta 0:43:58	loss_t 0.0040 (0.0193)	lr 0.000010
+epoch: [13/40][70/377]	time 0.249 (0.250)	data 0.000 (0.008)	eta 0:43:44	loss_t 0.0116 (0.0177)	lr 0.000010
+epoch: [13/40][80/377]	time 0.243 (0.249)	data 0.000 (0.007)	eta 0:43:31	loss_t 0.0353 (0.0180)	lr 0.000010
+epoch: [13/40][90/377]	time 0.243 (0.249)	data 0.000 (0.006)	eta 0:43:22	loss_t 0.0000 (0.0185)	lr 0.000010
+epoch: [13/40][100/377]	time 0.241 (0.248)	data 0.000 (0.005)	eta 0:43:11	loss_t 0.0000 (0.0184)	lr 0.000010
+epoch: [13/40][110/377]	time 0.239 (0.247)	data 0.000 (0.005)	eta 0:43:00	loss_t 0.0595 (0.0197)	lr 0.000010
+epoch: [13/40][120/377]	time 0.239 (0.247)	data 0.000 (0.005)	eta 0:42:54	loss_t 0.0175 (0.0212)	lr 0.000010
+epoch: [13/40][130/377]	time 0.239 (0.246)	data 0.000 (0.004)	eta 0:42:48	loss_t 0.0031 (0.0206)	lr 0.000010
+epoch: [13/40][140/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:42:41	loss_t 0.0251 (0.0204)	lr 0.000010
+epoch: [13/40][150/377]	time 0.237 (0.245)	data 0.000 (0.004)	eta 0:42:33	loss_t 0.0000 (0.0211)	lr 0.000010
+epoch: [13/40][160/377]	time 0.236 (0.245)	data 0.000 (0.004)	eta 0:42:27	loss_t 0.0277 (0.0211)	lr 0.000010
+epoch: [13/40][170/377]	time 0.249 (0.245)	data 0.000 (0.003)	eta 0:42:21	loss_t 0.0239 (0.0216)	lr 0.000010
+epoch: [13/40][180/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:42:18	loss_t 0.0000 (0.0210)	lr 0.000010
+epoch: [13/40][190/377]	time 0.240 (0.244)	data 0.000 (0.003)	eta 0:42:13	loss_t 0.0000 (0.0206)	lr 0.000010
+epoch: [13/40][200/377]	time 0.238 (0.244)	data 0.000 (0.003)	eta 0:42:08	loss_t 0.0000 (0.0201)	lr 0.000010
+epoch: [13/40][210/377]	time 0.250 (0.244)	data 0.000 (0.003)	eta 0:42:03	loss_t 0.0016 (0.0196)	lr 0.000010
+epoch: [13/40][220/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:42:00	loss_t 0.0000 (0.0198)	lr 0.000010
+epoch: [13/40][230/377]	time 0.239 (0.244)	data 0.000 (0.003)	eta 0:41:57	loss_t 0.0000 (0.0200)	lr 0.000010
+epoch: [13/40][240/377]	time 0.243 (0.244)	data 0.000 (0.003)	eta 0:41:54	loss_t 0.0067 (0.0200)	lr 0.000010
+epoch: [13/40][250/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:41:50	loss_t 0.0017 (0.0199)	lr 0.000010
+epoch: [13/40][260/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:41:47	loss_t 0.1116 (0.0203)	lr 0.000010
+epoch: [13/40][270/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:41:44	loss_t 0.0000 (0.0200)	lr 0.000010
+epoch: [13/40][280/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:41:42	loss_t 0.0441 (0.0202)	lr 0.000010
+epoch: [13/40][290/377]	time 0.256 (0.244)	data 0.000 (0.002)	eta 0:41:40	loss_t 0.0618 (0.0205)	lr 0.000010
+epoch: [13/40][300/377]	time 0.242 (0.243)	data 0.000 (0.002)	eta 0:41:37	loss_t 0.0645 (0.0205)	lr 0.000010
+epoch: [13/40][310/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:41:33	loss_t 0.0242 (0.0204)	lr 0.000010
+epoch: [13/40][320/377]	time 0.237 (0.243)	data 0.000 (0.002)	eta 0:41:30	loss_t 0.0000 (0.0205)	lr 0.000010
+epoch: [13/40][330/377]	time 0.244 (0.243)	data 0.000 (0.002)	eta 0:41:27	loss_t 0.1382 (0.0208)	lr 0.000010
+epoch: [13/40][340/377]	time 0.242 (0.243)	data 0.001 (0.002)	eta 0:41:25	loss_t 0.0000 (0.0205)	lr 0.000010
+epoch: [13/40][350/377]	time 0.246 (0.243)	data 0.000 (0.002)	eta 0:41:22	loss_t 0.0000 (0.0204)	lr 0.000010
+epoch: [13/40][360/377]	time 0.251 (0.243)	data 0.000 (0.002)	eta 0:41:20	loss_t 0.0000 (0.0204)	lr 0.000010
+epoch: [13/40][370/377]	time 0.240 (0.243)	data 0.001 (0.002)	eta 0:41:17	loss_t 0.0000 (0.0202)	lr 0.000010
+epoch: [14/40][10/377]	time 0.253 (0.300)	data 0.000 (0.057)	eta 0:50:49	loss_t 0.0000 (0.0135)	lr 0.000010
+epoch: [14/40][20/377]	time 0.244 (0.270)	data 0.000 (0.029)	eta 0:45:44	loss_t 0.0000 (0.0124)	lr 0.000010
+epoch: [14/40][30/377]	time 0.244 (0.261)	data 0.000 (0.019)	eta 0:44:07	loss_t 0.0192 (0.0118)	lr 0.000010
+epoch: [14/40][40/377]	time 0.248 (0.256)	data 0.000 (0.014)	eta 0:43:15	loss_t 0.0239 (0.0125)	lr 0.000010
+epoch: [14/40][50/377]	time 0.242 (0.253)	data 0.000 (0.012)	eta 0:42:47	loss_t 0.0422 (0.0121)	lr 0.000010
+epoch: [14/40][60/377]	time 0.240 (0.251)	data 0.000 (0.010)	eta 0:42:21	loss_t 0.0727 (0.0138)	lr 0.000010
+epoch: [14/40][70/377]	time 0.238 (0.250)	data 0.000 (0.008)	eta 0:42:05	loss_t 0.0015 (0.0131)	lr 0.000010
+epoch: [14/40][80/377]	time 0.240 (0.249)	data 0.000 (0.007)	eta 0:41:53	loss_t 0.0350 (0.0146)	lr 0.000010
+epoch: [14/40][90/377]	time 0.237 (0.248)	data 0.000 (0.007)	eta 0:41:41	loss_t 0.0000 (0.0145)	lr 0.000010
+epoch: [14/40][100/377]	time 0.243 (0.247)	data 0.000 (0.006)	eta 0:41:32	loss_t 0.0000 (0.0160)	lr 0.000010
+epoch: [14/40][110/377]	time 0.252 (0.247)	data 0.000 (0.006)	eta 0:41:25	loss_t 0.0008 (0.0157)	lr 0.000010
+epoch: [14/40][120/377]	time 0.247 (0.247)	data 0.000 (0.005)	eta 0:41:21	loss_t 0.0323 (0.0154)	lr 0.000010
+epoch: [14/40][130/377]	time 0.251 (0.246)	data 0.000 (0.005)	eta 0:41:16	loss_t 0.0012 (0.0165)	lr 0.000010
+epoch: [14/40][140/377]	time 0.241 (0.246)	data 0.000 (0.004)	eta 0:41:11	loss_t 0.0193 (0.0165)	lr 0.000010
+epoch: [14/40][150/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:41:03	loss_t 0.0469 (0.0163)	lr 0.000010
+epoch: [14/40][160/377]	time 0.238 (0.245)	data 0.000 (0.004)	eta 0:40:59	loss_t 0.0804 (0.0168)	lr 0.000010
+epoch: [14/40][170/377]	time 0.236 (0.245)	data 0.000 (0.004)	eta 0:40:53	loss_t 0.0259 (0.0190)	lr 0.000010
+epoch: [14/40][180/377]	time 0.244 (0.245)	data 0.000 (0.004)	eta 0:40:48	loss_t 0.0000 (0.0188)	lr 0.000010
+epoch: [14/40][190/377]	time 0.246 (0.245)	data 0.000 (0.003)	eta 0:40:45	loss_t 0.0063 (0.0189)	lr 0.000010
+epoch: [14/40][200/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:40:41	loss_t 0.0000 (0.0195)	lr 0.000010
+epoch: [14/40][210/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:40:39	loss_t 0.0098 (0.0191)	lr 0.000010
+epoch: [14/40][220/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:40:34	loss_t 0.0003 (0.0188)	lr 0.000010
+epoch: [14/40][230/377]	time 0.238 (0.244)	data 0.000 (0.003)	eta 0:40:30	loss_t 0.0541 (0.0185)	lr 0.000010
+epoch: [14/40][240/377]	time 0.246 (0.244)	data 0.000 (0.003)	eta 0:40:27	loss_t 0.0474 (0.0186)	lr 0.000010
+epoch: [14/40][250/377]	time 0.243 (0.244)	data 0.001 (0.003)	eta 0:40:23	loss_t 0.0000 (0.0195)	lr 0.000010
+epoch: [14/40][260/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:40:20	loss_t 0.0057 (0.0194)	lr 0.000010
+epoch: [14/40][270/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:40:18	loss_t 0.0000 (0.0191)	lr 0.000010
+epoch: [14/40][280/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:40:14	loss_t 0.0000 (0.0193)	lr 0.000010
+epoch: [14/40][290/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:40:11	loss_t 0.0041 (0.0196)	lr 0.000010
+epoch: [14/40][300/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:40:07	loss_t 0.0000 (0.0198)	lr 0.000010
+epoch: [14/40][310/377]	time 0.253 (0.244)	data 0.000 (0.002)	eta 0:40:06	loss_t 0.0014 (0.0201)	lr 0.000010
+epoch: [14/40][320/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:40:03	loss_t 0.0012 (0.0202)	lr 0.000010
+epoch: [14/40][330/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:40:01	loss_t 0.0591 (0.0199)	lr 0.000010
+epoch: [14/40][340/377]	time 0.240 (0.244)	data 0.001 (0.002)	eta 0:39:59	loss_t 0.0343 (0.0197)	lr 0.000010
+epoch: [14/40][350/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:39:56	loss_t 0.0053 (0.0194)	lr 0.000010
+epoch: [14/40][360/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:39:53	loss_t 0.0000 (0.0193)	lr 0.000010
+epoch: [14/40][370/377]	time 0.244 (0.244)	data 0.001 (0.002)	eta 0:39:50	loss_t 0.0000 (0.0192)	lr 0.000010
+epoch: [15/40][10/377]	time 0.244 (0.296)	data 0.000 (0.050)	eta 0:48:21	loss_t 0.0000 (0.0176)	lr 0.000010
+epoch: [15/40][20/377]	time 0.242 (0.270)	data 0.000 (0.025)	eta 0:44:02	loss_t 0.0091 (0.0124)	lr 0.000010
+epoch: [15/40][30/377]	time 0.244 (0.260)	data 0.000 (0.017)	eta 0:42:23	loss_t 0.0316 (0.0139)	lr 0.000010
+epoch: [15/40][40/377]	time 0.240 (0.256)	data 0.001 (0.013)	eta 0:41:35	loss_t 0.0194 (0.0133)	lr 0.000010
+epoch: [15/40][50/377]	time 0.238 (0.253)	data 0.000 (0.010)	eta 0:41:02	loss_t 0.0000 (0.0122)	lr 0.000010
+epoch: [15/40][60/377]	time 0.237 (0.250)	data 0.000 (0.009)	eta 0:40:39	loss_t 0.0045 (0.0126)	lr 0.000010
+epoch: [15/40][70/377]	time 0.244 (0.249)	data 0.000 (0.007)	eta 0:40:26	loss_t 0.0121 (0.0120)	lr 0.000010
+epoch: [15/40][80/377]	time 0.237 (0.248)	data 0.000 (0.007)	eta 0:40:14	loss_t 0.0069 (0.0124)	lr 0.000010
+epoch: [15/40][90/377]	time 0.243 (0.248)	data 0.000 (0.006)	eta 0:40:04	loss_t 0.0000 (0.0127)	lr 0.000010
+epoch: [15/40][100/377]	time 0.240 (0.247)	data 0.000 (0.005)	eta 0:39:57	loss_t 0.0035 (0.0133)	lr 0.000010
+epoch: [15/40][110/377]	time 0.249 (0.247)	data 0.000 (0.005)	eta 0:39:52	loss_t 0.0034 (0.0125)	lr 0.000010
+epoch: [15/40][120/377]	time 0.249 (0.246)	data 0.000 (0.005)	eta 0:39:46	loss_t 0.0040 (0.0127)	lr 0.000010
+epoch: [15/40][130/377]	time 0.248 (0.246)	data 0.000 (0.004)	eta 0:39:39	loss_t 0.0753 (0.0131)	lr 0.000010
+epoch: [15/40][140/377]	time 0.239 (0.246)	data 0.000 (0.004)	eta 0:39:34	loss_t 0.0140 (0.0141)	lr 0.000010
+epoch: [15/40][150/377]	time 0.246 (0.246)	data 0.000 (0.004)	eta 0:39:31	loss_t 0.0068 (0.0149)	lr 0.000010
+epoch: [15/40][160/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:39:26	loss_t 0.0000 (0.0152)	lr 0.000010
+epoch: [15/40][170/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:39:20	loss_t 0.0783 (0.0154)	lr 0.000010
+epoch: [15/40][180/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:39:14	loss_t 0.0171 (0.0157)	lr 0.000010
+epoch: [15/40][190/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:39:11	loss_t 0.0018 (0.0154)	lr 0.000010
+epoch: [15/40][200/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:39:06	loss_t 0.0036 (0.0156)	lr 0.000010
+epoch: [15/40][210/377]	time 0.244 (0.244)	data 0.000 (0.003)	eta 0:39:03	loss_t 0.0211 (0.0157)	lr 0.000010
+epoch: [15/40][220/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:38:59	loss_t 0.0089 (0.0155)	lr 0.000010
+epoch: [15/40][230/377]	time 0.240 (0.244)	data 0.000 (0.003)	eta 0:38:53	loss_t 0.0000 (0.0154)	lr 0.000010
+epoch: [15/40][240/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:38:50	loss_t 0.0000 (0.0150)	lr 0.000010
+epoch: [15/40][250/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:38:47	loss_t 0.0000 (0.0150)	lr 0.000010
+epoch: [15/40][260/377]	time 0.253 (0.244)	data 0.001 (0.002)	eta 0:38:46	loss_t 0.0000 (0.0153)	lr 0.000010
+epoch: [15/40][270/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:38:43	loss_t 0.0000 (0.0151)	lr 0.000010
+epoch: [15/40][280/377]	time 0.247 (0.244)	data 0.001 (0.002)	eta 0:38:41	loss_t 0.0000 (0.0151)	lr 0.000010
+epoch: [15/40][290/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:38:38	loss_t 0.0006 (0.0147)	lr 0.000010
+epoch: [15/40][300/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:38:35	loss_t 0.0165 (0.0149)	lr 0.000010
+epoch: [15/40][310/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:38:31	loss_t 0.0483 (0.0152)	lr 0.000010
+epoch: [15/40][320/377]	time 0.238 (0.243)	data 0.000 (0.002)	eta 0:38:27	loss_t 0.0066 (0.0151)	lr 0.000010
+epoch: [15/40][330/377]	time 0.238 (0.243)	data 0.000 (0.002)	eta 0:38:23	loss_t 0.0038 (0.0148)	lr 0.000010
+epoch: [15/40][340/377]	time 0.246 (0.243)	data 0.000 (0.002)	eta 0:38:21	loss_t 0.0731 (0.0150)	lr 0.000010
+epoch: [15/40][350/377]	time 0.239 (0.243)	data 0.000 (0.002)	eta 0:38:17	loss_t 0.0351 (0.0151)	lr 0.000010
+epoch: [15/40][360/377]	time 0.237 (0.243)	data 0.000 (0.002)	eta 0:38:14	loss_t 0.0007 (0.0151)	lr 0.000010
+epoch: [15/40][370/377]	time 0.238 (0.243)	data 0.001 (0.002)	eta 0:38:12	loss_t 0.0000 (0.0151)	lr 0.000010
+epoch: [16/40][10/377]	time 0.237 (0.292)	data 0.000 (0.048)	eta 0:45:53	loss_t 0.0000 (0.0053)	lr 0.000010
+epoch: [16/40][20/377]	time 0.242 (0.266)	data 0.000 (0.024)	eta 0:41:38	loss_t 0.0472 (0.0165)	lr 0.000010
+epoch: [16/40][30/377]	time 0.243 (0.257)	data 0.000 (0.016)	eta 0:40:13	loss_t 0.0000 (0.0155)	lr 0.000010
+epoch: [16/40][40/377]	time 0.251 (0.254)	data 0.000 (0.012)	eta 0:39:39	loss_t 0.0000 (0.0135)	lr 0.000010
+epoch: [16/40][50/377]	time 0.248 (0.251)	data 0.000 (0.010)	eta 0:39:16	loss_t 0.0116 (0.0119)	lr 0.000010
+epoch: [16/40][60/377]	time 0.240 (0.250)	data 0.000 (0.008)	eta 0:39:01	loss_t 0.0000 (0.0121)	lr 0.000010
+epoch: [16/40][70/377]	time 0.244 (0.249)	data 0.001 (0.007)	eta 0:38:50	loss_t 0.0000 (0.0132)	lr 0.000010
+epoch: [16/40][80/377]	time 0.239 (0.248)	data 0.000 (0.006)	eta 0:38:40	loss_t 0.0105 (0.0125)	lr 0.000010
+epoch: [16/40][90/377]	time 0.245 (0.248)	data 0.000 (0.006)	eta 0:38:33	loss_t 0.0108 (0.0124)	lr 0.000010
+epoch: [16/40][100/377]	time 0.250 (0.248)	data 0.000 (0.005)	eta 0:38:29	loss_t 0.0006 (0.0136)	lr 0.000010
+epoch: [16/40][110/377]	time 0.242 (0.247)	data 0.000 (0.005)	eta 0:38:19	loss_t 0.0007 (0.0133)	lr 0.000010
+epoch: [16/40][120/377]	time 0.236 (0.246)	data 0.000 (0.004)	eta 0:38:12	loss_t 0.0000 (0.0133)	lr 0.000010
+epoch: [16/40][130/377]	time 0.240 (0.246)	data 0.000 (0.004)	eta 0:38:08	loss_t 0.0175 (0.0133)	lr 0.000010
+epoch: [16/40][140/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:38:02	loss_t 0.0000 (0.0126)	lr 0.000010
+epoch: [16/40][150/377]	time 0.246 (0.246)	data 0.000 (0.004)	eta 0:37:57	loss_t 0.0045 (0.0130)	lr 0.000010
+epoch: [16/40][160/377]	time 0.251 (0.245)	data 0.000 (0.003)	eta 0:37:53	loss_t 0.0017 (0.0128)	lr 0.000010
+epoch: [16/40][170/377]	time 0.250 (0.245)	data 0.000 (0.003)	eta 0:37:50	loss_t 0.0011 (0.0132)	lr 0.000010
+epoch: [16/40][180/377]	time 0.246 (0.245)	data 0.000 (0.003)	eta 0:37:46	loss_t 0.0622 (0.0131)	lr 0.000010
+epoch: [16/40][190/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:37:43	loss_t 0.0409 (0.0134)	lr 0.000010
+epoch: [16/40][200/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:37:39	loss_t 0.0000 (0.0142)	lr 0.000010
+epoch: [16/40][210/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:37:35	loss_t 0.0112 (0.0143)	lr 0.000010
+epoch: [16/40][220/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:37:31	loss_t 0.0000 (0.0141)	lr 0.000010
+epoch: [16/40][230/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:37:27	loss_t 0.0000 (0.0137)	lr 0.000010
+epoch: [16/40][240/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:37:22	loss_t 0.0162 (0.0137)	lr 0.000010
+epoch: [16/40][250/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:37:17	loss_t 0.0060 (0.0141)	lr 0.000010
+epoch: [16/40][260/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:37:13	loss_t 0.0022 (0.0142)	lr 0.000010
+epoch: [16/40][270/377]	time 0.237 (0.243)	data 0.000 (0.002)	eta 0:37:08	loss_t 0.0551 (0.0141)	lr 0.000010
+epoch: [16/40][280/377]	time 0.245 (0.243)	data 0.000 (0.002)	eta 0:37:04	loss_t 0.0000 (0.0143)	lr 0.000010
+epoch: [16/40][290/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:37:01	loss_t 0.0000 (0.0142)	lr 0.000010
+epoch: [16/40][300/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:36:58	loss_t 0.0000 (0.0143)	lr 0.000010
+epoch: [16/40][310/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:36:57	loss_t 0.0007 (0.0139)	lr 0.000010
+epoch: [16/40][320/377]	time 0.237 (0.243)	data 0.000 (0.002)	eta 0:36:53	loss_t 0.0220 (0.0142)	lr 0.000010
+epoch: [16/40][330/377]	time 0.248 (0.243)	data 0.000 (0.002)	eta 0:36:50	loss_t 0.0000 (0.0146)	lr 0.000010
+epoch: [16/40][340/377]	time 0.249 (0.243)	data 0.000 (0.002)	eta 0:36:48	loss_t 0.0000 (0.0145)	lr 0.000010
+epoch: [16/40][350/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:36:45	loss_t 0.0321 (0.0147)	lr 0.000010
+epoch: [16/40][360/377]	time 0.237 (0.243)	data 0.000 (0.002)	eta 0:36:42	loss_t 0.0000 (0.0148)	lr 0.000010
+epoch: [16/40][370/377]	time 0.237 (0.243)	data 0.001 (0.002)	eta 0:36:39	loss_t 0.0000 (0.0148)	lr 0.000010
+epoch: [17/40][10/377]	time 0.244 (0.290)	data 0.000 (0.047)	eta 0:43:45	loss_t 0.0000 (0.0033)	lr 0.000010
+epoch: [17/40][20/377]	time 0.245 (0.266)	data 0.001 (0.024)	eta 0:39:57	loss_t 0.0043 (0.0075)	lr 0.000010
+epoch: [17/40][30/377]	time 0.239 (0.257)	data 0.000 (0.016)	eta 0:38:41	loss_t 0.0000 (0.0170)	lr 0.000010
+epoch: [17/40][40/377]	time 0.239 (0.254)	data 0.000 (0.012)	eta 0:38:04	loss_t 0.0120 (0.0169)	lr 0.000010
+epoch: [17/40][50/377]	time 0.251 (0.252)	data 0.000 (0.010)	eta 0:37:45	loss_t 0.0000 (0.0153)	lr 0.000010
+epoch: [17/40][60/377]	time 0.243 (0.250)	data 0.000 (0.008)	eta 0:37:30	loss_t 0.0000 (0.0163)	lr 0.000010
+epoch: [17/40][70/377]	time 0.251 (0.249)	data 0.000 (0.007)	eta 0:37:16	loss_t 0.0000 (0.0161)	lr 0.000010
+epoch: [17/40][80/377]	time 0.237 (0.248)	data 0.000 (0.006)	eta 0:37:07	loss_t 0.0013 (0.0175)	lr 0.000010
+epoch: [17/40][90/377]	time 0.237 (0.247)	data 0.000 (0.006)	eta 0:36:54	loss_t 0.0349 (0.0176)	lr 0.000010
+epoch: [17/40][100/377]	time 0.245 (0.247)	data 0.000 (0.005)	eta 0:36:48	loss_t 0.0000 (0.0168)	lr 0.000010
+epoch: [17/40][110/377]	time 0.239 (0.246)	data 0.000 (0.005)	eta 0:36:39	loss_t 0.0066 (0.0158)	lr 0.000010
+epoch: [17/40][120/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:36:33	loss_t 0.0068 (0.0152)	lr 0.000010
+epoch: [17/40][130/377]	time 0.239 (0.245)	data 0.000 (0.004)	eta 0:36:27	loss_t 0.0000 (0.0143)	lr 0.000010
+epoch: [17/40][140/377]	time 0.248 (0.245)	data 0.000 (0.004)	eta 0:36:24	loss_t 0.0000 (0.0139)	lr 0.000010
+epoch: [17/40][150/377]	time 0.243 (0.245)	data 0.000 (0.004)	eta 0:36:22	loss_t 0.0091 (0.0133)	lr 0.000010
+epoch: [17/40][160/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:36:19	loss_t 0.0000 (0.0126)	lr 0.000010
+epoch: [17/40][170/377]	time 0.252 (0.245)	data 0.000 (0.003)	eta 0:36:16	loss_t 0.0000 (0.0124)	lr 0.000010
+epoch: [17/40][180/377]	time 0.251 (0.245)	data 0.000 (0.003)	eta 0:36:13	loss_t 0.0413 (0.0123)	lr 0.000010
+epoch: [17/40][190/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:36:10	loss_t 0.0059 (0.0126)	lr 0.000010
+epoch: [17/40][200/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:36:08	loss_t 0.0001 (0.0123)	lr 0.000010
+epoch: [17/40][210/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:36:05	loss_t 0.0000 (0.0125)	lr 0.000010
+epoch: [17/40][220/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:36:02	loss_t 0.0295 (0.0129)	lr 0.000010
+epoch: [17/40][230/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:35:58	loss_t 0.0965 (0.0131)	lr 0.000010
+epoch: [17/40][240/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:35:55	loss_t 0.0056 (0.0134)	lr 0.000010
+epoch: [17/40][250/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:35:51	loss_t 0.0528 (0.0136)	lr 0.000010
+epoch: [17/40][260/377]	time 0.254 (0.244)	data 0.000 (0.002)	eta 0:35:48	loss_t 0.0000 (0.0136)	lr 0.000010
+epoch: [17/40][270/377]	time 0.237 (0.244)	data 0.001 (0.002)	eta 0:35:44	loss_t 0.0000 (0.0132)	lr 0.000010
+epoch: [17/40][280/377]	time 0.236 (0.244)	data 0.000 (0.002)	eta 0:35:40	loss_t 0.0000 (0.0130)	lr 0.000010
+epoch: [17/40][290/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:35:37	loss_t 0.0304 (0.0130)	lr 0.000010
+epoch: [17/40][300/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:35:33	loss_t 0.0381 (0.0128)	lr 0.000010
+epoch: [17/40][310/377]	time 0.236 (0.244)	data 0.000 (0.002)	eta 0:35:29	loss_t 0.0000 (0.0127)	lr 0.000010
+epoch: [17/40][320/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:35:25	loss_t 0.0111 (0.0128)	lr 0.000010
+epoch: [17/40][330/377]	time 0.236 (0.243)	data 0.000 (0.002)	eta 0:35:22	loss_t 0.0004 (0.0128)	lr 0.000010
+epoch: [17/40][340/377]	time 0.238 (0.243)	data 0.000 (0.002)	eta 0:35:18	loss_t 0.0000 (0.0124)	lr 0.000010
+epoch: [17/40][350/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:35:15	loss_t 0.0356 (0.0123)	lr 0.000010
+epoch: [17/40][360/377]	time 0.236 (0.243)	data 0.000 (0.002)	eta 0:35:12	loss_t 0.0319 (0.0123)	lr 0.000010
+epoch: [17/40][370/377]	time 0.245 (0.243)	data 0.001 (0.002)	eta 0:35:09	loss_t 0.0130 (0.0122)	lr 0.000010
+epoch: [18/40][10/377]	time 0.241 (0.294)	data 0.000 (0.050)	eta 0:42:28	loss_t 0.0000 (0.0033)	lr 0.000010
+epoch: [18/40][20/377]	time 0.240 (0.268)	data 0.000 (0.025)	eta 0:38:34	loss_t 0.0000 (0.0102)	lr 0.000010
+epoch: [18/40][30/377]	time 0.237 (0.259)	data 0.001 (0.017)	eta 0:37:20	loss_t 0.0050 (0.0101)	lr 0.000010
+epoch: [18/40][40/377]	time 0.246 (0.255)	data 0.000 (0.013)	eta 0:36:45	loss_t 0.0083 (0.0086)	lr 0.000010
+epoch: [18/40][50/377]	time 0.249 (0.253)	data 0.000 (0.010)	eta 0:36:24	loss_t 0.0276 (0.0081)	lr 0.000010
+epoch: [18/40][60/377]	time 0.240 (0.252)	data 0.000 (0.009)	eta 0:36:09	loss_t 0.0000 (0.0081)	lr 0.000010
+epoch: [18/40][70/377]	time 0.248 (0.251)	data 0.000 (0.007)	eta 0:35:56	loss_t 0.0001 (0.0095)	lr 0.000010
+epoch: [18/40][80/377]	time 0.250 (0.250)	data 0.000 (0.007)	eta 0:35:46	loss_t 0.0000 (0.0094)	lr 0.000010
+epoch: [18/40][90/377]	time 0.243 (0.249)	data 0.000 (0.006)	eta 0:35:36	loss_t 0.0061 (0.0099)	lr 0.000010
+epoch: [18/40][100/377]	time 0.250 (0.248)	data 0.000 (0.005)	eta 0:35:29	loss_t 0.0255 (0.0094)	lr 0.000010
+epoch: [18/40][110/377]	time 0.245 (0.248)	data 0.000 (0.005)	eta 0:35:19	loss_t 0.0002 (0.0092)	lr 0.000010
+epoch: [18/40][120/377]	time 0.238 (0.247)	data 0.000 (0.005)	eta 0:35:12	loss_t 0.0018 (0.0091)	lr 0.000010
+epoch: [18/40][130/377]	time 0.246 (0.247)	data 0.000 (0.004)	eta 0:35:06	loss_t 0.0000 (0.0092)	lr 0.000010
+epoch: [18/40][140/377]	time 0.246 (0.246)	data 0.000 (0.004)	eta 0:35:02	loss_t 0.0000 (0.0095)	lr 0.000010
+epoch: [18/40][150/377]	time 0.243 (0.246)	data 0.001 (0.004)	eta 0:34:58	loss_t 0.0000 (0.0091)	lr 0.000010
+epoch: [18/40][160/377]	time 0.247 (0.246)	data 0.000 (0.003)	eta 0:34:55	loss_t 0.0008 (0.0094)	lr 0.000010
+epoch: [18/40][170/377]	time 0.240 (0.246)	data 0.000 (0.003)	eta 0:34:50	loss_t 0.0008 (0.0089)	lr 0.000010
+epoch: [18/40][180/377]	time 0.243 (0.246)	data 0.000 (0.003)	eta 0:34:46	loss_t 0.0733 (0.0091)	lr 0.000010
+epoch: [18/40][190/377]	time 0.249 (0.246)	data 0.000 (0.003)	eta 0:34:43	loss_t 0.0000 (0.0094)	lr 0.000010
+epoch: [18/40][200/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:34:38	loss_t 0.0147 (0.0095)	lr 0.000010
+epoch: [18/40][210/377]	time 0.236 (0.245)	data 0.000 (0.003)	eta 0:34:32	loss_t 0.0000 (0.0096)	lr 0.000010
+epoch: [18/40][220/377]	time 0.249 (0.245)	data 0.001 (0.003)	eta 0:34:28	loss_t 0.0000 (0.0096)	lr 0.000010
+epoch: [18/40][230/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:34:23	loss_t 0.0517 (0.0098)	lr 0.000010
+epoch: [18/40][240/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:34:19	loss_t 0.0164 (0.0100)	lr 0.000010
+epoch: [18/40][250/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:34:15	loss_t 0.0000 (0.0100)	lr 0.000010
+epoch: [18/40][260/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:34:13	loss_t 0.0000 (0.0099)	lr 0.000010
+epoch: [18/40][270/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:34:09	loss_t 0.0000 (0.0097)	lr 0.000010
+epoch: [18/40][280/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:34:06	loss_t 0.0000 (0.0094)	lr 0.000010
+epoch: [18/40][290/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:34:04	loss_t 0.0221 (0.0094)	lr 0.000010
+epoch: [18/40][300/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:34:02	loss_t 0.0082 (0.0096)	lr 0.000010
+epoch: [18/40][310/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:33:59	loss_t 0.0023 (0.0096)	lr 0.000010
+epoch: [18/40][320/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:33:56	loss_t 0.0000 (0.0097)	lr 0.000010
+epoch: [18/40][330/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:33:53	loss_t 0.0045 (0.0097)	lr 0.000010
+epoch: [18/40][340/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:33:51	loss_t 0.0002 (0.0097)	lr 0.000010
+epoch: [18/40][350/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:33:49	loss_t 0.0000 (0.0099)	lr 0.000010
+epoch: [18/40][360/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:33:47	loss_t 0.0045 (0.0104)	lr 0.000010
+epoch: [18/40][370/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:33:43	loss_t 0.0013 (0.0103)	lr 0.000010
+epoch: [19/40][10/377]	time 0.244 (0.296)	data 0.001 (0.049)	eta 0:40:50	loss_t 0.0000 (0.0068)	lr 0.000010
+epoch: [19/40][20/377]	time 0.246 (0.269)	data 0.000 (0.025)	eta 0:37:03	loss_t 0.0378 (0.0128)	lr 0.000010
+epoch: [19/40][30/377]	time 0.242 (0.261)	data 0.000 (0.017)	eta 0:35:52	loss_t 0.0101 (0.0115)	lr 0.000010
+epoch: [19/40][40/377]	time 0.244 (0.256)	data 0.000 (0.013)	eta 0:35:15	loss_t 0.0000 (0.0135)	lr 0.000010
+epoch: [19/40][50/377]	time 0.236 (0.253)	data 0.000 (0.010)	eta 0:34:46	loss_t 0.0101 (0.0118)	lr 0.000010
+epoch: [19/40][60/377]	time 0.245 (0.251)	data 0.000 (0.009)	eta 0:34:30	loss_t 0.0101 (0.0110)	lr 0.000010
+epoch: [19/40][70/377]	time 0.239 (0.250)	data 0.000 (0.007)	eta 0:34:14	loss_t 0.0394 (0.0108)	lr 0.000010
+epoch: [19/40][80/377]	time 0.247 (0.249)	data 0.000 (0.006)	eta 0:34:06	loss_t 0.0106 (0.0126)	lr 0.000010
+epoch: [19/40][90/377]	time 0.240 (0.248)	data 0.000 (0.006)	eta 0:33:57	loss_t 0.0035 (0.0117)	lr 0.000010
+epoch: [19/40][100/377]	time 0.238 (0.248)	data 0.000 (0.005)	eta 0:33:50	loss_t 0.0000 (0.0115)	lr 0.000010
+epoch: [19/40][110/377]	time 0.241 (0.247)	data 0.000 (0.005)	eta 0:33:44	loss_t 0.0047 (0.0116)	lr 0.000010
+epoch: [19/40][120/377]	time 0.246 (0.247)	data 0.000 (0.004)	eta 0:33:40	loss_t 0.0251 (0.0114)	lr 0.000010
+epoch: [19/40][130/377]	time 0.252 (0.247)	data 0.000 (0.004)	eta 0:33:35	loss_t 0.0409 (0.0116)	lr 0.000010
+epoch: [19/40][140/377]	time 0.247 (0.247)	data 0.001 (0.004)	eta 0:33:30	loss_t 0.0739 (0.0120)	lr 0.000010
+epoch: [19/40][150/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:33:27	loss_t 0.0000 (0.0116)	lr 0.000010
+epoch: [19/40][160/377]	time 0.246 (0.246)	data 0.000 (0.003)	eta 0:33:22	loss_t 0.0360 (0.0123)	lr 0.000010
+epoch: [19/40][170/377]	time 0.240 (0.246)	data 0.000 (0.003)	eta 0:33:18	loss_t 0.0190 (0.0122)	lr 0.000010
+epoch: [19/40][180/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:33:14	loss_t 0.0142 (0.0119)	lr 0.000010
+epoch: [19/40][190/377]	time 0.240 (0.246)	data 0.000 (0.003)	eta 0:33:11	loss_t 0.0000 (0.0116)	lr 0.000010
+epoch: [19/40][200/377]	time 0.259 (0.246)	data 0.000 (0.003)	eta 0:33:08	loss_t 0.0246 (0.0120)	lr 0.000010
+epoch: [19/40][210/377]	time 0.249 (0.246)	data 0.000 (0.003)	eta 0:33:05	loss_t 0.0012 (0.0116)	lr 0.000010
+epoch: [19/40][220/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:33:02	loss_t 0.0000 (0.0115)	lr 0.000010
+epoch: [19/40][230/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:32:58	loss_t 0.0017 (0.0112)	lr 0.000010
+epoch: [19/40][240/377]	time 0.241 (0.245)	data 0.000 (0.002)	eta 0:32:55	loss_t 0.0098 (0.0112)	lr 0.000010
+epoch: [19/40][250/377]	time 0.242 (0.245)	data 0.001 (0.002)	eta 0:32:51	loss_t 0.0286 (0.0110)	lr 0.000010
+epoch: [19/40][260/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:32:47	loss_t 0.0034 (0.0111)	lr 0.000010
+epoch: [19/40][270/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:32:45	loss_t 0.0347 (0.0110)	lr 0.000010
+epoch: [19/40][280/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:32:42	loss_t 0.0000 (0.0108)	lr 0.000010
+epoch: [19/40][290/377]	time 0.242 (0.245)	data 0.000 (0.002)	eta 0:32:39	loss_t 0.0007 (0.0109)	lr 0.000010
+epoch: [19/40][300/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:32:36	loss_t 0.0139 (0.0113)	lr 0.000010
+epoch: [19/40][310/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:32:33	loss_t 0.0160 (0.0115)	lr 0.000010
+epoch: [19/40][320/377]	time 0.240 (0.245)	data 0.000 (0.002)	eta 0:32:31	loss_t 0.0001 (0.0115)	lr 0.000010
+epoch: [19/40][330/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:32:27	loss_t 0.0000 (0.0115)	lr 0.000010
+epoch: [19/40][340/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:32:25	loss_t 0.0000 (0.0116)	lr 0.000010
+epoch: [19/40][350/377]	time 0.254 (0.245)	data 0.000 (0.002)	eta 0:32:22	loss_t 0.0327 (0.0114)	lr 0.000010
+epoch: [19/40][360/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:32:19	loss_t 0.0000 (0.0114)	lr 0.000010
+epoch: [19/40][370/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:32:15	loss_t 0.0124 (0.0116)	lr 0.000010
+epoch: [20/40][10/377]	time 0.244 (0.295)	data 0.000 (0.049)	eta 0:38:53	loss_t 0.0489 (0.0125)	lr 0.000010
+epoch: [20/40][20/377]	time 0.239 (0.268)	data 0.000 (0.025)	eta 0:35:16	loss_t 0.0019 (0.0070)	lr 0.000010
+epoch: [20/40][30/377]	time 0.242 (0.260)	data 0.000 (0.017)	eta 0:34:10	loss_t 0.0107 (0.0065)	lr 0.000010
+epoch: [20/40][40/377]	time 0.242 (0.256)	data 0.001 (0.012)	eta 0:33:33	loss_t 0.0034 (0.0069)	lr 0.000010
+epoch: [20/40][50/377]	time 0.246 (0.253)	data 0.001 (0.010)	eta 0:33:09	loss_t 0.0000 (0.0059)	lr 0.000010
+epoch: [20/40][60/377]	time 0.244 (0.251)	data 0.000 (0.008)	eta 0:32:50	loss_t 0.0000 (0.0061)	lr 0.000010
+epoch: [20/40][70/377]	time 0.244 (0.250)	data 0.000 (0.007)	eta 0:32:41	loss_t 0.0172 (0.0087)	lr 0.000010
+epoch: [20/40][80/377]	time 0.236 (0.249)	data 0.000 (0.006)	eta 0:32:28	loss_t 0.0003 (0.0086)	lr 0.000010
+epoch: [20/40][90/377]	time 0.236 (0.248)	data 0.000 (0.006)	eta 0:32:18	loss_t 0.0000 (0.0087)	lr 0.000010
+epoch: [20/40][100/377]	time 0.237 (0.247)	data 0.000 (0.005)	eta 0:32:11	loss_t 0.0045 (0.0087)	lr 0.000010
+epoch: [20/40][110/377]	time 0.239 (0.247)	data 0.000 (0.005)	eta 0:32:04	loss_t 0.0012 (0.0083)	lr 0.000010
+epoch: [20/40][120/377]	time 0.244 (0.246)	data 0.000 (0.004)	eta 0:31:59	loss_t 0.0000 (0.0090)	lr 0.000010
+epoch: [20/40][130/377]	time 0.245 (0.246)	data 0.000 (0.004)	eta 0:31:55	loss_t 0.0000 (0.0095)	lr 0.000010
+epoch: [20/40][140/377]	time 0.242 (0.246)	data 0.000 (0.004)	eta 0:31:51	loss_t 0.0210 (0.0092)	lr 0.000010
+epoch: [20/40][150/377]	time 0.245 (0.245)	data 0.000 (0.004)	eta 0:31:46	loss_t 0.0000 (0.0088)	lr 0.000010
+epoch: [20/40][160/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:31:42	loss_t 0.0000 (0.0089)	lr 0.000010
+epoch: [20/40][170/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:31:38	loss_t 0.0000 (0.0088)	lr 0.000010
+epoch: [20/40][180/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:31:34	loss_t 0.0030 (0.0088)	lr 0.000010
+epoch: [20/40][190/377]	time 0.248 (0.245)	data 0.000 (0.003)	eta 0:31:31	loss_t 0.0000 (0.0085)	lr 0.000010
+epoch: [20/40][200/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:31:28	loss_t 0.0010 (0.0090)	lr 0.000010
+epoch: [20/40][210/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:31:24	loss_t 0.0000 (0.0088)	lr 0.000010
+epoch: [20/40][220/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:31:20	loss_t 0.0130 (0.0089)	lr 0.000010
+epoch: [20/40][230/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:31:17	loss_t 0.0000 (0.0091)	lr 0.000010
+epoch: [20/40][240/377]	time 0.236 (0.244)	data 0.000 (0.002)	eta 0:31:14	loss_t 0.0000 (0.0091)	lr 0.000010
+epoch: [20/40][250/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:31:10	loss_t 0.0000 (0.0089)	lr 0.000010
+epoch: [20/40][260/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:31:07	loss_t 0.0000 (0.0088)	lr 0.000010
+epoch: [20/40][270/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:31:03	loss_t 0.0068 (0.0089)	lr 0.000010
+epoch: [20/40][280/377]	time 0.240 (0.244)	data 0.001 (0.002)	eta 0:31:00	loss_t 0.0000 (0.0089)	lr 0.000010
+epoch: [20/40][290/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:30:57	loss_t 0.0000 (0.0090)	lr 0.000010
+epoch: [20/40][300/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:30:55	loss_t 0.0098 (0.0090)	lr 0.000010
+epoch: [20/40][310/377]	time 0.249 (0.244)	data 0.000 (0.002)	eta 0:30:52	loss_t 0.0000 (0.0089)	lr 0.000010
+epoch: [20/40][320/377]	time 0.238 (0.243)	data 0.000 (0.002)	eta 0:30:49	loss_t 0.0000 (0.0089)	lr 0.000010
+epoch: [20/40][330/377]	time 0.236 (0.243)	data 0.000 (0.002)	eta 0:30:46	loss_t 0.0003 (0.0088)	lr 0.000010
+epoch: [20/40][340/377]	time 0.249 (0.243)	data 0.000 (0.002)	eta 0:30:44	loss_t 0.0464 (0.0091)	lr 0.000010
+epoch: [20/40][350/377]	time 0.238 (0.243)	data 0.001 (0.002)	eta 0:30:40	loss_t 0.0011 (0.0089)	lr 0.000010
+epoch: [20/40][360/377]	time 0.249 (0.243)	data 0.000 (0.002)	eta 0:30:38	loss_t 0.0000 (0.0089)	lr 0.000010
+epoch: [20/40][370/377]	time 0.237 (0.243)	data 0.001 (0.002)	eta 0:30:35	loss_t 0.0074 (0.0089)	lr 0.000010
+epoch: [21/40][10/377]	time 0.240 (0.297)	data 0.000 (0.050)	eta 0:37:14	loss_t 0.0000 (0.0045)	lr 0.000001
+epoch: [21/40][20/377]	time 0.240 (0.269)	data 0.000 (0.025)	eta 0:33:41	loss_t 0.0000 (0.0039)	lr 0.000001
+epoch: [21/40][30/377]	time 0.236 (0.260)	data 0.000 (0.017)	eta 0:32:29	loss_t 0.0080 (0.0046)	lr 0.000001
+epoch: [21/40][40/377]	time 0.250 (0.256)	data 0.000 (0.013)	eta 0:31:56	loss_t 0.0090 (0.0056)	lr 0.000001
+epoch: [21/40][50/377]	time 0.239 (0.253)	data 0.000 (0.010)	eta 0:31:33	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [21/40][60/377]	time 0.240 (0.251)	data 0.000 (0.009)	eta 0:31:18	loss_t 0.0000 (0.0049)	lr 0.000001
+epoch: [21/40][70/377]	time 0.238 (0.250)	data 0.001 (0.008)	eta 0:31:08	loss_t 0.0086 (0.0050)	lr 0.000001
+epoch: [21/40][80/377]	time 0.241 (0.249)	data 0.000 (0.007)	eta 0:30:58	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [21/40][90/377]	time 0.239 (0.248)	data 0.000 (0.006)	eta 0:30:49	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [21/40][100/377]	time 0.241 (0.247)	data 0.000 (0.005)	eta 0:30:41	loss_t 0.0394 (0.0061)	lr 0.000001
+epoch: [21/40][110/377]	time 0.246 (0.247)	data 0.000 (0.005)	eta 0:30:34	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [21/40][120/377]	time 0.244 (0.247)	data 0.000 (0.005)	eta 0:30:29	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [21/40][130/377]	time 0.248 (0.246)	data 0.000 (0.004)	eta 0:30:25	loss_t 0.0646 (0.0061)	lr 0.000001
+epoch: [21/40][140/377]	time 0.241 (0.246)	data 0.000 (0.004)	eta 0:30:20	loss_t 0.0061 (0.0060)	lr 0.000001
+epoch: [21/40][150/377]	time 0.249 (0.246)	data 0.000 (0.004)	eta 0:30:19	loss_t 0.0000 (0.0062)	lr 0.000001
+epoch: [21/40][160/377]	time 0.243 (0.246)	data 0.000 (0.004)	eta 0:30:15	loss_t 0.0000 (0.0064)	lr 0.000001
+epoch: [21/40][170/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:30:12	loss_t 0.0000 (0.0063)	lr 0.000001
+epoch: [21/40][180/377]	time 0.245 (0.246)	data 0.000 (0.003)	eta 0:30:08	loss_t 0.0001 (0.0068)	lr 0.000001
+epoch: [21/40][190/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:30:06	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [21/40][200/377]	time 0.237 (0.246)	data 0.000 (0.003)	eta 0:30:02	loss_t 0.0000 (0.0066)	lr 0.000001
+epoch: [21/40][210/377]	time 0.251 (0.245)	data 0.000 (0.003)	eta 0:29:58	loss_t 0.0149 (0.0067)	lr 0.000001
+epoch: [21/40][220/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:29:54	loss_t 0.0276 (0.0071)	lr 0.000001
+epoch: [21/40][230/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:29:50	loss_t 0.0314 (0.0071)	lr 0.000001
+epoch: [21/40][240/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:29:46	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [21/40][250/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:29:42	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [21/40][260/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:29:39	loss_t 0.0000 (0.0067)	lr 0.000001
+epoch: [21/40][270/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:29:36	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [21/40][280/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:29:33	loss_t 0.0000 (0.0069)	lr 0.000001
+epoch: [21/40][290/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:29:30	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [21/40][300/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:29:26	loss_t 0.0095 (0.0074)	lr 0.000001
+epoch: [21/40][310/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:29:23	loss_t 0.0011 (0.0074)	lr 0.000001
+epoch: [21/40][320/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:29:21	loss_t 0.0000 (0.0074)	lr 0.000001
+epoch: [21/40][330/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:29:19	loss_t 0.0000 (0.0073)	lr 0.000001
+epoch: [21/40][340/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:29:16	loss_t 0.0000 (0.0071)	lr 0.000001
+epoch: [21/40][350/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:29:13	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [21/40][360/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:29:11	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [21/40][370/377]	time 0.242 (0.244)	data 0.001 (0.002)	eta 0:29:09	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [22/40][10/377]	time 0.242 (0.291)	data 0.000 (0.046)	eta 0:34:40	loss_t 0.0007 (0.0162)	lr 0.000001
+epoch: [22/40][20/377]	time 0.239 (0.267)	data 0.000 (0.023)	eta 0:31:50	loss_t 0.0000 (0.0083)	lr 0.000001
+epoch: [22/40][30/377]	time 0.243 (0.259)	data 0.000 (0.016)	eta 0:30:45	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [22/40][40/377]	time 0.251 (0.255)	data 0.000 (0.012)	eta 0:30:15	loss_t 0.0000 (0.0081)	lr 0.000001
+epoch: [22/40][50/377]	time 0.238 (0.252)	data 0.000 (0.010)	eta 0:29:54	loss_t 0.0052 (0.0070)	lr 0.000001
+epoch: [22/40][60/377]	time 0.239 (0.250)	data 0.000 (0.008)	eta 0:29:37	loss_t 0.0000 (0.0079)	lr 0.000001
+epoch: [22/40][70/377]	time 0.245 (0.249)	data 0.000 (0.007)	eta 0:29:28	loss_t 0.0000 (0.0094)	lr 0.000001
+epoch: [22/40][80/377]	time 0.244 (0.249)	data 0.000 (0.006)	eta 0:29:21	loss_t 0.0000 (0.0092)	lr 0.000001
+epoch: [22/40][90/377]	time 0.240 (0.248)	data 0.000 (0.006)	eta 0:29:13	loss_t 0.0000 (0.0095)	lr 0.000001
+epoch: [22/40][100/377]	time 0.241 (0.247)	data 0.000 (0.005)	eta 0:29:06	loss_t 0.0022 (0.0088)	lr 0.000001
+epoch: [22/40][110/377]	time 0.240 (0.247)	data 0.000 (0.005)	eta 0:29:01	loss_t 0.0000 (0.0088)	lr 0.000001
+epoch: [22/40][120/377]	time 0.257 (0.247)	data 0.001 (0.004)	eta 0:28:57	loss_t 0.0001 (0.0085)	lr 0.000001
+epoch: [22/40][130/377]	time 0.240 (0.246)	data 0.000 (0.004)	eta 0:28:53	loss_t 0.0467 (0.0082)	lr 0.000001
+epoch: [22/40][140/377]	time 0.241 (0.246)	data 0.000 (0.004)	eta 0:28:48	loss_t 0.0201 (0.0082)	lr 0.000001
+epoch: [22/40][150/377]	time 0.240 (0.246)	data 0.000 (0.003)	eta 0:28:44	loss_t 0.0011 (0.0082)	lr 0.000001
+epoch: [22/40][160/377]	time 0.241 (0.246)	data 0.000 (0.003)	eta 0:28:41	loss_t 0.0000 (0.0083)	lr 0.000001
+epoch: [22/40][170/377]	time 0.244 (0.246)	data 0.000 (0.003)	eta 0:28:37	loss_t 0.0000 (0.0095)	lr 0.000001
+epoch: [22/40][180/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:28:34	loss_t 0.0065 (0.0090)	lr 0.000001
+epoch: [22/40][190/377]	time 0.246 (0.245)	data 0.000 (0.003)	eta 0:28:30	loss_t 0.0000 (0.0088)	lr 0.000001
+epoch: [22/40][200/377]	time 0.247 (0.245)	data 0.000 (0.003)	eta 0:28:27	loss_t 0.0275 (0.0090)	lr 0.000001
+epoch: [22/40][210/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:28:23	loss_t 0.0000 (0.0088)	lr 0.000001
+epoch: [22/40][220/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:28:20	loss_t 0.0182 (0.0094)	lr 0.000001
+epoch: [22/40][230/377]	time 0.247 (0.245)	data 0.000 (0.002)	eta 0:28:17	loss_t 0.0000 (0.0103)	lr 0.000001
+epoch: [22/40][240/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:28:14	loss_t 0.0019 (0.0099)	lr 0.000001
+epoch: [22/40][250/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:28:11	loss_t 0.0000 (0.0098)	lr 0.000001
+epoch: [22/40][260/377]	time 0.241 (0.245)	data 0.000 (0.002)	eta 0:28:08	loss_t 0.0154 (0.0099)	lr 0.000001
+epoch: [22/40][270/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:28:05	loss_t 0.0000 (0.0097)	lr 0.000001
+epoch: [22/40][280/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:28:03	loss_t 0.0266 (0.0095)	lr 0.000001
+epoch: [22/40][290/377]	time 0.252 (0.245)	data 0.000 (0.002)	eta 0:28:01	loss_t 0.0455 (0.0095)	lr 0.000001
+epoch: [22/40][300/377]	time 0.245 (0.245)	data 0.000 (0.002)	eta 0:27:58	loss_t 0.0000 (0.0093)	lr 0.000001
+epoch: [22/40][310/377]	time 0.240 (0.245)	data 0.000 (0.002)	eta 0:27:55	loss_t 0.0199 (0.0092)	lr 0.000001
+epoch: [22/40][320/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:27:52	loss_t 0.0053 (0.0090)	lr 0.000001
+epoch: [22/40][330/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:27:49	loss_t 0.0199 (0.0090)	lr 0.000001
+epoch: [22/40][340/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:27:47	loss_t 0.0000 (0.0090)	lr 0.000001
+epoch: [22/40][350/377]	time 0.256 (0.244)	data 0.000 (0.002)	eta 0:27:44	loss_t 0.0000 (0.0090)	lr 0.000001
+epoch: [22/40][360/377]	time 0.249 (0.244)	data 0.000 (0.002)	eta 0:27:41	loss_t 0.0000 (0.0088)	lr 0.000001
+epoch: [22/40][370/377]	time 0.244 (0.244)	data 0.001 (0.002)	eta 0:27:39	loss_t 0.0007 (0.0088)	lr 0.000001
+epoch: [23/40][10/377]	time 0.241 (0.294)	data 0.000 (0.050)	eta 0:33:10	loss_t 0.0000 (0.0027)	lr 0.000001
+epoch: [23/40][20/377]	time 0.242 (0.268)	data 0.000 (0.025)	eta 0:30:15	loss_t 0.0088 (0.0034)	lr 0.000001
+epoch: [23/40][30/377]	time 0.237 (0.259)	data 0.000 (0.017)	eta 0:29:07	loss_t 0.0008 (0.0027)	lr 0.000001
+epoch: [23/40][40/377]	time 0.236 (0.254)	data 0.000 (0.013)	eta 0:28:33	loss_t 0.0000 (0.0023)	lr 0.000001
+epoch: [23/40][50/377]	time 0.238 (0.252)	data 0.000 (0.010)	eta 0:28:16	loss_t 0.0078 (0.0022)	lr 0.000001
+epoch: [23/40][60/377]	time 0.249 (0.250)	data 0.000 (0.009)	eta 0:28:01	loss_t 0.0000 (0.0028)	lr 0.000001
+epoch: [23/40][70/377]	time 0.245 (0.249)	data 0.000 (0.007)	eta 0:27:50	loss_t 0.0000 (0.0030)	lr 0.000001
+epoch: [23/40][80/377]	time 0.250 (0.248)	data 0.000 (0.007)	eta 0:27:44	loss_t 0.0000 (0.0035)	lr 0.000001
+epoch: [23/40][90/377]	time 0.239 (0.247)	data 0.000 (0.006)	eta 0:27:35	loss_t 0.0000 (0.0044)	lr 0.000001
+epoch: [23/40][100/377]	time 0.242 (0.247)	data 0.000 (0.005)	eta 0:27:28	loss_t 0.0000 (0.0047)	lr 0.000001
+epoch: [23/40][110/377]	time 0.239 (0.246)	data 0.000 (0.005)	eta 0:27:22	loss_t 0.0000 (0.0045)	lr 0.000001
+epoch: [23/40][120/377]	time 0.249 (0.246)	data 0.000 (0.005)	eta 0:27:18	loss_t 0.0217 (0.0050)	lr 0.000001
+epoch: [23/40][130/377]	time 0.253 (0.245)	data 0.000 (0.004)	eta 0:27:13	loss_t 0.0000 (0.0050)	lr 0.000001
+epoch: [23/40][140/377]	time 0.243 (0.245)	data 0.000 (0.004)	eta 0:27:10	loss_t 0.0000 (0.0051)	lr 0.000001
+epoch: [23/40][150/377]	time 0.241 (0.245)	data 0.000 (0.004)	eta 0:27:05	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [23/40][160/377]	time 0.252 (0.245)	data 0.000 (0.003)	eta 0:27:02	loss_t 0.0000 (0.0047)	lr 0.000001
+epoch: [23/40][170/377]	time 0.247 (0.245)	data 0.000 (0.003)	eta 0:26:58	loss_t 0.0000 (0.0047)	lr 0.000001
+epoch: [23/40][180/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:26:55	loss_t 0.0136 (0.0048)	lr 0.000001
+epoch: [23/40][190/377]	time 0.240 (0.244)	data 0.000 (0.003)	eta 0:26:51	loss_t 0.0000 (0.0050)	lr 0.000001
+epoch: [23/40][200/377]	time 0.239 (0.244)	data 0.000 (0.003)	eta 0:26:49	loss_t 0.0047 (0.0049)	lr 0.000001
+epoch: [23/40][210/377]	time 0.246 (0.244)	data 0.000 (0.003)	eta 0:26:46	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [23/40][220/377]	time 0.245 (0.244)	data 0.000 (0.003)	eta 0:26:43	loss_t 0.0000 (0.0051)	lr 0.000001
+epoch: [23/40][230/377]	time 0.243 (0.244)	data 0.000 (0.003)	eta 0:26:40	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [23/40][240/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:26:38	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [23/40][250/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:26:35	loss_t 0.0511 (0.0056)	lr 0.000001
+epoch: [23/40][260/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:26:32	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [23/40][270/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:26:29	loss_t 0.0842 (0.0060)	lr 0.000001
+epoch: [23/40][280/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:26:26	loss_t 0.0017 (0.0062)	lr 0.000001
+epoch: [23/40][290/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:26:24	loss_t 0.0035 (0.0062)	lr 0.000001
+epoch: [23/40][300/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:26:21	loss_t 0.0186 (0.0064)	lr 0.000001
+epoch: [23/40][310/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:26:19	loss_t 0.0000 (0.0065)	lr 0.000001
+epoch: [23/40][320/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:26:16	loss_t 0.0183 (0.0065)	lr 0.000001
+epoch: [23/40][330/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:26:13	loss_t 0.0000 (0.0065)	lr 0.000001
+epoch: [23/40][340/377]	time 0.240 (0.244)	data 0.001 (0.002)	eta 0:26:10	loss_t 0.0000 (0.0063)	lr 0.000001
+epoch: [23/40][350/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:26:08	loss_t 0.0000 (0.0063)	lr 0.000001
+epoch: [23/40][360/377]	time 0.248 (0.244)	data 0.000 (0.002)	eta 0:26:06	loss_t 0.0214 (0.0065)	lr 0.000001
+epoch: [23/40][370/377]	time 0.244 (0.244)	data 0.001 (0.002)	eta 0:26:04	loss_t 0.0000 (0.0066)	lr 0.000001
+epoch: [24/40][10/377]	time 0.243 (0.295)	data 0.000 (0.049)	eta 0:31:25	loss_t 0.0000 (0.0097)	lr 0.000001
+epoch: [24/40][20/377]	time 0.242 (0.269)	data 0.000 (0.024)	eta 0:28:40	loss_t 0.0000 (0.0076)	lr 0.000001
+epoch: [24/40][30/377]	time 0.243 (0.260)	data 0.000 (0.016)	eta 0:27:40	loss_t 0.0000 (0.0089)	lr 0.000001
+epoch: [24/40][40/377]	time 0.240 (0.256)	data 0.000 (0.012)	eta 0:27:10	loss_t 0.0433 (0.0099)	lr 0.000001
+epoch: [24/40][50/377]	time 0.240 (0.254)	data 0.000 (0.010)	eta 0:26:52	loss_t 0.0000 (0.0101)	lr 0.000001
+epoch: [24/40][60/377]	time 0.246 (0.251)	data 0.000 (0.008)	eta 0:26:36	loss_t 0.0000 (0.0089)	lr 0.000001
+epoch: [24/40][70/377]	time 0.245 (0.250)	data 0.000 (0.007)	eta 0:26:26	loss_t 0.0000 (0.0085)	lr 0.000001
+epoch: [24/40][80/377]	time 0.239 (0.250)	data 0.000 (0.006)	eta 0:26:19	loss_t 0.0003 (0.0092)	lr 0.000001
+epoch: [24/40][90/377]	time 0.240 (0.249)	data 0.000 (0.006)	eta 0:26:11	loss_t 0.0000 (0.0091)	lr 0.000001
+epoch: [24/40][100/377]	time 0.238 (0.248)	data 0.000 (0.005)	eta 0:26:03	loss_t 0.0286 (0.0108)	lr 0.000001
+epoch: [24/40][110/377]	time 0.242 (0.247)	data 0.000 (0.005)	eta 0:25:55	loss_t 0.0000 (0.0105)	lr 0.000001
+epoch: [24/40][120/377]	time 0.239 (0.247)	data 0.000 (0.004)	eta 0:25:52	loss_t 0.0000 (0.0097)	lr 0.000001
+epoch: [24/40][130/377]	time 0.242 (0.247)	data 0.001 (0.004)	eta 0:25:47	loss_t 0.0000 (0.0092)	lr 0.000001
+epoch: [24/40][140/377]	time 0.245 (0.246)	data 0.000 (0.004)	eta 0:25:43	loss_t 0.0400 (0.0093)	lr 0.000001
+epoch: [24/40][150/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:25:37	loss_t 0.0038 (0.0095)	lr 0.000001
+epoch: [24/40][160/377]	time 0.240 (0.246)	data 0.000 (0.003)	eta 0:25:34	loss_t 0.0000 (0.0090)	lr 0.000001
+epoch: [24/40][170/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:25:31	loss_t 0.0027 (0.0089)	lr 0.000001
+epoch: [24/40][180/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:25:26	loss_t 0.0000 (0.0088)	lr 0.000001
+epoch: [24/40][190/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:25:23	loss_t 0.0000 (0.0093)	lr 0.000001
+epoch: [24/40][200/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:25:19	loss_t 0.0333 (0.0092)	lr 0.000001
+epoch: [24/40][210/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:25:16	loss_t 0.0000 (0.0092)	lr 0.000001
+epoch: [24/40][220/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:25:12	loss_t 0.0057 (0.0090)	lr 0.000001
+epoch: [24/40][230/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:25:10	loss_t 0.0000 (0.0088)	lr 0.000001
+epoch: [24/40][240/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:25:07	loss_t 0.0000 (0.0090)	lr 0.000001
+epoch: [24/40][250/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:25:04	loss_t 0.0000 (0.0087)	lr 0.000001
+epoch: [24/40][260/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:25:01	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [24/40][270/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:24:58	loss_t 0.0077 (0.0087)	lr 0.000001
+epoch: [24/40][280/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:24:55	loss_t 0.0097 (0.0088)	lr 0.000001
+epoch: [24/40][290/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:24:52	loss_t 0.0117 (0.0087)	lr 0.000001
+epoch: [24/40][300/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:24:49	loss_t 0.0304 (0.0087)	lr 0.000001
+epoch: [24/40][310/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:24:46	loss_t 0.0000 (0.0085)	lr 0.000001
+epoch: [24/40][320/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:24:43	loss_t 0.0000 (0.0083)	lr 0.000001
+epoch: [24/40][330/377]	time 0.249 (0.244)	data 0.001 (0.002)	eta 0:24:40	loss_t 0.0000 (0.0083)	lr 0.000001
+epoch: [24/40][340/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:24:37	loss_t 0.0000 (0.0081)	lr 0.000001
+epoch: [24/40][350/377]	time 0.255 (0.243)	data 0.000 (0.002)	eta 0:24:35	loss_t 0.0000 (0.0081)	lr 0.000001
+epoch: [24/40][360/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:24:33	loss_t 0.0100 (0.0083)	lr 0.000001
+epoch: [24/40][370/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:24:30	loss_t 0.0000 (0.0082)	lr 0.000001
+epoch: [25/40][10/377]	time 0.250 (0.294)	data 0.001 (0.047)	eta 0:29:32	loss_t 0.0342 (0.0052)	lr 0.000001
+epoch: [25/40][20/377]	time 0.245 (0.268)	data 0.000 (0.024)	eta 0:26:52	loss_t 0.0004 (0.0054)	lr 0.000001
+epoch: [25/40][30/377]	time 0.238 (0.260)	data 0.000 (0.016)	eta 0:25:57	loss_t 0.0000 (0.0061)	lr 0.000001
+epoch: [25/40][40/377]	time 0.238 (0.255)	data 0.000 (0.012)	eta 0:25:26	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [25/40][50/377]	time 0.250 (0.253)	data 0.000 (0.010)	eta 0:25:13	loss_t 0.0022 (0.0064)	lr 0.000001
+epoch: [25/40][60/377]	time 0.244 (0.251)	data 0.000 (0.008)	eta 0:24:59	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [25/40][70/377]	time 0.246 (0.250)	data 0.000 (0.007)	eta 0:24:51	loss_t 0.0967 (0.0096)	lr 0.000001
+epoch: [25/40][80/377]	time 0.238 (0.249)	data 0.000 (0.006)	eta 0:24:42	loss_t 0.0000 (0.0098)	lr 0.000001
+epoch: [25/40][90/377]	time 0.240 (0.249)	data 0.000 (0.006)	eta 0:24:37	loss_t 0.0135 (0.0090)	lr 0.000001
+epoch: [25/40][100/377]	time 0.239 (0.248)	data 0.000 (0.005)	eta 0:24:31	loss_t 0.0000 (0.0083)	lr 0.000001
+epoch: [25/40][110/377]	time 0.245 (0.248)	data 0.000 (0.005)	eta 0:24:26	loss_t 0.0023 (0.0083)	lr 0.000001
+epoch: [25/40][120/377]	time 0.245 (0.248)	data 0.001 (0.004)	eta 0:24:23	loss_t 0.0134 (0.0082)	lr 0.000001
+epoch: [25/40][130/377]	time 0.240 (0.247)	data 0.000 (0.004)	eta 0:24:17	loss_t 0.0158 (0.0078)	lr 0.000001
+epoch: [25/40][140/377]	time 0.243 (0.247)	data 0.000 (0.004)	eta 0:24:13	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [25/40][150/377]	time 0.247 (0.246)	data 0.000 (0.003)	eta 0:24:09	loss_t 0.0082 (0.0075)	lr 0.000001
+epoch: [25/40][160/377]	time 0.255 (0.246)	data 0.000 (0.003)	eta 0:24:05	loss_t 0.0137 (0.0076)	lr 0.000001
+epoch: [25/40][170/377]	time 0.245 (0.246)	data 0.001 (0.003)	eta 0:24:02	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [25/40][180/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:23:57	loss_t 0.0165 (0.0080)	lr 0.000001
+epoch: [25/40][190/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:23:54	loss_t 0.0000 (0.0079)	lr 0.000001
+epoch: [25/40][200/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:23:50	loss_t 0.0000 (0.0079)	lr 0.000001
+epoch: [25/40][210/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:23:47	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [25/40][220/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:23:45	loss_t 0.0154 (0.0078)	lr 0.000001
+epoch: [25/40][230/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:23:41	loss_t 0.0000 (0.0076)	lr 0.000001
+epoch: [25/40][240/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:23:38	loss_t 0.0016 (0.0077)	lr 0.000001
+epoch: [25/40][250/377]	time 0.243 (0.245)	data 0.000 (0.002)	eta 0:23:34	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [25/40][260/377]	time 0.240 (0.245)	data 0.000 (0.002)	eta 0:23:31	loss_t 0.0000 (0.0076)	lr 0.000001
+epoch: [25/40][270/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:23:28	loss_t 0.0133 (0.0077)	lr 0.000001
+epoch: [25/40][280/377]	time 0.249 (0.244)	data 0.000 (0.002)	eta 0:23:25	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [25/40][290/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:23:22	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [25/40][300/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:23:20	loss_t 0.0105 (0.0076)	lr 0.000001
+epoch: [25/40][310/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:23:17	loss_t 0.0012 (0.0075)	lr 0.000001
+epoch: [25/40][320/377]	time 0.249 (0.244)	data 0.001 (0.002)	eta 0:23:14	loss_t 0.0233 (0.0075)	lr 0.000001
+epoch: [25/40][330/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:23:12	loss_t 0.0321 (0.0077)	lr 0.000001
+epoch: [25/40][340/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:23:09	loss_t 0.0044 (0.0077)	lr 0.000001
+epoch: [25/40][350/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:23:07	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [25/40][360/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:23:04	loss_t 0.0149 (0.0077)	lr 0.000001
+epoch: [25/40][370/377]	time 0.244 (0.244)	data 0.001 (0.002)	eta 0:23:02	loss_t 0.0441 (0.0077)	lr 0.000001
+epoch: [26/40][10/377]	time 0.249 (0.305)	data 0.000 (0.056)	eta 0:28:43	loss_t 0.0487 (0.0069)	lr 0.000001
+epoch: [26/40][20/377]	time 0.244 (0.275)	data 0.000 (0.028)	eta 0:25:48	loss_t 0.0000 (0.0063)	lr 0.000001
+epoch: [26/40][30/377]	time 0.244 (0.266)	data 0.000 (0.019)	eta 0:24:54	loss_t 0.0000 (0.0080)	lr 0.000001
+epoch: [26/40][40/377]	time 0.246 (0.261)	data 0.000 (0.014)	eta 0:24:22	loss_t 0.0054 (0.0065)	lr 0.000001
+epoch: [26/40][50/377]	time 0.245 (0.257)	data 0.000 (0.011)	eta 0:24:01	loss_t 0.1013 (0.0087)	lr 0.000001
+epoch: [26/40][60/377]	time 0.246 (0.255)	data 0.000 (0.010)	eta 0:23:44	loss_t 0.0082 (0.0083)	lr 0.000001
+epoch: [26/40][70/377]	time 0.238 (0.253)	data 0.000 (0.008)	eta 0:23:31	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [26/40][80/377]	time 0.246 (0.252)	data 0.000 (0.007)	eta 0:23:22	loss_t 0.0306 (0.0087)	lr 0.000001
+epoch: [26/40][90/377]	time 0.248 (0.251)	data 0.000 (0.007)	eta 0:23:14	loss_t 0.0663 (0.0094)	lr 0.000001
+epoch: [26/40][100/377]	time 0.241 (0.250)	data 0.000 (0.006)	eta 0:23:08	loss_t 0.0000 (0.0093)	lr 0.000001
+epoch: [26/40][110/377]	time 0.238 (0.249)	data 0.001 (0.005)	eta 0:23:01	loss_t 0.0112 (0.0086)	lr 0.000001
+epoch: [26/40][120/377]	time 0.239 (0.248)	data 0.000 (0.005)	eta 0:22:55	loss_t 0.0056 (0.0083)	lr 0.000001
+epoch: [26/40][130/377]	time 0.242 (0.248)	data 0.000 (0.005)	eta 0:22:49	loss_t 0.0066 (0.0077)	lr 0.000001
+epoch: [26/40][140/377]	time 0.237 (0.247)	data 0.000 (0.004)	eta 0:22:43	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [26/40][150/377]	time 0.239 (0.247)	data 0.000 (0.004)	eta 0:22:39	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [26/40][160/377]	time 0.239 (0.247)	data 0.000 (0.004)	eta 0:22:34	loss_t 0.0000 (0.0074)	lr 0.000001
+epoch: [26/40][170/377]	time 0.244 (0.246)	data 0.000 (0.004)	eta 0:22:31	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [26/40][180/377]	time 0.245 (0.246)	data 0.000 (0.003)	eta 0:22:28	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [26/40][190/377]	time 0.246 (0.246)	data 0.000 (0.003)	eta 0:22:25	loss_t 0.0000 (0.0074)	lr 0.000001
+epoch: [26/40][200/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:22:22	loss_t 0.0159 (0.0073)	lr 0.000001
+epoch: [26/40][210/377]	time 0.243 (0.246)	data 0.000 (0.003)	eta 0:22:18	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [26/40][220/377]	time 0.240 (0.246)	data 0.001 (0.003)	eta 0:22:15	loss_t 0.0154 (0.0070)	lr 0.000001
+epoch: [26/40][230/377]	time 0.237 (0.246)	data 0.000 (0.003)	eta 0:22:12	loss_t 0.0387 (0.0069)	lr 0.000001
+epoch: [26/40][240/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:22:08	loss_t 0.0006 (0.0069)	lr 0.000001
+epoch: [26/40][250/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:22:05	loss_t 0.0366 (0.0069)	lr 0.000001
+epoch: [26/40][260/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:22:02	loss_t 0.0185 (0.0069)	lr 0.000001
+epoch: [26/40][270/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:21:59	loss_t 0.0000 (0.0069)	lr 0.000001
+epoch: [26/40][280/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:21:57	loss_t 0.0175 (0.0070)	lr 0.000001
+epoch: [26/40][290/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:21:54	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [26/40][300/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:21:51	loss_t 0.0015 (0.0068)	lr 0.000001
+epoch: [26/40][310/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:21:49	loss_t 0.0000 (0.0069)	lr 0.000001
+epoch: [26/40][320/377]	time 0.241 (0.245)	data 0.001 (0.002)	eta 0:21:46	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [26/40][330/377]	time 0.244 (0.245)	data 0.001 (0.002)	eta 0:21:43	loss_t 0.0000 (0.0067)	lr 0.000001
+epoch: [26/40][340/377]	time 0.242 (0.245)	data 0.000 (0.002)	eta 0:21:40	loss_t 0.0000 (0.0067)	lr 0.000001
+epoch: [26/40][350/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:21:37	loss_t 0.0000 (0.0066)	lr 0.000001
+epoch: [26/40][360/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:21:34	loss_t 0.0005 (0.0064)	lr 0.000001
+epoch: [26/40][370/377]	time 0.239 (0.244)	data 0.001 (0.002)	eta 0:21:31	loss_t 0.0000 (0.0066)	lr 0.000001
+epoch: [27/40][10/377]	time 0.237 (0.293)	data 0.000 (0.051)	eta 0:25:45	loss_t 0.0000 (0.0036)	lr 0.000001
+epoch: [27/40][20/377]	time 0.237 (0.270)	data 0.000 (0.026)	eta 0:23:37	loss_t 0.0000 (0.0049)	lr 0.000001
+epoch: [27/40][30/377]	time 0.250 (0.261)	data 0.000 (0.017)	eta 0:22:47	loss_t 0.0479 (0.0089)	lr 0.000001
+epoch: [27/40][40/377]	time 0.240 (0.257)	data 0.000 (0.013)	eta 0:22:24	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [27/40][50/377]	time 0.236 (0.253)	data 0.000 (0.011)	eta 0:22:02	loss_t 0.0000 (0.0085)	lr 0.000001
+epoch: [27/40][60/377]	time 0.238 (0.251)	data 0.000 (0.009)	eta 0:21:47	loss_t 0.0063 (0.0073)	lr 0.000001
+epoch: [27/40][70/377]	time 0.237 (0.250)	data 0.000 (0.008)	eta 0:21:40	loss_t 0.0000 (0.0077)	lr 0.000001
+epoch: [27/40][80/377]	time 0.240 (0.249)	data 0.000 (0.007)	eta 0:21:32	loss_t 0.0000 (0.0084)	lr 0.000001
+epoch: [27/40][90/377]	time 0.237 (0.248)	data 0.000 (0.006)	eta 0:21:26	loss_t 0.0151 (0.0087)	lr 0.000001
+epoch: [27/40][100/377]	time 0.246 (0.248)	data 0.000 (0.005)	eta 0:21:21	loss_t 0.0196 (0.0081)	lr 0.000001
+epoch: [27/40][110/377]	time 0.244 (0.247)	data 0.000 (0.005)	eta 0:21:17	loss_t 0.0000 (0.0077)	lr 0.000001
+epoch: [27/40][120/377]	time 0.242 (0.247)	data 0.000 (0.005)	eta 0:21:12	loss_t 0.0146 (0.0082)	lr 0.000001
+epoch: [27/40][130/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:21:08	loss_t 0.0000 (0.0091)	lr 0.000001
+epoch: [27/40][140/377]	time 0.236 (0.246)	data 0.000 (0.004)	eta 0:21:03	loss_t 0.0000 (0.0090)	lr 0.000001
+epoch: [27/40][150/377]	time 0.247 (0.246)	data 0.000 (0.004)	eta 0:21:00	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [27/40][160/377]	time 0.238 (0.245)	data 0.000 (0.004)	eta 0:20:56	loss_t 0.0321 (0.0084)	lr 0.000001
+epoch: [27/40][170/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:20:52	loss_t 0.0000 (0.0080)	lr 0.000001
+epoch: [27/40][180/377]	time 0.249 (0.245)	data 0.001 (0.003)	eta 0:20:50	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [27/40][190/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:20:48	loss_t 0.0038 (0.0076)	lr 0.000001
+epoch: [27/40][200/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:20:45	loss_t 0.0000 (0.0073)	lr 0.000001
+epoch: [27/40][210/377]	time 0.250 (0.245)	data 0.000 (0.003)	eta 0:20:42	loss_t 0.0069 (0.0070)	lr 0.000001
+epoch: [27/40][220/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:20:38	loss_t 0.0776 (0.0072)	lr 0.000001
+epoch: [27/40][230/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:20:36	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [27/40][240/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:20:33	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [27/40][250/377]	time 0.245 (0.245)	data 0.000 (0.002)	eta 0:20:30	loss_t 0.0000 (0.0077)	lr 0.000001
+epoch: [27/40][260/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:20:27	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [27/40][270/377]	time 0.242 (0.245)	data 0.000 (0.002)	eta 0:20:24	loss_t 0.0272 (0.0074)	lr 0.000001
+epoch: [27/40][280/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:20:22	loss_t 0.0000 (0.0074)	lr 0.000001
+epoch: [27/40][290/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:20:19	loss_t 0.0000 (0.0074)	lr 0.000001
+epoch: [27/40][300/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:20:16	loss_t 0.0001 (0.0074)	lr 0.000001
+epoch: [27/40][310/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:20:12	loss_t 0.0000 (0.0074)	lr 0.000001
+epoch: [27/40][320/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:20:09	loss_t 0.0000 (0.0073)	lr 0.000001
+epoch: [27/40][330/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:20:06	loss_t 0.0026 (0.0073)	lr 0.000001
+epoch: [27/40][340/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:20:03	loss_t 0.0014 (0.0075)	lr 0.000001
+epoch: [27/40][350/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:20:01	loss_t 0.0000 (0.0077)	lr 0.000001
+epoch: [27/40][360/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:19:58	loss_t 0.0031 (0.0076)	lr 0.000001
+epoch: [27/40][370/377]	time 0.237 (0.244)	data 0.001 (0.002)	eta 0:19:56	loss_t 0.0000 (0.0077)	lr 0.000001
+epoch: [28/40][10/377]	time 0.241 (0.290)	data 0.000 (0.047)	eta 0:23:36	loss_t 0.0000 (0.0021)	lr 0.000001
+epoch: [28/40][20/377]	time 0.245 (0.267)	data 0.000 (0.024)	eta 0:21:41	loss_t 0.0147 (0.0059)	lr 0.000001
+epoch: [28/40][30/377]	time 0.238 (0.259)	data 0.000 (0.016)	eta 0:20:59	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [28/40][40/377]	time 0.245 (0.254)	data 0.000 (0.012)	eta 0:20:36	loss_t 0.0000 (0.0052)	lr 0.000001
+epoch: [28/40][50/377]	time 0.239 (0.252)	data 0.000 (0.010)	eta 0:20:24	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [28/40][60/377]	time 0.240 (0.251)	data 0.000 (0.008)	eta 0:20:15	loss_t 0.0000 (0.0049)	lr 0.000001
+epoch: [28/40][70/377]	time 0.239 (0.249)	data 0.000 (0.007)	eta 0:20:05	loss_t 0.0131 (0.0071)	lr 0.000001
+epoch: [28/40][80/377]	time 0.240 (0.248)	data 0.000 (0.006)	eta 0:19:56	loss_t 0.0089 (0.0067)	lr 0.000001
+epoch: [28/40][90/377]	time 0.239 (0.248)	data 0.000 (0.006)	eta 0:19:51	loss_t 0.0022 (0.0064)	lr 0.000001
+epoch: [28/40][100/377]	time 0.242 (0.247)	data 0.000 (0.005)	eta 0:19:46	loss_t 0.0080 (0.0076)	lr 0.000001
+epoch: [28/40][110/377]	time 0.238 (0.246)	data 0.000 (0.005)	eta 0:19:40	loss_t 0.0242 (0.0071)	lr 0.000001
+epoch: [28/40][120/377]	time 0.242 (0.246)	data 0.000 (0.004)	eta 0:19:35	loss_t 0.0265 (0.0079)	lr 0.000001
+epoch: [28/40][130/377]	time 0.248 (0.246)	data 0.000 (0.004)	eta 0:19:32	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [28/40][140/377]	time 0.244 (0.246)	data 0.000 (0.004)	eta 0:19:29	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [28/40][150/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:19:24	loss_t 0.0000 (0.0084)	lr 0.000001
+epoch: [28/40][160/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:19:21	loss_t 0.0000 (0.0082)	lr 0.000001
+epoch: [28/40][170/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:19:17	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [28/40][180/377]	time 0.248 (0.245)	data 0.000 (0.003)	eta 0:19:15	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [28/40][190/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:19:12	loss_t 0.0023 (0.0081)	lr 0.000001
+epoch: [28/40][200/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:19:09	loss_t 0.0000 (0.0082)	lr 0.000001
+epoch: [28/40][210/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:19:07	loss_t 0.1226 (0.0090)	lr 0.000001
+epoch: [28/40][220/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:19:04	loss_t 0.0000 (0.0089)	lr 0.000001
+epoch: [28/40][230/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:19:01	loss_t 0.0173 (0.0087)	lr 0.000001
+epoch: [28/40][240/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:18:58	loss_t 0.0112 (0.0086)	lr 0.000001
+epoch: [28/40][250/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:18:56	loss_t 0.0039 (0.0085)	lr 0.000001
+epoch: [28/40][260/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:18:53	loss_t 0.0000 (0.0085)	lr 0.000001
+epoch: [28/40][270/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:18:50	loss_t 0.0000 (0.0084)	lr 0.000001
+epoch: [28/40][280/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:18:47	loss_t 0.0000 (0.0082)	lr 0.000001
+epoch: [28/40][290/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:18:44	loss_t 0.0000 (0.0085)	lr 0.000001
+epoch: [28/40][300/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:18:41	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [28/40][310/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:18:38	loss_t 0.0003 (0.0085)	lr 0.000001
+epoch: [28/40][320/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:18:36	loss_t 0.0137 (0.0085)	lr 0.000001
+epoch: [28/40][330/377]	time 0.240 (0.244)	data 0.001 (0.002)	eta 0:18:33	loss_t 0.0074 (0.0088)	lr 0.000001
+epoch: [28/40][340/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:18:31	loss_t 0.0000 (0.0087)	lr 0.000001
+epoch: [28/40][350/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:18:28	loss_t 0.0039 (0.0087)	lr 0.000001
+epoch: [28/40][360/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:18:26	loss_t 0.0000 (0.0088)	lr 0.000001
+epoch: [28/40][370/377]	time 0.237 (0.243)	data 0.001 (0.002)	eta 0:18:23	loss_t 0.0000 (0.0087)	lr 0.000001
+epoch: [29/40][10/377]	time 0.238 (0.292)	data 0.000 (0.048)	eta 0:21:59	loss_t 0.0124 (0.0159)	lr 0.000001
+epoch: [29/40][20/377]	time 0.241 (0.267)	data 0.000 (0.024)	eta 0:20:02	loss_t 0.0095 (0.0134)	lr 0.000001
+epoch: [29/40][30/377]	time 0.239 (0.259)	data 0.000 (0.016)	eta 0:19:23	loss_t 0.0000 (0.0104)	lr 0.000001
+epoch: [29/40][40/377]	time 0.242 (0.255)	data 0.000 (0.012)	eta 0:19:03	loss_t 0.0087 (0.0082)	lr 0.000001
+epoch: [29/40][50/377]	time 0.239 (0.252)	data 0.000 (0.010)	eta 0:18:49	loss_t 0.0049 (0.0072)	lr 0.000001
+epoch: [29/40][60/377]	time 0.247 (0.251)	data 0.000 (0.008)	eta 0:18:41	loss_t 0.0000 (0.0065)	lr 0.000001
+epoch: [29/40][70/377]	time 0.244 (0.250)	data 0.000 (0.007)	eta 0:18:34	loss_t 0.0000 (0.0063)	lr 0.000001
+epoch: [29/40][80/377]	time 0.248 (0.250)	data 0.000 (0.006)	eta 0:18:29	loss_t 0.0000 (0.0069)	lr 0.000001
+epoch: [29/40][90/377]	time 0.246 (0.249)	data 0.000 (0.006)	eta 0:18:23	loss_t 0.0127 (0.0076)	lr 0.000001
+epoch: [29/40][100/377]	time 0.242 (0.248)	data 0.000 (0.005)	eta 0:18:18	loss_t 0.0000 (0.0076)	lr 0.000001
+epoch: [29/40][110/377]	time 0.251 (0.248)	data 0.000 (0.005)	eta 0:18:14	loss_t 0.0000 (0.0073)	lr 0.000001
+epoch: [29/40][120/377]	time 0.239 (0.248)	data 0.000 (0.004)	eta 0:18:10	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [29/40][130/377]	time 0.255 (0.247)	data 0.000 (0.004)	eta 0:18:06	loss_t 0.0000 (0.0075)	lr 0.000001
+epoch: [29/40][140/377]	time 0.239 (0.247)	data 0.000 (0.004)	eta 0:18:02	loss_t 0.0020 (0.0073)	lr 0.000001
+epoch: [29/40][150/377]	time 0.247 (0.247)	data 0.000 (0.004)	eta 0:17:59	loss_t 0.0066 (0.0084)	lr 0.000001
+epoch: [29/40][160/377]	time 0.252 (0.247)	data 0.000 (0.003)	eta 0:17:56	loss_t 0.0004 (0.0087)	lr 0.000001
+epoch: [29/40][170/377]	time 0.243 (0.246)	data 0.000 (0.003)	eta 0:17:53	loss_t 0.0011 (0.0085)	lr 0.000001
+epoch: [29/40][180/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:17:49	loss_t 0.0000 (0.0085)	lr 0.000001
+epoch: [29/40][190/377]	time 0.241 (0.246)	data 0.000 (0.003)	eta 0:17:46	loss_t 0.0000 (0.0084)	lr 0.000001
+epoch: [29/40][200/377]	time 0.244 (0.246)	data 0.000 (0.003)	eta 0:17:42	loss_t 0.0010 (0.0082)	lr 0.000001
+epoch: [29/40][210/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:17:39	loss_t 0.0000 (0.0082)	lr 0.000001
+epoch: [29/40][220/377]	time 0.247 (0.245)	data 0.000 (0.003)	eta 0:17:36	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [29/40][230/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:17:32	loss_t 0.0022 (0.0084)	lr 0.000001
+epoch: [29/40][240/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:17:29	loss_t 0.0000 (0.0084)	lr 0.000001
+epoch: [29/40][250/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:17:25	loss_t 0.0000 (0.0082)	lr 0.000001
+epoch: [29/40][260/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:17:22	loss_t 0.0000 (0.0080)	lr 0.000001
+epoch: [29/40][270/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:17:20	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [29/40][280/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:17:17	loss_t 0.0000 (0.0087)	lr 0.000001
+epoch: [29/40][290/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:17:14	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [29/40][300/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:17:11	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [29/40][310/377]	time 0.248 (0.244)	data 0.000 (0.002)	eta 0:17:08	loss_t 0.0000 (0.0085)	lr 0.000001
+epoch: [29/40][320/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:17:06	loss_t 0.0009 (0.0083)	lr 0.000001
+epoch: [29/40][330/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:17:03	loss_t 0.0000 (0.0082)	lr 0.000001
+epoch: [29/40][340/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:17:01	loss_t 0.0005 (0.0083)	lr 0.000001
+epoch: [29/40][350/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:16:58	loss_t 0.0000 (0.0081)	lr 0.000001
+epoch: [29/40][360/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:16:56	loss_t 0.0000 (0.0079)	lr 0.000001
+epoch: [29/40][370/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:16:53	loss_t 0.0256 (0.0081)	lr 0.000001
+epoch: [30/40][10/377]	time 0.247 (0.295)	data 0.000 (0.049)	eta 0:20:20	loss_t 0.0154 (0.0092)	lr 0.000001
+epoch: [30/40][20/377]	time 0.238 (0.269)	data 0.000 (0.025)	eta 0:18:29	loss_t 0.0251 (0.0097)	lr 0.000001
+epoch: [30/40][30/377]	time 0.245 (0.260)	data 0.000 (0.017)	eta 0:17:50	loss_t 0.0154 (0.0085)	lr 0.000001
+epoch: [30/40][40/377]	time 0.247 (0.256)	data 0.000 (0.013)	eta 0:17:32	loss_t 0.0000 (0.0065)	lr 0.000001
+epoch: [30/40][50/377]	time 0.249 (0.254)	data 0.000 (0.010)	eta 0:17:20	loss_t 0.0000 (0.0081)	lr 0.000001
+epoch: [30/40][60/377]	time 0.237 (0.252)	data 0.000 (0.009)	eta 0:17:08	loss_t 0.0000 (0.0085)	lr 0.000001
+epoch: [30/40][70/377]	time 0.246 (0.251)	data 0.000 (0.007)	eta 0:17:01	loss_t 0.0000 (0.0084)	lr 0.000001
+epoch: [30/40][80/377]	time 0.236 (0.249)	data 0.000 (0.007)	eta 0:16:54	loss_t 0.0000 (0.0077)	lr 0.000001
+epoch: [30/40][90/377]	time 0.237 (0.248)	data 0.000 (0.006)	eta 0:16:47	loss_t 0.0000 (0.0076)	lr 0.000001
+epoch: [30/40][100/377]	time 0.253 (0.248)	data 0.000 (0.005)	eta 0:16:42	loss_t 0.0173 (0.0082)	lr 0.000001
+epoch: [30/40][110/377]	time 0.238 (0.247)	data 0.000 (0.005)	eta 0:16:37	loss_t 0.0006 (0.0081)	lr 0.000001
+epoch: [30/40][120/377]	time 0.246 (0.247)	data 0.000 (0.004)	eta 0:16:34	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [30/40][130/377]	time 0.243 (0.247)	data 0.000 (0.004)	eta 0:16:30	loss_t 0.0001 (0.0078)	lr 0.000001
+epoch: [30/40][140/377]	time 0.239 (0.246)	data 0.000 (0.004)	eta 0:16:26	loss_t 0.0016 (0.0077)	lr 0.000001
+epoch: [30/40][150/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:16:22	loss_t 0.0005 (0.0077)	lr 0.000001
+epoch: [30/40][160/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:16:19	loss_t 0.0722 (0.0078)	lr 0.000001
+epoch: [30/40][170/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:16:16	loss_t 0.0060 (0.0079)	lr 0.000001
+epoch: [30/40][180/377]	time 0.236 (0.245)	data 0.000 (0.003)	eta 0:16:12	loss_t 0.0000 (0.0076)	lr 0.000001
+epoch: [30/40][190/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:16:09	loss_t 0.0000 (0.0073)	lr 0.000001
+epoch: [30/40][200/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:16:05	loss_t 0.0036 (0.0070)	lr 0.000001
+epoch: [30/40][210/377]	time 0.246 (0.245)	data 0.000 (0.003)	eta 0:16:02	loss_t 0.0037 (0.0069)	lr 0.000001
+epoch: [30/40][220/377]	time 0.240 (0.244)	data 0.000 (0.003)	eta 0:15:59	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [30/40][230/377]	time 0.252 (0.244)	data 0.000 (0.003)	eta 0:15:57	loss_t 0.0044 (0.0074)	lr 0.000001
+epoch: [30/40][240/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:15:54	loss_t 0.0000 (0.0071)	lr 0.000001
+epoch: [30/40][250/377]	time 0.248 (0.244)	data 0.000 (0.002)	eta 0:15:51	loss_t 0.0096 (0.0073)	lr 0.000001
+epoch: [30/40][260/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:15:48	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [30/40][270/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:15:46	loss_t 0.0032 (0.0073)	lr 0.000001
+epoch: [30/40][280/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:15:43	loss_t 0.0000 (0.0071)	lr 0.000001
+epoch: [30/40][290/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:15:41	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [30/40][300/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:15:38	loss_t 0.0605 (0.0070)	lr 0.000001
+epoch: [30/40][310/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:15:35	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [30/40][320/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:15:33	loss_t 0.0087 (0.0070)	lr 0.000001
+epoch: [30/40][330/377]	time 0.255 (0.244)	data 0.000 (0.002)	eta 0:15:30	loss_t 0.0000 (0.0071)	lr 0.000001
+epoch: [30/40][340/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:15:28	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [30/40][350/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:15:25	loss_t 0.0045 (0.0068)	lr 0.000001
+epoch: [30/40][360/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:15:22	loss_t 0.0204 (0.0067)	lr 0.000001
+epoch: [30/40][370/377]	time 0.237 (0.244)	data 0.001 (0.002)	eta 0:15:20	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [31/40][10/377]	time 0.247 (0.291)	data 0.000 (0.046)	eta 0:18:15	loss_t 0.0000 (0.0110)	lr 0.000001
+epoch: [31/40][20/377]	time 0.248 (0.269)	data 0.000 (0.023)	eta 0:16:48	loss_t 0.0000 (0.0120)	lr 0.000001
+epoch: [31/40][30/377]	time 0.248 (0.261)	data 0.000 (0.016)	eta 0:16:14	loss_t 0.0000 (0.0095)	lr 0.000001
+epoch: [31/40][40/377]	time 0.245 (0.256)	data 0.000 (0.012)	eta 0:15:53	loss_t 0.0487 (0.0098)	lr 0.000001
+epoch: [31/40][50/377]	time 0.248 (0.253)	data 0.000 (0.009)	eta 0:15:41	loss_t 0.0000 (0.0086)	lr 0.000001
+epoch: [31/40][60/377]	time 0.249 (0.251)	data 0.000 (0.008)	eta 0:15:32	loss_t 0.0145 (0.0081)	lr 0.000001
+epoch: [31/40][70/377]	time 0.247 (0.250)	data 0.000 (0.007)	eta 0:15:26	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [31/40][80/377]	time 0.245 (0.249)	data 0.000 (0.006)	eta 0:15:19	loss_t 0.0000 (0.0077)	lr 0.000001
+epoch: [31/40][90/377]	time 0.242 (0.249)	data 0.000 (0.005)	eta 0:15:15	loss_t 0.0000 (0.0071)	lr 0.000001
+epoch: [31/40][100/377]	time 0.237 (0.248)	data 0.000 (0.005)	eta 0:15:10	loss_t 0.0000 (0.0064)	lr 0.000001
+epoch: [31/40][110/377]	time 0.239 (0.247)	data 0.000 (0.005)	eta 0:15:05	loss_t 0.0000 (0.0059)	lr 0.000001
+epoch: [31/40][120/377]	time 0.245 (0.247)	data 0.001 (0.004)	eta 0:15:01	loss_t 0.0018 (0.0058)	lr 0.000001
+epoch: [31/40][130/377]	time 0.242 (0.247)	data 0.000 (0.004)	eta 0:14:58	loss_t 0.0036 (0.0058)	lr 0.000001
+epoch: [31/40][140/377]	time 0.242 (0.247)	data 0.000 (0.004)	eta 0:14:55	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [31/40][150/377]	time 0.237 (0.246)	data 0.000 (0.003)	eta 0:14:51	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [31/40][160/377]	time 0.239 (0.246)	data 0.000 (0.003)	eta 0:14:48	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [31/40][170/377]	time 0.250 (0.246)	data 0.000 (0.003)	eta 0:14:45	loss_t 0.0204 (0.0059)	lr 0.000001
+epoch: [31/40][180/377]	time 0.242 (0.246)	data 0.000 (0.003)	eta 0:14:41	loss_t 0.0468 (0.0062)	lr 0.000001
+epoch: [31/40][190/377]	time 0.238 (0.245)	data 0.001 (0.003)	eta 0:14:38	loss_t 0.0194 (0.0061)	lr 0.000001
+epoch: [31/40][200/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:14:35	loss_t 0.0009 (0.0062)	lr 0.000001
+epoch: [31/40][210/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:14:32	loss_t 0.0183 (0.0060)	lr 0.000001
+epoch: [31/40][220/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:14:29	loss_t 0.0077 (0.0062)	lr 0.000001
+epoch: [31/40][230/377]	time 0.247 (0.245)	data 0.000 (0.002)	eta 0:14:26	loss_t 0.0013 (0.0061)	lr 0.000001
+epoch: [31/40][240/377]	time 0.236 (0.245)	data 0.000 (0.002)	eta 0:14:23	loss_t 0.0000 (0.0060)	lr 0.000001
+epoch: [31/40][250/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:14:20	loss_t 0.0000 (0.0059)	lr 0.000001
+epoch: [31/40][260/377]	time 0.236 (0.244)	data 0.000 (0.002)	eta 0:14:17	loss_t 0.0173 (0.0058)	lr 0.000001
+epoch: [31/40][270/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:14:14	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [31/40][280/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:14:11	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [31/40][290/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:14:08	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [31/40][300/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:14:05	loss_t 0.0145 (0.0056)	lr 0.000001
+epoch: [31/40][310/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:14:02	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [31/40][320/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:14:00	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [31/40][330/377]	time 0.248 (0.243)	data 0.000 (0.002)	eta 0:13:57	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [31/40][340/377]	time 0.249 (0.243)	data 0.000 (0.002)	eta 0:13:55	loss_t 0.0385 (0.0054)	lr 0.000001
+epoch: [31/40][350/377]	time 0.238 (0.243)	data 0.000 (0.002)	eta 0:13:52	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [31/40][360/377]	time 0.242 (0.243)	data 0.000 (0.002)	eta 0:13:49	loss_t 0.0138 (0.0059)	lr 0.000001
+epoch: [31/40][370/377]	time 0.237 (0.243)	data 0.001 (0.002)	eta 0:13:47	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [32/40][10/377]	time 0.242 (0.297)	data 0.000 (0.049)	eta 0:16:44	loss_t 0.0007 (0.0128)	lr 0.000001
+epoch: [32/40][20/377]	time 0.247 (0.271)	data 0.000 (0.025)	eta 0:15:14	loss_t 0.0000 (0.0065)	lr 0.000001
+epoch: [32/40][30/377]	time 0.241 (0.261)	data 0.000 (0.017)	eta 0:14:38	loss_t 0.0000 (0.0073)	lr 0.000001
+epoch: [32/40][40/377]	time 0.237 (0.257)	data 0.000 (0.013)	eta 0:14:21	loss_t 0.0453 (0.0073)	lr 0.000001
+epoch: [32/40][50/377]	time 0.241 (0.254)	data 0.000 (0.010)	eta 0:14:10	loss_t 0.0000 (0.0060)	lr 0.000001
+epoch: [32/40][60/377]	time 0.244 (0.253)	data 0.000 (0.009)	eta 0:14:02	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [32/40][70/377]	time 0.245 (0.251)	data 0.000 (0.007)	eta 0:13:54	loss_t 0.0257 (0.0052)	lr 0.000001
+epoch: [32/40][80/377]	time 0.241 (0.250)	data 0.000 (0.006)	eta 0:13:47	loss_t 0.0000 (0.0060)	lr 0.000001
+epoch: [32/40][90/377]	time 0.238 (0.249)	data 0.000 (0.006)	eta 0:13:42	loss_t 0.0309 (0.0068)	lr 0.000001
+epoch: [32/40][100/377]	time 0.241 (0.248)	data 0.000 (0.005)	eta 0:13:37	loss_t 0.0000 (0.0067)	lr 0.000001
+epoch: [32/40][110/377]	time 0.239 (0.248)	data 0.000 (0.005)	eta 0:13:33	loss_t 0.0000 (0.0069)	lr 0.000001
+epoch: [32/40][120/377]	time 0.245 (0.247)	data 0.000 (0.004)	eta 0:13:29	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [32/40][130/377]	time 0.256 (0.247)	data 0.000 (0.004)	eta 0:13:26	loss_t 0.0016 (0.0072)	lr 0.000001
+epoch: [32/40][140/377]	time 0.237 (0.247)	data 0.000 (0.004)	eta 0:13:21	loss_t 0.0053 (0.0068)	lr 0.000001
+epoch: [32/40][150/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:13:18	loss_t 0.0000 (0.0065)	lr 0.000001
+epoch: [32/40][160/377]	time 0.243 (0.246)	data 0.000 (0.003)	eta 0:13:15	loss_t 0.0062 (0.0067)	lr 0.000001
+epoch: [32/40][170/377]	time 0.250 (0.246)	data 0.000 (0.003)	eta 0:13:11	loss_t 0.0239 (0.0067)	lr 0.000001
+epoch: [32/40][180/377]	time 0.241 (0.245)	data 0.000 (0.003)	eta 0:13:08	loss_t 0.0000 (0.0066)	lr 0.000001
+epoch: [32/40][190/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:13:05	loss_t 0.0000 (0.0067)	lr 0.000001
+epoch: [32/40][200/377]	time 0.250 (0.245)	data 0.000 (0.003)	eta 0:13:03	loss_t 0.0000 (0.0069)	lr 0.000001
+epoch: [32/40][210/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:13:00	loss_t 0.0347 (0.0069)	lr 0.000001
+epoch: [32/40][220/377]	time 0.240 (0.245)	data 0.001 (0.003)	eta 0:12:57	loss_t 0.0076 (0.0070)	lr 0.000001
+epoch: [32/40][230/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:12:54	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [32/40][240/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:12:51	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [32/40][250/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:12:48	loss_t 0.0150 (0.0071)	lr 0.000001
+epoch: [32/40][260/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:12:46	loss_t 0.0000 (0.0069)	lr 0.000001
+epoch: [32/40][270/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:12:42	loss_t 0.0207 (0.0068)	lr 0.000001
+epoch: [32/40][280/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:12:39	loss_t 0.0182 (0.0069)	lr 0.000001
+epoch: [32/40][290/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:12:37	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [32/40][300/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:12:35	loss_t 0.0010 (0.0073)	lr 0.000001
+epoch: [32/40][310/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:12:32	loss_t 0.0000 (0.0071)	lr 0.000001
+epoch: [32/40][320/377]	time 0.246 (0.244)	data 0.001 (0.002)	eta 0:12:30	loss_t 0.0000 (0.0071)	lr 0.000001
+epoch: [32/40][330/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:12:27	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [32/40][340/377]	time 0.248 (0.244)	data 0.000 (0.002)	eta 0:12:25	loss_t 0.0000 (0.0069)	lr 0.000001
+epoch: [32/40][350/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:12:22	loss_t 0.0000 (0.0074)	lr 0.000001
+epoch: [32/40][360/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:12:20	loss_t 0.0169 (0.0077)	lr 0.000001
+epoch: [32/40][370/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:12:17	loss_t 0.0114 (0.0078)	lr 0.000001
+epoch: [33/40][10/377]	time 0.247 (0.296)	data 0.001 (0.050)	eta 0:14:50	loss_t 0.0000 (0.0089)	lr 0.000001
+epoch: [33/40][20/377]	time 0.237 (0.269)	data 0.000 (0.025)	eta 0:13:26	loss_t 0.0315 (0.0114)	lr 0.000001
+epoch: [33/40][30/377]	time 0.241 (0.260)	data 0.000 (0.017)	eta 0:12:55	loss_t 0.0036 (0.0081)	lr 0.000001
+epoch: [33/40][40/377]	time 0.238 (0.255)	data 0.000 (0.013)	eta 0:12:38	loss_t 0.0000 (0.0081)	lr 0.000001
+epoch: [33/40][50/377]	time 0.246 (0.252)	data 0.000 (0.010)	eta 0:12:28	loss_t 0.0000 (0.0082)	lr 0.000001
+epoch: [33/40][60/377]	time 0.243 (0.251)	data 0.000 (0.009)	eta 0:12:21	loss_t 0.0000 (0.0076)	lr 0.000001
+epoch: [33/40][70/377]	time 0.239 (0.250)	data 0.000 (0.008)	eta 0:12:15	loss_t 0.0071 (0.0070)	lr 0.000001
+epoch: [33/40][80/377]	time 0.249 (0.249)	data 0.000 (0.007)	eta 0:12:11	loss_t 0.0000 (0.0064)	lr 0.000001
+epoch: [33/40][90/377]	time 0.247 (0.249)	data 0.000 (0.006)	eta 0:12:07	loss_t 0.0276 (0.0070)	lr 0.000001
+epoch: [33/40][100/377]	time 0.238 (0.248)	data 0.000 (0.005)	eta 0:12:03	loss_t 0.0000 (0.0064)	lr 0.000001
+epoch: [33/40][110/377]	time 0.241 (0.248)	data 0.000 (0.005)	eta 0:11:59	loss_t 0.0261 (0.0061)	lr 0.000001
+epoch: [33/40][120/377]	time 0.242 (0.247)	data 0.000 (0.005)	eta 0:11:55	loss_t 0.0009 (0.0059)	lr 0.000001
+epoch: [33/40][130/377]	time 0.246 (0.247)	data 0.000 (0.004)	eta 0:11:51	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [33/40][140/377]	time 0.239 (0.246)	data 0.000 (0.004)	eta 0:11:48	loss_t 0.0568 (0.0059)	lr 0.000001
+epoch: [33/40][150/377]	time 0.248 (0.246)	data 0.000 (0.004)	eta 0:11:44	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [33/40][160/377]	time 0.237 (0.245)	data 0.000 (0.004)	eta 0:11:40	loss_t 0.0025 (0.0055)	lr 0.000001
+epoch: [33/40][170/377]	time 0.246 (0.245)	data 0.000 (0.003)	eta 0:11:37	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [33/40][180/377]	time 0.244 (0.245)	data 0.000 (0.003)	eta 0:11:34	loss_t 0.0329 (0.0053)	lr 0.000001
+epoch: [33/40][190/377]	time 0.238 (0.245)	data 0.000 (0.003)	eta 0:11:32	loss_t 0.0000 (0.0052)	lr 0.000001
+epoch: [33/40][200/377]	time 0.241 (0.245)	data 0.000 (0.003)	eta 0:11:29	loss_t 0.0003 (0.0052)	lr 0.000001
+epoch: [33/40][210/377]	time 0.252 (0.245)	data 0.000 (0.003)	eta 0:11:26	loss_t 0.0291 (0.0056)	lr 0.000001
+epoch: [33/40][220/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:11:24	loss_t 0.0039 (0.0055)	lr 0.000001
+epoch: [33/40][230/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:11:21	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [33/40][240/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:11:18	loss_t 0.0443 (0.0058)	lr 0.000001
+epoch: [33/40][250/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:11:15	loss_t 0.0000 (0.0059)	lr 0.000001
+epoch: [33/40][260/377]	time 0.251 (0.244)	data 0.000 (0.002)	eta 0:11:13	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [33/40][270/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:11:11	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [33/40][280/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:11:08	loss_t 0.0610 (0.0061)	lr 0.000001
+epoch: [33/40][290/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:11:05	loss_t 0.0004 (0.0060)	lr 0.000001
+epoch: [33/40][300/377]	time 0.236 (0.244)	data 0.000 (0.002)	eta 0:11:02	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [33/40][310/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:10:59	loss_t 0.1270 (0.0067)	lr 0.000001
+epoch: [33/40][320/377]	time 0.235 (0.244)	data 0.000 (0.002)	eta 0:10:57	loss_t 0.0000 (0.0067)	lr 0.000001
+epoch: [33/40][330/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:10:54	loss_t 0.0000 (0.0067)	lr 0.000001
+epoch: [33/40][340/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:10:51	loss_t 0.0081 (0.0067)	lr 0.000001
+epoch: [33/40][350/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:10:49	loss_t 0.0000 (0.0068)	lr 0.000001
+epoch: [33/40][360/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:10:46	loss_t 0.0000 (0.0067)	lr 0.000001
+epoch: [33/40][370/377]	time 0.245 (0.243)	data 0.001 (0.002)	eta 0:10:44	loss_t 0.0330 (0.0070)	lr 0.000001
+epoch: [34/40][10/377]	time 0.242 (0.288)	data 0.000 (0.046)	eta 0:12:38	loss_t 0.0000 (0.0133)	lr 0.000001
+epoch: [34/40][20/377]	time 0.243 (0.265)	data 0.000 (0.023)	eta 0:11:33	loss_t 0.0103 (0.0096)	lr 0.000001
+epoch: [34/40][30/377]	time 0.237 (0.257)	data 0.000 (0.016)	eta 0:11:11	loss_t 0.0000 (0.0078)	lr 0.000001
+epoch: [34/40][40/377]	time 0.249 (0.254)	data 0.000 (0.012)	eta 0:10:59	loss_t 0.0027 (0.0068)	lr 0.000001
+epoch: [34/40][50/377]	time 0.245 (0.251)	data 0.000 (0.010)	eta 0:10:51	loss_t 0.0020 (0.0060)	lr 0.000001
+epoch: [34/40][60/377]	time 0.250 (0.250)	data 0.000 (0.008)	eta 0:10:43	loss_t 0.0037 (0.0059)	lr 0.000001
+epoch: [34/40][70/377]	time 0.237 (0.248)	data 0.000 (0.007)	eta 0:10:37	loss_t 0.0189 (0.0066)	lr 0.000001
+epoch: [34/40][80/377]	time 0.236 (0.247)	data 0.000 (0.006)	eta 0:10:31	loss_t 0.0000 (0.0064)	lr 0.000001
+epoch: [34/40][90/377]	time 0.237 (0.246)	data 0.000 (0.005)	eta 0:10:27	loss_t 0.0025 (0.0060)	lr 0.000001
+epoch: [34/40][100/377]	time 0.249 (0.245)	data 0.000 (0.005)	eta 0:10:23	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [34/40][110/377]	time 0.246 (0.245)	data 0.000 (0.005)	eta 0:10:20	loss_t 0.0000 (0.0052)	lr 0.000001
+epoch: [34/40][120/377]	time 0.237 (0.245)	data 0.000 (0.004)	eta 0:10:17	loss_t 0.0000 (0.0049)	lr 0.000001
+epoch: [34/40][130/377]	time 0.238 (0.245)	data 0.000 (0.004)	eta 0:10:13	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [34/40][140/377]	time 0.240 (0.245)	data 0.000 (0.004)	eta 0:10:11	loss_t 0.0216 (0.0053)	lr 0.000001
+epoch: [34/40][150/377]	time 0.239 (0.244)	data 0.000 (0.003)	eta 0:10:08	loss_t 0.0002 (0.0058)	lr 0.000001
+epoch: [34/40][160/377]	time 0.243 (0.244)	data 0.000 (0.003)	eta 0:10:05	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [34/40][170/377]	time 0.248 (0.244)	data 0.000 (0.003)	eta 0:10:03	loss_t 0.0000 (0.0061)	lr 0.000001
+epoch: [34/40][180/377]	time 0.246 (0.244)	data 0.000 (0.003)	eta 0:10:00	loss_t 0.0000 (0.0062)	lr 0.000001
+epoch: [34/40][190/377]	time 0.239 (0.244)	data 0.000 (0.003)	eta 0:09:58	loss_t 0.0000 (0.0063)	lr 0.000001
+epoch: [34/40][200/377]	time 0.241 (0.244)	data 0.000 (0.003)	eta 0:09:55	loss_t 0.0000 (0.0063)	lr 0.000001
+epoch: [34/40][210/377]	time 0.240 (0.244)	data 0.001 (0.003)	eta 0:09:52	loss_t 0.0000 (0.0065)	lr 0.000001
+epoch: [34/40][220/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:09:50	loss_t 0.0581 (0.0065)	lr 0.000001
+epoch: [34/40][230/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:09:47	loss_t 0.0000 (0.0063)	lr 0.000001
+epoch: [34/40][240/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:09:44	loss_t 0.0184 (0.0068)	lr 0.000001
+epoch: [34/40][250/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:09:41	loss_t 0.0000 (0.0073)	lr 0.000001
+epoch: [34/40][260/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:09:39	loss_t 0.0253 (0.0079)	lr 0.000001
+epoch: [34/40][270/377]	time 0.250 (0.244)	data 0.000 (0.002)	eta 0:09:37	loss_t 0.0020 (0.0078)	lr 0.000001
+epoch: [34/40][280/377]	time 0.238 (0.243)	data 0.000 (0.002)	eta 0:09:34	loss_t 0.0000 (0.0077)	lr 0.000001
+epoch: [34/40][290/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:09:31	loss_t 0.0000 (0.0076)	lr 0.000001
+epoch: [34/40][300/377]	time 0.236 (0.243)	data 0.000 (0.002)	eta 0:09:29	loss_t 0.0000 (0.0074)	lr 0.000001
+epoch: [34/40][310/377]	time 0.237 (0.243)	data 0.000 (0.002)	eta 0:09:26	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [34/40][320/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:09:23	loss_t 0.0038 (0.0073)	lr 0.000001
+epoch: [34/40][330/377]	time 0.248 (0.243)	data 0.000 (0.002)	eta 0:09:21	loss_t 0.0000 (0.0072)	lr 0.000001
+epoch: [34/40][340/377]	time 0.239 (0.243)	data 0.000 (0.002)	eta 0:09:18	loss_t 0.0008 (0.0070)	lr 0.000001
+epoch: [34/40][350/377]	time 0.253 (0.243)	data 0.000 (0.002)	eta 0:09:16	loss_t 0.0237 (0.0071)	lr 0.000001
+epoch: [34/40][360/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:09:13	loss_t 0.0034 (0.0070)	lr 0.000001
+epoch: [34/40][370/377]	time 0.238 (0.243)	data 0.000 (0.002)	eta 0:09:10	loss_t 0.0000 (0.0070)	lr 0.000001
+epoch: [35/40][10/377]	time 0.251 (0.294)	data 0.000 (0.048)	eta 0:11:01	loss_t 0.0180 (0.0027)	lr 0.000001
+epoch: [35/40][20/377]	time 0.240 (0.268)	data 0.000 (0.024)	eta 0:10:01	loss_t 0.0000 (0.0037)	lr 0.000001
+epoch: [35/40][30/377]	time 0.247 (0.260)	data 0.000 (0.016)	eta 0:09:40	loss_t 0.0027 (0.0055)	lr 0.000001
+epoch: [35/40][40/377]	time 0.240 (0.256)	data 0.000 (0.012)	eta 0:09:28	loss_t 0.0000 (0.0042)	lr 0.000001
+epoch: [35/40][50/377]	time 0.237 (0.253)	data 0.000 (0.010)	eta 0:09:20	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [35/40][60/377]	time 0.237 (0.251)	data 0.001 (0.008)	eta 0:09:13	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [35/40][70/377]	time 0.244 (0.250)	data 0.000 (0.007)	eta 0:09:08	loss_t 0.0088 (0.0056)	lr 0.000001
+epoch: [35/40][80/377]	time 0.237 (0.249)	data 0.000 (0.006)	eta 0:09:03	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [35/40][90/377]	time 0.242 (0.248)	data 0.000 (0.006)	eta 0:08:58	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [35/40][100/377]	time 0.244 (0.247)	data 0.000 (0.005)	eta 0:08:54	loss_t 0.0000 (0.0045)	lr 0.000001
+epoch: [35/40][110/377]	time 0.239 (0.247)	data 0.000 (0.005)	eta 0:08:51	loss_t 0.0000 (0.0044)	lr 0.000001
+epoch: [35/40][120/377]	time 0.246 (0.246)	data 0.000 (0.004)	eta 0:08:47	loss_t 0.0050 (0.0044)	lr 0.000001
+epoch: [35/40][130/377]	time 0.245 (0.246)	data 0.000 (0.004)	eta 0:08:45	loss_t 0.0057 (0.0051)	lr 0.000001
+epoch: [35/40][140/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:08:42	loss_t 0.0000 (0.0049)	lr 0.000001
+epoch: [35/40][150/377]	time 0.244 (0.246)	data 0.000 (0.004)	eta 0:08:39	loss_t 0.0000 (0.0047)	lr 0.000001
+epoch: [35/40][160/377]	time 0.237 (0.246)	data 0.000 (0.003)	eta 0:08:36	loss_t 0.0090 (0.0049)	lr 0.000001
+epoch: [35/40][170/377]	time 0.237 (0.246)	data 0.000 (0.003)	eta 0:08:33	loss_t 0.0017 (0.0049)	lr 0.000001
+epoch: [35/40][180/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:08:30	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [35/40][190/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:08:28	loss_t 0.0000 (0.0052)	lr 0.000001
+epoch: [35/40][200/377]	time 0.239 (0.245)	data 0.001 (0.003)	eta 0:08:25	loss_t 0.0360 (0.0056)	lr 0.000001
+epoch: [35/40][210/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:08:22	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [35/40][220/377]	time 0.250 (0.245)	data 0.000 (0.003)	eta 0:08:20	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [35/40][230/377]	time 0.246 (0.245)	data 0.000 (0.002)	eta 0:08:17	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [35/40][240/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:08:14	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [35/40][250/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:08:12	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [35/40][260/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:08:09	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [35/40][270/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:08:07	loss_t 0.0226 (0.0056)	lr 0.000001
+epoch: [35/40][280/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:08:04	loss_t 0.0396 (0.0057)	lr 0.000001
+epoch: [35/40][290/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:08:01	loss_t 0.0209 (0.0057)	lr 0.000001
+epoch: [35/40][300/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:07:59	loss_t 0.0092 (0.0057)	lr 0.000001
+epoch: [35/40][310/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:07:57	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [35/40][320/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:07:54	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [35/40][330/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:07:52	loss_t 0.0003 (0.0056)	lr 0.000001
+epoch: [35/40][340/377]	time 0.248 (0.244)	data 0.000 (0.002)	eta 0:07:49	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [35/40][350/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:07:47	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [35/40][360/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:07:44	loss_t 0.0019 (0.0052)	lr 0.000001
+epoch: [35/40][370/377]	time 0.237 (0.244)	data 0.001 (0.002)	eta 0:07:42	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [36/40][10/377]	time 0.243 (0.291)	data 0.000 (0.044)	eta 0:09:06	loss_t 0.0000 (0.0016)	lr 0.000001
+epoch: [36/40][20/377]	time 0.247 (0.267)	data 0.000 (0.022)	eta 0:08:18	loss_t 0.0098 (0.0030)	lr 0.000001
+epoch: [36/40][30/377]	time 0.248 (0.259)	data 0.000 (0.015)	eta 0:08:01	loss_t 0.0020 (0.0029)	lr 0.000001
+epoch: [36/40][40/377]	time 0.247 (0.255)	data 0.000 (0.011)	eta 0:07:50	loss_t 0.0000 (0.0041)	lr 0.000001
+epoch: [36/40][50/377]	time 0.245 (0.252)	data 0.000 (0.009)	eta 0:07:43	loss_t 0.0007 (0.0050)	lr 0.000001
+epoch: [36/40][60/377]	time 0.246 (0.251)	data 0.000 (0.008)	eta 0:07:37	loss_t 0.0000 (0.0043)	lr 0.000001
+epoch: [36/40][70/377]	time 0.240 (0.249)	data 0.000 (0.007)	eta 0:07:32	loss_t 0.0035 (0.0043)	lr 0.000001
+epoch: [36/40][80/377]	time 0.238 (0.248)	data 0.000 (0.006)	eta 0:07:27	loss_t 0.0000 (0.0039)	lr 0.000001
+epoch: [36/40][90/377]	time 0.244 (0.247)	data 0.000 (0.005)	eta 0:07:24	loss_t 0.0000 (0.0040)	lr 0.000001
+epoch: [36/40][100/377]	time 0.243 (0.247)	data 0.000 (0.005)	eta 0:07:21	loss_t 0.0000 (0.0051)	lr 0.000001
+epoch: [36/40][110/377]	time 0.247 (0.247)	data 0.000 (0.004)	eta 0:07:18	loss_t 0.0152 (0.0054)	lr 0.000001
+epoch: [36/40][120/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:07:14	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [36/40][130/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:07:11	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [36/40][140/377]	time 0.237 (0.245)	data 0.000 (0.003)	eta 0:07:07	loss_t 0.0459 (0.0059)	lr 0.000001
+epoch: [36/40][150/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:07:04	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [36/40][160/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:07:02	loss_t 0.0330 (0.0055)	lr 0.000001
+epoch: [36/40][170/377]	time 0.245 (0.245)	data 0.000 (0.003)	eta 0:06:59	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [36/40][180/377]	time 0.247 (0.245)	data 0.000 (0.003)	eta 0:06:56	loss_t 0.0349 (0.0055)	lr 0.000001
+epoch: [36/40][190/377]	time 0.239 (0.244)	data 0.000 (0.003)	eta 0:06:54	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [36/40][200/377]	time 0.245 (0.244)	data 0.000 (0.003)	eta 0:06:51	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [36/40][210/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:06:49	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [36/40][220/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:06:46	loss_t 0.0021 (0.0055)	lr 0.000001
+epoch: [36/40][230/377]	time 0.238 (0.244)	data 0.001 (0.002)	eta 0:06:43	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [36/40][240/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:06:40	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [36/40][250/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:06:38	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [36/40][260/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:06:35	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [36/40][270/377]	time 0.259 (0.243)	data 0.000 (0.002)	eta 0:06:33	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [36/40][280/377]	time 0.242 (0.243)	data 0.000 (0.002)	eta 0:06:30	loss_t 0.0008 (0.0057)	lr 0.000001
+epoch: [36/40][290/377]	time 0.240 (0.243)	data 0.000 (0.002)	eta 0:06:28	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [36/40][300/377]	time 0.246 (0.243)	data 0.000 (0.002)	eta 0:06:25	loss_t 0.0188 (0.0054)	lr 0.000001
+epoch: [36/40][310/377]	time 0.245 (0.243)	data 0.000 (0.002)	eta 0:06:23	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [36/40][320/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:06:20	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [36/40][330/377]	time 0.243 (0.243)	data 0.000 (0.002)	eta 0:06:18	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [36/40][340/377]	time 0.249 (0.243)	data 0.000 (0.002)	eta 0:06:15	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [36/40][350/377]	time 0.239 (0.243)	data 0.000 (0.002)	eta 0:06:13	loss_t 0.0020 (0.0055)	lr 0.000001
+epoch: [36/40][360/377]	time 0.250 (0.243)	data 0.000 (0.002)	eta 0:06:10	loss_t 0.0042 (0.0055)	lr 0.000001
+epoch: [36/40][370/377]	time 0.242 (0.243)	data 0.001 (0.002)	eta 0:06:08	loss_t 0.0007 (0.0055)	lr 0.000001
+epoch: [37/40][10/377]	time 0.238 (0.298)	data 0.000 (0.054)	eta 0:07:26	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [37/40][20/377]	time 0.243 (0.270)	data 0.001 (0.027)	eta 0:06:41	loss_t 0.0000 (0.0031)	lr 0.000001
+epoch: [37/40][30/377]	time 0.240 (0.260)	data 0.000 (0.018)	eta 0:06:24	loss_t 0.0000 (0.0027)	lr 0.000001
+epoch: [37/40][40/377]	time 0.243 (0.256)	data 0.000 (0.014)	eta 0:06:16	loss_t 0.0000 (0.0035)	lr 0.000001
+epoch: [37/40][50/377]	time 0.237 (0.254)	data 0.000 (0.011)	eta 0:06:09	loss_t 0.0000 (0.0033)	lr 0.000001
+epoch: [37/40][60/377]	time 0.239 (0.252)	data 0.000 (0.009)	eta 0:06:04	loss_t 0.0000 (0.0028)	lr 0.000001
+epoch: [37/40][70/377]	time 0.239 (0.250)	data 0.000 (0.008)	eta 0:05:59	loss_t 0.0146 (0.0030)	lr 0.000001
+epoch: [37/40][80/377]	time 0.250 (0.249)	data 0.000 (0.007)	eta 0:05:56	loss_t 0.0000 (0.0028)	lr 0.000001
+epoch: [37/40][90/377]	time 0.241 (0.249)	data 0.000 (0.006)	eta 0:05:52	loss_t 0.0000 (0.0025)	lr 0.000001
+epoch: [37/40][100/377]	time 0.237 (0.248)	data 0.000 (0.006)	eta 0:05:48	loss_t 0.0000 (0.0024)	lr 0.000001
+epoch: [37/40][110/377]	time 0.248 (0.247)	data 0.000 (0.005)	eta 0:05:45	loss_t 0.0000 (0.0025)	lr 0.000001
+epoch: [37/40][120/377]	time 0.236 (0.247)	data 0.000 (0.005)	eta 0:05:42	loss_t 0.0000 (0.0025)	lr 0.000001
+epoch: [37/40][130/377]	time 0.238 (0.246)	data 0.000 (0.004)	eta 0:05:39	loss_t 0.0000 (0.0028)	lr 0.000001
+epoch: [37/40][140/377]	time 0.237 (0.246)	data 0.000 (0.004)	eta 0:05:36	loss_t 0.0000 (0.0030)	lr 0.000001
+epoch: [37/40][150/377]	time 0.252 (0.245)	data 0.000 (0.004)	eta 0:05:33	loss_t 0.0106 (0.0033)	lr 0.000001
+epoch: [37/40][160/377]	time 0.241 (0.245)	data 0.000 (0.004)	eta 0:05:30	loss_t 0.0000 (0.0034)	lr 0.000001
+epoch: [37/40][170/377]	time 0.237 (0.245)	data 0.000 (0.004)	eta 0:05:27	loss_t 0.0000 (0.0035)	lr 0.000001
+epoch: [37/40][180/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:05:24	loss_t 0.0204 (0.0036)	lr 0.000001
+epoch: [37/40][190/377]	time 0.236 (0.244)	data 0.000 (0.003)	eta 0:05:21	loss_t 0.0000 (0.0036)	lr 0.000001
+epoch: [37/40][200/377]	time 0.243 (0.244)	data 0.000 (0.003)	eta 0:05:19	loss_t 0.0000 (0.0038)	lr 0.000001
+epoch: [37/40][210/377]	time 0.248 (0.244)	data 0.000 (0.003)	eta 0:05:16	loss_t 0.0000 (0.0041)	lr 0.000001
+epoch: [37/40][220/377]	time 0.237 (0.244)	data 0.001 (0.003)	eta 0:05:14	loss_t 0.0000 (0.0045)	lr 0.000001
+epoch: [37/40][230/377]	time 0.241 (0.244)	data 0.000 (0.003)	eta 0:05:11	loss_t 0.0048 (0.0046)	lr 0.000001
+epoch: [37/40][240/377]	time 0.251 (0.244)	data 0.000 (0.003)	eta 0:05:09	loss_t 0.0000 (0.0049)	lr 0.000001
+epoch: [37/40][250/377]	time 0.237 (0.244)	data 0.000 (0.003)	eta 0:05:06	loss_t 0.0007 (0.0052)	lr 0.000001
+epoch: [37/40][260/377]	time 0.241 (0.244)	data 0.001 (0.002)	eta 0:05:03	loss_t 0.0000 (0.0052)	lr 0.000001
+epoch: [37/40][270/377]	time 0.241 (0.244)	data 0.001 (0.002)	eta 0:05:01	loss_t 0.0692 (0.0053)	lr 0.000001
+epoch: [37/40][280/377]	time 0.255 (0.244)	data 0.000 (0.002)	eta 0:04:59	loss_t 0.0093 (0.0052)	lr 0.000001
+epoch: [37/40][290/377]	time 0.237 (0.243)	data 0.000 (0.002)	eta 0:04:56	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [37/40][300/377]	time 0.236 (0.243)	data 0.000 (0.002)	eta 0:04:53	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [37/40][310/377]	time 0.236 (0.243)	data 0.000 (0.002)	eta 0:04:51	loss_t 0.0050 (0.0052)	lr 0.000001
+epoch: [37/40][320/377]	time 0.245 (0.243)	data 0.000 (0.002)	eta 0:04:48	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [37/40][330/377]	time 0.239 (0.243)	data 0.000 (0.002)	eta 0:04:46	loss_t 0.0000 (0.0052)	lr 0.000001
+epoch: [37/40][340/377]	time 0.246 (0.243)	data 0.000 (0.002)	eta 0:04:43	loss_t 0.0013 (0.0051)	lr 0.000001
+epoch: [37/40][350/377]	time 0.242 (0.243)	data 0.000 (0.002)	eta 0:04:41	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [37/40][360/377]	time 0.242 (0.243)	data 0.000 (0.002)	eta 0:04:39	loss_t 0.0079 (0.0052)	lr 0.000001
+epoch: [37/40][370/377]	time 0.242 (0.243)	data 0.001 (0.002)	eta 0:04:36	loss_t 0.0000 (0.0052)	lr 0.000001
+epoch: [38/40][10/377]	time 0.247 (0.292)	data 0.001 (0.046)	eta 0:05:27	loss_t 0.0000 (0.0040)	lr 0.000001
+epoch: [38/40][20/377]	time 0.242 (0.268)	data 0.000 (0.023)	eta 0:04:58	loss_t 0.0000 (0.0036)	lr 0.000001
+epoch: [38/40][30/377]	time 0.243 (0.260)	data 0.000 (0.015)	eta 0:04:46	loss_t 0.0000 (0.0049)	lr 0.000001
+epoch: [38/40][40/377]	time 0.247 (0.256)	data 0.000 (0.012)	eta 0:04:39	loss_t 0.0000 (0.0044)	lr 0.000001
+epoch: [38/40][50/377]	time 0.244 (0.254)	data 0.000 (0.009)	eta 0:04:34	loss_t 0.0012 (0.0046)	lr 0.000001
+epoch: [38/40][60/377]	time 0.244 (0.252)	data 0.000 (0.008)	eta 0:04:29	loss_t 0.0172 (0.0054)	lr 0.000001
+epoch: [38/40][70/377]	time 0.238 (0.251)	data 0.000 (0.007)	eta 0:04:26	loss_t 0.0036 (0.0050)	lr 0.000001
+epoch: [38/40][80/377]	time 0.241 (0.250)	data 0.000 (0.006)	eta 0:04:22	loss_t 0.0261 (0.0052)	lr 0.000001
+epoch: [38/40][90/377]	time 0.243 (0.249)	data 0.000 (0.005)	eta 0:04:18	loss_t 0.0000 (0.0060)	lr 0.000001
+epoch: [38/40][100/377]	time 0.247 (0.248)	data 0.000 (0.005)	eta 0:04:15	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [38/40][110/377]	time 0.244 (0.248)	data 0.000 (0.005)	eta 0:04:12	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [38/40][120/377]	time 0.237 (0.247)	data 0.000 (0.004)	eta 0:04:10	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [38/40][130/377]	time 0.241 (0.247)	data 0.000 (0.004)	eta 0:04:07	loss_t 0.0531 (0.0055)	lr 0.000001
+epoch: [38/40][140/377]	time 0.238 (0.247)	data 0.000 (0.004)	eta 0:04:04	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [38/40][150/377]	time 0.244 (0.246)	data 0.000 (0.003)	eta 0:04:01	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [38/40][160/377]	time 0.245 (0.246)	data 0.000 (0.003)	eta 0:03:59	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [38/40][170/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:03:56	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [38/40][180/377]	time 0.243 (0.246)	data 0.000 (0.003)	eta 0:03:53	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [38/40][190/377]	time 0.242 (0.246)	data 0.000 (0.003)	eta 0:03:51	loss_t 0.0131 (0.0056)	lr 0.000001
+epoch: [38/40][200/377]	time 0.238 (0.246)	data 0.000 (0.003)	eta 0:03:48	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [38/40][210/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:03:46	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [38/40][220/377]	time 0.244 (0.245)	data 0.000 (0.002)	eta 0:03:43	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [38/40][230/377]	time 0.236 (0.245)	data 0.000 (0.002)	eta 0:03:40	loss_t 0.0117 (0.0053)	lr 0.000001
+epoch: [38/40][240/377]	time 0.248 (0.245)	data 0.000 (0.002)	eta 0:03:38	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [38/40][250/377]	time 0.242 (0.245)	data 0.000 (0.002)	eta 0:03:35	loss_t 0.0120 (0.0060)	lr 0.000001
+epoch: [38/40][260/377]	time 0.239 (0.245)	data 0.000 (0.002)	eta 0:03:33	loss_t 0.0029 (0.0058)	lr 0.000001
+epoch: [38/40][270/377]	time 0.241 (0.245)	data 0.000 (0.002)	eta 0:03:30	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [38/40][280/377]	time 0.243 (0.245)	data 0.000 (0.002)	eta 0:03:28	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [38/40][290/377]	time 0.240 (0.245)	data 0.000 (0.002)	eta 0:03:25	loss_t 0.0295 (0.0056)	lr 0.000001
+epoch: [38/40][300/377]	time 0.238 (0.245)	data 0.000 (0.002)	eta 0:03:23	loss_t 0.0358 (0.0058)	lr 0.000001
+epoch: [38/40][310/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:03:20	loss_t 0.0000 (0.0059)	lr 0.000001
+epoch: [38/40][320/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:03:18	loss_t 0.0000 (0.0059)	lr 0.000001
+epoch: [38/40][330/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:03:15	loss_t 0.0000 (0.0058)	lr 0.000001
+epoch: [38/40][340/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:03:13	loss_t 0.0244 (0.0057)	lr 0.000001
+epoch: [38/40][350/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:03:10	loss_t 0.0011 (0.0058)	lr 0.000001
+epoch: [38/40][360/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:03:08	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [38/40][370/377]	time 0.243 (0.244)	data 0.001 (0.002)	eta 0:03:05	loss_t 0.0179 (0.0057)	lr 0.000001
+epoch: [39/40][10/377]	time 0.243 (0.297)	data 0.000 (0.049)	eta 0:03:40	loss_t 0.0039 (0.0025)	lr 0.000001
+epoch: [39/40][20/377]	time 0.250 (0.271)	data 0.000 (0.025)	eta 0:03:18	loss_t 0.0144 (0.0052)	lr 0.000001
+epoch: [39/40][30/377]	time 0.241 (0.262)	data 0.000 (0.017)	eta 0:03:09	loss_t 0.0000 (0.0053)	lr 0.000001
+epoch: [39/40][40/377]	time 0.242 (0.257)	data 0.000 (0.013)	eta 0:03:03	loss_t 0.0000 (0.0043)	lr 0.000001
+epoch: [39/40][50/377]	time 0.248 (0.254)	data 0.000 (0.010)	eta 0:02:58	loss_t 0.0116 (0.0043)	lr 0.000001
+epoch: [39/40][60/377]	time 0.237 (0.252)	data 0.000 (0.009)	eta 0:02:54	loss_t 0.0000 (0.0038)	lr 0.000001
+epoch: [39/40][70/377]	time 0.250 (0.250)	data 0.000 (0.007)	eta 0:02:51	loss_t 0.0088 (0.0034)	lr 0.000001
+epoch: [39/40][80/377]	time 0.248 (0.249)	data 0.000 (0.006)	eta 0:02:48	loss_t 0.0300 (0.0045)	lr 0.000001
+epoch: [39/40][90/377]	time 0.240 (0.249)	data 0.000 (0.006)	eta 0:02:45	loss_t 0.0000 (0.0040)	lr 0.000001
+epoch: [39/40][100/377]	time 0.248 (0.248)	data 0.000 (0.005)	eta 0:02:42	loss_t 0.0630 (0.0049)	lr 0.000001
+epoch: [39/40][110/377]	time 0.238 (0.247)	data 0.000 (0.005)	eta 0:02:39	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [39/40][120/377]	time 0.247 (0.247)	data 0.000 (0.004)	eta 0:02:36	loss_t 0.0000 (0.0047)	lr 0.000001
+epoch: [39/40][130/377]	time 0.239 (0.247)	data 0.000 (0.004)	eta 0:02:33	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [39/40][140/377]	time 0.243 (0.246)	data 0.000 (0.004)	eta 0:02:31	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [39/40][150/377]	time 0.242 (0.246)	data 0.000 (0.004)	eta 0:02:28	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [39/40][160/377]	time 0.247 (0.246)	data 0.000 (0.003)	eta 0:02:26	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [39/40][170/377]	time 0.240 (0.246)	data 0.000 (0.003)	eta 0:02:23	loss_t 0.0232 (0.0048)	lr 0.000001
+epoch: [39/40][180/377]	time 0.245 (0.246)	data 0.000 (0.003)	eta 0:02:21	loss_t 0.0073 (0.0048)	lr 0.000001
+epoch: [39/40][190/377]	time 0.241 (0.245)	data 0.000 (0.003)	eta 0:02:18	loss_t 0.0000 (0.0046)	lr 0.000001
+epoch: [39/40][200/377]	time 0.243 (0.245)	data 0.000 (0.003)	eta 0:02:15	loss_t 0.0090 (0.0045)	lr 0.000001
+epoch: [39/40][210/377]	time 0.236 (0.245)	data 0.000 (0.003)	eta 0:02:13	loss_t 0.0000 (0.0047)	lr 0.000001
+epoch: [39/40][220/377]	time 0.241 (0.245)	data 0.000 (0.003)	eta 0:02:10	loss_t 0.0000 (0.0048)	lr 0.000001
+epoch: [39/40][230/377]	time 0.237 (0.245)	data 0.000 (0.002)	eta 0:02:08	loss_t 0.0000 (0.0046)	lr 0.000001
+epoch: [39/40][240/377]	time 0.247 (0.245)	data 0.000 (0.002)	eta 0:02:05	loss_t 0.0056 (0.0048)	lr 0.000001
+epoch: [39/40][250/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:02:03	loss_t 0.0000 (0.0047)	lr 0.000001
+epoch: [39/40][260/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:02:00	loss_t 0.0000 (0.0047)	lr 0.000001
+epoch: [39/40][270/377]	time 0.247 (0.244)	data 0.000 (0.002)	eta 0:01:58	loss_t 0.0040 (0.0051)	lr 0.000001
+epoch: [39/40][280/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:01:55	loss_t 0.0000 (0.0050)	lr 0.000001
+epoch: [39/40][290/377]	time 0.249 (0.244)	data 0.000 (0.002)	eta 0:01:53	loss_t 0.0000 (0.0050)	lr 0.000001
+epoch: [39/40][300/377]	time 0.240 (0.244)	data 0.000 (0.002)	eta 0:01:50	loss_t 0.0000 (0.0054)	lr 0.000001
+epoch: [39/40][310/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:01:48	loss_t 0.0000 (0.0057)	lr 0.000001
+epoch: [39/40][320/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:01:46	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [39/40][330/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:01:43	loss_t 0.0000 (0.0056)	lr 0.000001
+epoch: [39/40][340/377]	time 0.246 (0.244)	data 0.000 (0.002)	eta 0:01:41	loss_t 0.0000 (0.0055)	lr 0.000001
+epoch: [39/40][350/377]	time 0.243 (0.244)	data 0.000 (0.002)	eta 0:01:38	loss_t 0.0657 (0.0059)	lr 0.000001
+epoch: [39/40][360/377]	time 0.242 (0.244)	data 0.000 (0.002)	eta 0:01:36	loss_t 0.0000 (0.0060)	lr 0.000001
+epoch: [39/40][370/377]	time 0.247 (0.244)	data 0.001 (0.002)	eta 0:01:33	loss_t 0.0061 (0.0059)	lr 0.000001
+epoch: [40/40][10/377]	time 0.256 (0.299)	data 0.001 (0.053)	eta 0:01:49	loss_t 0.0041 (0.0043)	lr 0.000001
+epoch: [40/40][20/377]	time 0.243 (0.271)	data 0.000 (0.027)	eta 0:01:36	loss_t 0.0076 (0.0027)	lr 0.000001
+epoch: [40/40][30/377]	time 0.253 (0.262)	data 0.000 (0.018)	eta 0:01:30	loss_t 0.0120 (0.0042)	lr 0.000001
+epoch: [40/40][40/377]	time 0.235 (0.257)	data 0.000 (0.014)	eta 0:01:26	loss_t 0.0005 (0.0034)	lr 0.000001
+epoch: [40/40][50/377]	time 0.244 (0.253)	data 0.000 (0.011)	eta 0:01:22	loss_t 0.0000 (0.0041)	lr 0.000001
+epoch: [40/40][60/377]	time 0.249 (0.252)	data 0.000 (0.009)	eta 0:01:19	loss_t 0.0000 (0.0038)	lr 0.000001
+epoch: [40/40][70/377]	time 0.239 (0.251)	data 0.000 (0.008)	eta 0:01:16	loss_t 0.0000 (0.0034)	lr 0.000001
+epoch: [40/40][80/377]	time 0.251 (0.249)	data 0.000 (0.007)	eta 0:01:14	loss_t 0.0000 (0.0031)	lr 0.000001
+epoch: [40/40][90/377]	time 0.245 (0.249)	data 0.000 (0.006)	eta 0:01:11	loss_t 0.0121 (0.0037)	lr 0.000001
+epoch: [40/40][100/377]	time 0.248 (0.248)	data 0.000 (0.006)	eta 0:01:08	loss_t 0.0239 (0.0043)	lr 0.000001
+epoch: [40/40][110/377]	time 0.249 (0.248)	data 0.000 (0.005)	eta 0:01:06	loss_t 0.0000 (0.0041)	lr 0.000001
+epoch: [40/40][120/377]	time 0.238 (0.247)	data 0.000 (0.005)	eta 0:01:03	loss_t 0.0000 (0.0038)	lr 0.000001
+epoch: [40/40][130/377]	time 0.245 (0.247)	data 0.001 (0.004)	eta 0:01:01	loss_t 0.0143 (0.0045)	lr 0.000001
+epoch: [40/40][140/377]	time 0.250 (0.247)	data 0.000 (0.004)	eta 0:00:58	loss_t 0.0111 (0.0043)	lr 0.000001
+epoch: [40/40][150/377]	time 0.239 (0.246)	data 0.000 (0.004)	eta 0:00:55	loss_t 0.0000 (0.0045)	lr 0.000001
+epoch: [40/40][160/377]	time 0.239 (0.246)	data 0.000 (0.004)	eta 0:00:53	loss_t 0.0000 (0.0044)	lr 0.000001
+epoch: [40/40][170/377]	time 0.244 (0.246)	data 0.000 (0.004)	eta 0:00:50	loss_t 0.0000 (0.0042)	lr 0.000001
+epoch: [40/40][180/377]	time 0.241 (0.246)	data 0.001 (0.003)	eta 0:00:48	loss_t 0.0000 (0.0042)	lr 0.000001
+epoch: [40/40][190/377]	time 0.236 (0.246)	data 0.000 (0.003)	eta 0:00:45	loss_t 0.0000 (0.0040)	lr 0.000001
+epoch: [40/40][200/377]	time 0.241 (0.245)	data 0.000 (0.003)	eta 0:00:43	loss_t 0.0000 (0.0038)	lr 0.000001
+epoch: [40/40][210/377]	time 0.240 (0.245)	data 0.000 (0.003)	eta 0:00:40	loss_t 0.0000 (0.0038)	lr 0.000001
+epoch: [40/40][220/377]	time 0.241 (0.245)	data 0.000 (0.003)	eta 0:00:38	loss_t 0.0008 (0.0039)	lr 0.000001
+epoch: [40/40][230/377]	time 0.239 (0.245)	data 0.000 (0.003)	eta 0:00:35	loss_t 0.0017 (0.0038)	lr 0.000001
+epoch: [40/40][240/377]	time 0.242 (0.245)	data 0.000 (0.003)	eta 0:00:33	loss_t 0.0000 (0.0039)	lr 0.000001
+epoch: [40/40][250/377]	time 0.249 (0.245)	data 0.000 (0.003)	eta 0:00:31	loss_t 0.0113 (0.0039)	lr 0.000001
+epoch: [40/40][260/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:00:28	loss_t 0.0386 (0.0040)	lr 0.000001
+epoch: [40/40][270/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:00:26	loss_t 0.0082 (0.0041)	lr 0.000001
+epoch: [40/40][280/377]	time 0.248 (0.244)	data 0.001 (0.002)	eta 0:00:23	loss_t 0.0048 (0.0041)	lr 0.000001
+epoch: [40/40][290/377]	time 0.237 (0.244)	data 0.000 (0.002)	eta 0:00:21	loss_t 0.0000 (0.0041)	lr 0.000001
+epoch: [40/40][300/377]	time 0.241 (0.244)	data 0.000 (0.002)	eta 0:00:18	loss_t 0.0336 (0.0041)	lr 0.000001
+epoch: [40/40][310/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:00:16	loss_t 0.0188 (0.0043)	lr 0.000001
+epoch: [40/40][320/377]	time 0.244 (0.244)	data 0.000 (0.002)	eta 0:00:13	loss_t 0.0000 (0.0041)	lr 0.000001
+epoch: [40/40][330/377]	time 0.239 (0.244)	data 0.000 (0.002)	eta 0:00:11	loss_t 0.0000 (0.0040)	lr 0.000001
+epoch: [40/40][340/377]	time 0.249 (0.244)	data 0.000 (0.002)	eta 0:00:09	loss_t 0.0000 (0.0041)	lr 0.000001
+epoch: [40/40][350/377]	time 0.238 (0.244)	data 0.000 (0.002)	eta 0:00:06	loss_t 0.0057 (0.0040)	lr 0.000001
+epoch: [40/40][360/377]	time 0.245 (0.244)	data 0.000 (0.002)	eta 0:00:04	loss_t 0.0021 (0.0043)	lr 0.000001
+epoch: [40/40][370/377]	time 0.236 (0.244)	data 0.001 (0.002)	eta 0:00:01	loss_t 0.0000 (0.0043)	lr 0.000001
+=> Final test
+##### Evaluating soccernetv3 (source) #####
+Extracting features from query set ...
+Done, obtained 11638-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 34355-by-512 matrix
+Speed: 0.0281 sec/batch
+Computing distance matrix with metric=euclidean ...
+Exporting ranking results to 'log/ranking_results_soccernetv3_2022-05-07-06-29-19-391.json' for external evaluation...
+Computing CMC and mAP ...
+** Results **
+mAP: 55.8%
+CMC curve
+Rank-1  : 43.0%
+##### Evaluating soccernetv3_test (target) #####
+Extracting features from query set ...
+Done, obtained 11777-by-512 matrix
+Extracting features from gallery set ...
+Done, obtained 34989-by-512 matrix
+Speed: 0.0258 sec/batch
+Computing distance matrix with metric=euclidean ...
+Exporting ranking results to 'log/ranking_results_soccernetv3_test_2022-05-07-07-34-24-886.json' for external evaluation...
+Computing CMC and mAP ...
+** Results **
+mAP: 54.6%
+CMC curve
+Rank-1  : 42.0%
+Checkpoint saved to "log/model/model.pth.tar-40"
+Elapsed 3:10:29
