@@ -77,9 +77,9 @@ Have a look at the YAML configuration file baseline_config.yaml and related de
   python benchmarks/baseline/main.py --config-file benchmarks/baseline/configs/baseline_config.yaml
   
 ## To manually download dataset:
- # install pip package:
+ ### install pip package:
 	pip install SoccerNet
- # Use API to download dataset
+ ### Use API to download dataset
 	from SoccerNet.Downloader import SoccerNetDownloader
 	mySoccerNetDownloader = SoccerNetDownloader(LocalDirectory="/path/to/project/datasets/soccernetv3")
 	mySoccerNetDownloader.downloadDataTask(task="reid", split=["train", "valid", "test", "challenge"])
