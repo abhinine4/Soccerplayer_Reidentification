@@ -105,6 +105,8 @@ Trained on batch size of 32 and 2% SoccernetV3 dataset
 | Inceptionv4  | 42.9  | 27.8 |
 | Renet50mid  | 44.2 | 28.9 |
 
+## [Report](images/abhishek_kumar_mahesh_bhosale_soccer-reid.pdf)
+
 ## Citations
 - [Soccernet official website](https://soccer-net.org/)
 - [Torchreid](https://github.com/KaiyangZhou/deep-person-reid)
