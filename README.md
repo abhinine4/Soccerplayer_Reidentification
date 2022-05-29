@@ -23,10 +23,10 @@ One of the main ideas behind our solution is that compared to all the traditiona
 <p align="center"><img src="images/model.png" width="640"></p>
 
 ### A. Appearance extractor
-	Appearance extractor works on extracting the appearance 
-	features of the image. We train the *RESNET-50* model for 
-	this task which is initialized with pretrained weights learnt 
-	on the classification task of the *Zoo* dataset.
+Appearance extractor works on extracting the appearance 
+features of the image. We train the *RESNET-50* model for 
+this task which is initialized with pretrained weights learnt 
+on the classification task of the *Zoo* dataset.
 
 ### B. Part extractor
 Part extractor works on extracting the spatial features of 
