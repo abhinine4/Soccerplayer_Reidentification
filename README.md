@@ -33,7 +33,7 @@ Part extractor works on extracting the spatial features of
 body parts in an image which capture the positional features of the players. We do not need any annotations of body parts for this task 
 as we train the subnetwork of OpenPose which is 
 initialized with pretrained weights on the task of pose 
-estimation on COCO dataset. For more detailed information look at the [report](images/abhishek_kumar_mahesh_bhosale_soccer-reid.pdf).
+estimation on COCO dataset. For more detailed information look at the [report](images/soccer_player_reid_report.pdf).
 
 ### C. Bilinear Pooling
 we bi-pool the features from both the streams (appearance and part), which 
@@ -89,7 +89,7 @@ Trained on batch size of 32 and 10% SoccernetV3 dataset
 
 | Model Name| mAP | Rank-1 |
 | ------------- | ------------- | ------------- |
-| Our model | 63.7  | 52.8 |
+| *Our model* | *63.7*  | *52.8* |
 | Osnet | 61.6 | 51.2 |
 | Resnet50_fc512 | 46.7  | 32.8 |
 | Inceptionv4  | 46.7  | 32 |
@@ -99,13 +99,13 @@ Trained on batch size of 32 and 2% SoccernetV3 dataset
 
 | Model Name| mAP | Rank-1 |
 | ------------- | ------------- | ------------- |
-| Our model | 55.5  | 45.1 |
-| Osnet | 55 | 42.4 |
+| *Osnet* | *55.5*  | *45.1* |
+| *Our model* | *55* | *42.4* |
 | Resnet50_fc512 | 49.9  | 35.8 |
 | Inceptionv4  | 42.9  | 27.8 |
 | Renet50mid  | 44.2 | 28.9 |
 
-## [Report](images/abhishek_kumar_mahesh_bhosale_soccer-reid.pdf)
+## [Report](images/soccer_player_reid_report.pdf)
 
 ## Citations
 - [Soccernet official website](https://soccer-net.org/)
