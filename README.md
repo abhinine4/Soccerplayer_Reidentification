@@ -33,7 +33,7 @@ Part extractor works on extracting the spatial features of
 body parts in an image which capture the positional features of the players. We do not need any annotations of body parts for this task 
 as we train the subnetwork of OpenPose which is 
 initialized with pretrained weights on the task of pose 
-estimation on COCO dataset. For more detailed information look at the [report]().
+estimation on COCO dataset. For more detailed information look at the [report](images/abhishek_kumar_mahesh_bhosale_soccer-reid.pdf).
 
 ### C. Bilinear Pooling
 we bi-pool the features from both the streams (appearance and part), which 
