@@ -40,7 +40,7 @@ we bi-pool the features from both the streams (appearance and part), which
 simply means taking the outer product to allow finer 
 interactions of the features. We use *Compact Bi-linear pooling* which is compute efficient way of bi-linear pooling as outer product is taken on dimensionally reduced vectors.  
 
-###Layer-wise Similarity
+### Layer-wise Similarity
 In the Deep CNNs lower layers can identify some low-level 
 features such as shape and edges while upper layers capture 
 the high-level features.
@@ -51,6 +51,61 @@ activations of the last layer of *RESNET-50* do not reveal much information,
 so we are also interested in the features extracted at some 
 previous layers of *RESNET-50*. Therefore, we calculate the layer wise similarity as shown below,
 <p align="center"><img src="images/layer_wise_similarity.png" width="640"></p>
+
+## How to run
+    # cd to your preferred directory and clone this repo
+    git clone git@github.com:abhinine4/soccerplayer_reidentification.git
+
+    # create environment
+    cd sn-reid/
+    conda create --name sn-reid python=3.7
+    conda activate sn-reid
+
+    # install dependencies
+    # make sure `which python` and `which pip` point to the correct path
+    pip install -r requirements.txt
+
+    # install torch and torchvision (select the proper cuda version to suit your machine)
+    conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
+
+    # install torchreid (don't need to re-build it if you modify the source code)
+    python setup.py develop
+
+Have a look at the YAML configuration file baseline_config.yaml and related default configuration default_config.py for more information about the available options.
+
+### To train the model:
+  	python benchmarks/baseline/main.py --config-file benchmarks/baseline/configs/baseline_config.yaml
+  
+## To manually download dataset:
+ ### install pip package:
+	pip install SoccerNet
+ ### Use API to download dataset
+	from SoccerNet.Downloader import SoccerNetDownloader
+	mySoccerNetDownloader = SoccerNetDownloader(LocalDirectory="/path/to/project/datasets/soccernetv3")
+	mySoccerNetDownloader.downloadDataTask(task="reid", split=["train", "valid", "test", "challenge"])
+  
+## Results
+Trained on batch size of 32 and 10% SoccernetV3 dataset
+
+| Model Name| mAP | Rank-1 |
+| ------------- | ------------- | ------------- |
+| Our model | 63.7  | 52.8 |
+| Osnet | 61.6 | 51.2 |
+| Resnet50_fc512 | 46.7  | 32.8 |
+| Inceptionv4  | 46.7  | 32 |
+| Renet50mid  | 46.5 | 31.7 |
+
+Trained on batch size of 32 and 2% SoccernetV3 dataset
+
+| Model Name| mAP | Rank-1 |
+| ------------- | ------------- | ------------- |
+| Our model | 55.5  | 45.1 |
+| Osnet | 55 | 42.4 |
+| Resnet50_fc512 | 49.9  | 35.8 |
+| Inceptionv4  | 42.9  | 27.8 |
+| Renet50mid  | 44.2 | 28.9 |
+
+## [Report](images/abhishek_kumar_mahesh_bhosale_soccer-reid.pdf)
 
 ## Citations
 - [Soccernet official website](https://soccer-net.org/)
