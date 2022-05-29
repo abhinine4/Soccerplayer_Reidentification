@@ -23,10 +23,10 @@ One of the main ideas behind our solution is that compared to all the traditiona
 <p align="center"><img src="images/model.png" width="640"></p>
 
 ### A. Appearance extractor
-Appearance extractor works on extracting the appearance 
-features of the image. We train the *RESNET-50* model for 
-this task which is initialized with pretrained weights learnt 
-on the classification task of the *Zoo* dataset.
+	Appearance extractor works on extracting the appearance 
+	features of the image. We train the *RESNET-50* model for 
+	this task which is initialized with pretrained weights learnt 
+	on the classification task of the *Zoo* dataset.
 
 ### B. Part extractor
 Part extractor works on extracting the spatial features of 
@@ -73,8 +73,8 @@ previous layers of *RESNET-50*. Therefore, we calculate the layer wise similarit
 
 Have a look at the YAML configuration file baseline_config.yaml and related default configuration default_config.py for more information about the available options.
 
-## To train the model:
-  python benchmarks/baseline/main.py --config-file benchmarks/baseline/configs/baseline_config.yaml
+### To train the model:
+  	python benchmarks/baseline/main.py --config-file benchmarks/baseline/configs/baseline_config.yaml
   
 ## To manually download dataset:
  ### install pip package:
