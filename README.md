@@ -54,7 +54,7 @@ previous layers of *RESNET-50*. Therefore, we calculate the layer wise similarit
 
 ## How to run
     # cd to your preferred directory and clone this repo
-    git clone https://github.com/SoccerNet/sn-reid.git
+    git clone git@github.com:abhinine4/soccerplayer_reidentification.git
 
     # create environment
     cd sn-reid/
