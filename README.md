@@ -108,7 +108,7 @@ Trained on batch size of 32 and 2% SoccernetV3 dataset
 ## [Report](images/soccer_player_reid_report.pdf)
 
 ## Citations
-- [Soccernet official website](https://soccer-net.org/)
+- [Soccernet official website](https://www.soccer-net.org/)
 - [Torchreid](https://github.com/KaiyangZhou/deep-person-reid)
 - [Openpose](https://arxiv.org/pdf/1812.08008.pdf)
 - [Part-aligned bilinear for person reindentification](https://cv.snu.ac.kr/publication/conf/2018/reid_eccv18.pdf)
