@@ -14,6 +14,8 @@ Below is the example of the player association in the SoccerNetv3 dataset.
 <p align="center"><img src="images/player_association.jpeg" width="640"></p>
 
 ## Method
+For detailed explanation please head to [report](images/soccer_player_reid_report.pdf).
+
 Compared to traditional street surveillance type re-identification dataset, the SoccerNet-v3 ReID dataset is particularly
 challenging because soccer players from the same team have very similar appearance, which makes it hard to tell them apart.
 On the other hand, each identity has a few number of samples, which render the model harder to train.
