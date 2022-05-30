@@ -114,3 +114,4 @@ Trained on batch size of 32 and 2% SoccernetV3 dataset
 - [Part-aligned bilinear for person reindentification](https://cv.snu.ac.kr/publication/conf/2018/reid_eccv18.pdf)
 - [Compact Bilinear Pooling](https://arxiv.org/pdf/1511.06062.pdf)
 - [Bilinear pooling](https://arxiv.org/pdf/1504.07889.pdf)
+- [Soccer-reid developement kit](https://github.com/SoccerNet/sn-reid) 
