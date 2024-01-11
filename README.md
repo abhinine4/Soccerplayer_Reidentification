@@ -107,7 +107,7 @@ Trained on batch size of 32 and 2% SoccernetV3 dataset
 | Inceptionv4  | 42.9  | 27.8 |
 | Renet50mid  | 44.2 | 28.9 |
 
-## [Report](images/soccer_player_reid_report.pdf)
+## [Report](https://arxiv.org/pdf/2310.14469.pdf)
 
 ## Citations
 - [Soccernet official website](https://www.soccer-net.org/)
