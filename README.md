@@ -14,7 +14,7 @@ Below is the example of the player association in the SoccerNetv3 dataset.
 <p align="center"><img src="images/player_association.jpeg" width="640"></p>
 
 ## Method
-For detailed explanation please head to [report](images/soccer_player_reid_report.pdf).
+For detailed explanation please head to [report](https://arxiv.org/pdf/2310.14469.pdf).
 
 Compared to traditional street surveillance type re-identification dataset, the SoccerNet-v3 ReID dataset is particularly
 challenging because soccer players from the same team have very similar appearance, which makes it hard to tell them apart.
@@ -35,7 +35,7 @@ Part extractor works on extracting the spatial features of
 body parts in an image which capture the positional features of the players. We do not need any annotations of body parts for this task 
 as we train the subnetwork of OpenPose which is 
 initialized with pretrained weights on the task of pose 
-estimation on COCO dataset. For more detailed information look at the [report](images/soccer_player_reid_report.pdf).
+estimation on COCO dataset. For more detailed information look at the [report](https://arxiv.org/pdf/2310.14469.pdf).
 
 ### C. Bilinear Pooling
 we bi-pool the features from both the streams (appearance and part), which 
